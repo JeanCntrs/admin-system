@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"net/url"
 )
 
 func main() {
@@ -29,6 +30,14 @@ func main() {
 		fmt.Fprintf(w, "Categories page")
 		// Redirect to main page
 		// http.Redirect(w, r, "/", 301)
+
+		uri := "/carts"
+		host := "localhost:8000"
+		protocol := "http"
+		urlParams := map[string]string{"id": "1", "name": "cart_1"}
+
+		generatedURL := generateURL(uri, host, protocol, urlParams)
+		fmt.Println("generatedURL", generatedURL)
 	})
 
 	http.HandleFunc("/not-found", func(w http.ResponseWriter, r *http.Request) {
@@ -40,4 +49,19 @@ func main() {
 	})
 
 	http.ListenAndServe(":8000", nil)
+}
+
+func generateURL(uri, host, protocol string, urlParams map[string]string) string {
+	url, _ := url.Parse(uri)
+	url.Host = host
+	url.Scheme = protocol
+	mapFunction := url.Query()
+
+	for key, value := range urlParams {
+		mapFunction.Add(key, value)
+	}
+
+	url.RawQuery = mapFunction.Encode()
+	return url.String()
+
 }
