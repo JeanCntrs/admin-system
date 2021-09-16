@@ -3,7 +3,8 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"net/url"
+
+	"github.com/JeanCntrs/admin-system/utils"
 )
 
 func main() {
@@ -36,7 +37,7 @@ func main() {
 		protocol := "http"
 		urlParams := map[string]string{"id": "1", "name": "cart_1"}
 
-		generatedURL := generateURL(uri, host, protocol, urlParams)
+		generatedURL := utils.GenerateURL(uri, host, protocol, urlParams)
 		fmt.Println("generatedURL", generatedURL)
 	})
 
@@ -49,19 +50,4 @@ func main() {
 	})
 
 	http.ListenAndServe(":8000", nil)
-}
-
-func generateURL(uri, host, protocol string, urlParams map[string]string) string {
-	url, _ := url.Parse(uri)
-	url.Host = host
-	url.Scheme = protocol
-	mapFunction := url.Query()
-
-	for key, value := range urlParams {
-		mapFunction.Add(key, value)
-	}
-
-	url.RawQuery = mapFunction.Encode()
-	return url.String()
-
 }
