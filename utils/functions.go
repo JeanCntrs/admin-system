@@ -24,9 +24,9 @@ func GenerateURL(uri, host, protocol string, urlParams map[string]string) string
 }
 
 // SendRequest send a request dynamically
-func SendRequest() {
-	url := GenerateURL("/products", "localhost:8000", "http", nil)
-	request, requestErr := http.NewRequest("GET", url, nil)
+func SendRequest(method, url string) string {
+	// url := GenerateURL("/products", "localhost:8000", "http", nil)
+	request, requestErr := http.NewRequest(method, url, nil)
 	if requestErr != nil {
 		panic("There was a problem with the request")
 	}
@@ -43,6 +43,5 @@ func SendRequest() {
 		panic("There was a problem reading the request body")
 	}
 
-	fmt.Println("Status:", response.Status)
-	fmt.Println("Body:", string(bytes))
+	return string(bytes)
 }

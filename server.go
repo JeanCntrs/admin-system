@@ -42,6 +42,9 @@ func main() {
 	})
 
 	http.HandleFunc("/not-found", func(w http.ResponseWriter, r *http.Request) {
+		url := utils.GenerateURL("/products", "localhost:8000", "http", nil)
+		response := utils.SendRequest("GET", url)
+		fmt.Println("response request:", response)
 		http.NotFound(w, r)
 	})
 
