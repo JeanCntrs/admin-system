@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"net/http"
 
 	"github.com/JeanCntrs/admin-system/utils"
@@ -28,17 +29,12 @@ func main() {
 	})
 
 	http.HandleFunc("/categories", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Categories page")
-		// Redirect to main page
-		// http.Redirect(w, r, "/", 301)
+		template, templateErr := template.ParseFiles("./html/categories.html")
+		if templateErr != nil {
+			panic("An error occurred when generating the categories template")
+		}
 
-		uri := "/carts"
-		host := "localhost:8000"
-		protocol := "http"
-		urlParams := map[string]string{"id": "1", "name": "cart_1"}
-
-		generatedURL := utils.GenerateURL(uri, host, protocol, urlParams)
-		fmt.Println("generatedURL", generatedURL)
+		template.Execute(w, nil)
 	})
 
 	http.HandleFunc("/not-found", func(w http.ResponseWriter, r *http.Request) {
