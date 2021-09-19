@@ -29,12 +29,14 @@ func main() {
 	})
 
 	http.HandleFunc("/categories", func(w http.ResponseWriter, r *http.Request) {
+		person := Person{PersonID: 1, Names: "Jean Carlos", Surnames: "Contreras Contreras", Age: 27, IsMan: true}
+
 		template, templateErr := template.ParseFiles("./html/categories.html")
 		if templateErr != nil {
 			panic("An error occurred when generating the categories template")
 		}
 
-		template.Execute(w, nil)
+		template.Execute(w, person)
 	})
 
 	http.HandleFunc("/not-found", func(w http.ResponseWriter, r *http.Request) {
@@ -49,4 +51,12 @@ func main() {
 	})
 
 	http.ListenAndServe(":8000", nil)
+}
+
+type Person struct {
+	PersonID int
+	Names    string
+	Surnames string
+	Age      int
+	IsMan    bool
 }
