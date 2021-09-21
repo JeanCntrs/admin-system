@@ -18,10 +18,36 @@
     <h3 style="color: green">No es Hombre</h3>
     {{end}}
 
+    {{if eq .Names "Jean Carlos C"}}
+    <h3 style="color: blue;">Se llama Jean Carlos C</h3>
+    {{else}}
+    <h3 style="color: green">No se llama Jean Carlos C, se llama {{.Names}} </h3>
+    {{end}}
+
+    {{if and (eq .Names "Jean Carlos") (gt .Age 20)}}
+    <h3 style="color: blue;">Se llama Jean Carlos y edad mayor a 20</h3>
+    {{else}}
+    <h3 style="color: green">No se llama Jean Carlos o la edad es menor a 20</h3>
+    {{end}}
+
+    {{if or (eq .Names "Jean Carlos") (gt .Age 30)}}
+    <h3 style="color: blue;">Se llama Jean Carlos o edad mayor a 30</h3>
+    {{else}}
+    <h3 style="color: green">No se llama Jean Carlos o la edad es menor a 30</h3>
+    {{end}}
+
     {{if gt .Age 17}}
     <h3>Es mayor de edad</h3>
     {{else}}
     <h3>No es mayor de edad</h3>
+    {{end}}
+
+    {{if eq .Age 20}}
+    <h3>Es mayor de edad</h3>
+    {{else if eq .Age 22}}
+    <h3>No es mayor de edad</h3>
+    {{else}}
+    <h3>La edad no cumple ninguna condición</h3>
     {{end}}
 </body>
 
