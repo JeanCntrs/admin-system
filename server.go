@@ -14,8 +14,20 @@ func main() {
 	})
 
 	http.HandleFunc("/products", func(w http.ResponseWriter, r *http.Request) {
+		hobbies := []Hobby{
+			{Name: "Run", Description: "Excercise"},
+			{Name: "Study", Description: "Online courses"},
+		}
 		friends := []string{"Marcela", "Laura", "Constanza", "Camila"}
-		person := Person{PersonID: 1, Names: "Jean Carlos", Surnames: "Contreras Contreras", Age: 27, IsMan: true, Friends: friends}
+		person := Person{
+			PersonID: 1,
+			Names:    "Jean Carlos",
+			Surnames: "Contreras Contreras",
+			Age:      27,
+			IsMan:    true,
+			Friends:  friends,
+			Hobbies:  hobbies,
+		}
 
 		template := template.Must(template.ParseFiles("./html/product.html"))
 
@@ -47,6 +59,11 @@ func main() {
 	http.ListenAndServe(":8000", nil)
 }
 
+type Hobby struct {
+	Name        string
+	Description string
+}
+
 type Person struct {
 	PersonID int
 	Names    string
@@ -54,4 +71,5 @@ type Person struct {
 	Age      int
 	IsMan    bool
 	Friends  []string
+	Hobbies  []Hobby
 }
