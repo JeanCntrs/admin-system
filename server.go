@@ -29,7 +29,10 @@ func main() {
 			Hobbies:  hobbies,
 		}
 
-		template := template.Must(template.ParseFiles("./html/product.html"))
+		tempMap := template.FuncMap{"Welcome": Welcome}
+		template := template.Must(
+			template.New("product.html").Funcs(tempMap).ParseFiles("./html/product.html", "./html/includes/message.html"),
+		)
 
 		template.Execute(w, person)
 	})
@@ -78,6 +81,6 @@ func (p Person) Greeting(name string) string {
 	return "Hi" + p.Names
 }
 
-func Welcome() string {
-	return "Welcome to the page"
+func Welcome(name string) string {
+	return "Welcome to the page " + name
 }

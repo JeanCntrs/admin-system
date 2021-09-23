@@ -1,3 +1,7 @@
+{{define "content"}}
+    <p>Repeat content</p>
+{{end}}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,6 +22,12 @@
     {{range .Hobbies}}
     <p>{{.Name}} - {{.Description}}</p>
     {{end}}
+
+    {{Welcome "JC"}}
+
+    {{template "content"}}
+    {{template "content"}}
+    {{template "includesContent"}}
 </body>
 
 </html>
