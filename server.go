@@ -73,3 +73,11 @@ type Person struct {
 	Friends  []string
 	Hobbies  []Hobby
 }
+
+func (p Person) Greeting(name string) string {
+	return "Hi" + p.Names
+}
+
+func Welcome() string {
+	return "Welcome to the page"
+}
