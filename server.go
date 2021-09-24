@@ -11,11 +11,11 @@ import (
 var funcsMap = template.FuncMap{"Welcome": Welcome}
 
 var allTemplates = template.Must(template.New("T").Funcs(funcsMap).ParseFiles(
-	"./html/person/person.html",
-	"./html/main/index.html",
 	"./html/category/category.html",
-	"./html/product/product.html",
 	"./html/includes/message.html",
+	"./html/main/index.html",
+	"./html/person/person.html",
+	"./html/product/product.html",
 ))
 
 func main() {
@@ -39,18 +39,13 @@ func main() {
 			Hobbies:  hobbies,
 		}
 
-		allTemplates.ExecuteTemplate(w, "category", person)
+		allTemplates.ExecuteTemplate(w, "product", person)
 	})
 
 	http.HandleFunc("/categories", func(w http.ResponseWriter, r *http.Request) {
 		person := Person{PersonID: 1, Names: "Jean Carlos", Surnames: "Contreras Contreras", Age: 27, IsMan: true}
 
-		template, templateErr := template.ParseFiles("./html/category/category.html")
-		if templateErr != nil {
-			panic("An error occurred when generating the categories template")
-		}
-
-		template.Execute(w, person)
+		allTemplates.ExecuteTemplate(w, "category", person)
 	})
 
 	http.HandleFunc("/not-found", func(w http.ResponseWriter, r *http.Request) {
