@@ -8,6 +8,16 @@ import (
 	"github.com/JeanCntrs/admin-system/utils"
 )
 
+var funcsMap = template.FuncMap{"Welcome": Welcome}
+
+var allTemplates = template.Must(template.New("T").Funcs(funcsMap).ParseFiles(
+	"./html/person/person.html",
+	"./html/main/index.html",
+	"./html/category/category.html",
+	"./html/product/product.html",
+	"./html/includes/message.html",
+))
+
 func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Main page")
@@ -29,18 +39,13 @@ func main() {
 			Hobbies:  hobbies,
 		}
 
-		tempMap := template.FuncMap{"Welcome": Welcome}
-		template := template.Must(
-			template.New("product.html").Funcs(tempMap).ParseFiles("./html/product.html", "./html/includes/message.html"),
-		)
-
-		template.Execute(w, person)
+		allTemplates.ExecuteTemplate(w, "category", person)
 	})
 
 	http.HandleFunc("/categories", func(w http.ResponseWriter, r *http.Request) {
 		person := Person{PersonID: 1, Names: "Jean Carlos", Surnames: "Contreras Contreras", Age: 27, IsMan: true}
 
-		template, templateErr := template.ParseFiles("./html/categories.html")
+		template, templateErr := template.ParseFiles("./html/category/category.html")
 		if templateErr != nil {
 			panic("An error occurred when generating the categories template")
 		}
