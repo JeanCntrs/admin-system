@@ -23,7 +23,13 @@ var errTemplate = template.Must(template.ParseFiles("./html/error/error.html"))
 
 func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Main page")
+		w.Header().Set("Content-Type", "text/html")
+
+		err := allTemplates.ExecuteTemplate(w, "index", nil)
+		if err != nil {
+			w.WriteHeader(500)
+			errTemplate.Execute(w, nil)
+		}
 	})
 
 	http.HandleFunc("/products", func(w http.ResponseWriter, r *http.Request) {
@@ -46,6 +52,7 @@ func main() {
 
 		err := allTemplates.ExecuteTemplate(w, "product", person)
 		if err != nil {
+			w.WriteHeader(500)
 			errTemplate.Execute(w, nil)
 		}
 	})
@@ -57,6 +64,7 @@ func main() {
 
 		err := allTemplates.ExecuteTemplate(w, "category", person)
 		if err != nil {
+			w.WriteHeader(500)
 			errTemplate.Execute(w, nil)
 		}
 	})
