@@ -2,6 +2,7 @@ package utils
 
 import (
 	"fmt"
+	"html/template"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -25,7 +26,6 @@ func GenerateURL(uri, host, protocol string, urlParams map[string]string) string
 
 // SendRequest send a request dynamically
 func SendRequest(method, url string) string {
-	// url := GenerateURL("/products", "localhost:8000", "http", nil)
 	request, requestErr := http.NewRequest(method, url, nil)
 	if requestErr != nil {
 		panic("There was a problem with the request")
@@ -44,4 +44,23 @@ func SendRequest(method, url string) string {
 	}
 
 	return string(bytes)
+}
+
+var funcsMap = template.FuncMap{"Welcome": Welcome}
+var allTemplates = template.Must(template.New("T").Funcs(funcsMap).ParseGlob("./html/**/*.html"))
+var errTemplate = template.Must(template.ParseFiles("./html/error/error.html"))
+
+// RenderTemplate generates templates with optional data
+func RenderTemplate(w http.ResponseWriter, pageName string, data interface{}) {
+	w.Header().Set("Content-Type", "text/html")
+
+	err := allTemplates.ExecuteTemplate(w, pageName, data)
+	if err != nil {
+		w.WriteHeader(500)
+		errTemplate.Execute(w, nil)
+	}
+}
+
+func Welcome(name string) string {
+	return "Welcome to the page " + name
 }
