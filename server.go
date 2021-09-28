@@ -8,6 +8,9 @@ import (
 )
 
 func main() {
+	files := http.FileServer(http.Dir("static"))
+	http.Handle("/static/", http.StripPrefix("/static/", files))
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		utils.RenderTemplate(w, "index", nil)
 	})
