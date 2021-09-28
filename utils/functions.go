@@ -62,5 +62,5 @@ func RenderTemplate(w http.ResponseWriter, pageName string, data interface{}) {
 }
 
 func Welcome(name string) string {
-	return "Welcome to the page " + name
+	return "Welcome to the page  " + name
 }
