@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 
+	"github.com/JeanCntrs/admin-system/database"
 	"github.com/JeanCntrs/admin-system/handlers"
 )
 
@@ -24,6 +25,10 @@ func main() {
 
 	http.HandleFunc("/error", func(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Server error", 500)
+	})
+
+	http.HandleFunc("/conn", func(w http.ResponseWriter, r *http.Request) {
+		database.ConnectDB()
 	})
 
 	http.ListenAndServe(":8000", nil)
