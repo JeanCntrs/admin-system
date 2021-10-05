@@ -2,21 +2,24 @@ package database
 
 import (
 	"database/sql"
+	"os"
 
 	_ "github.com/lib/pq"
-)
 
-const (
-	host     = "localhost"
-	port     = "5432"
-	user     = "postgres"
-	password = ""
-	dbname   = "dbsupermarket"
+	"github.com/JeanCntrs/admin-system/config"
 )
 
 var db *sql.DB
 
 func OpenConnection() {
+	config.LoadEnv()
+
+	host := os.Getenv("HOST")
+	port := os.Getenv("PORT")
+	user := os.Getenv("DB_USER")
+	password := os.Getenv("DB_PASSWORD")
+	dbname := os.Getenv("DB_NAME")
+
 	connStr := "host=" + host + " port=" + port + " user=" + user + " password=" + password + " dbname=" + dbname + " sslmode=disable"
 
 	var err error
