@@ -2,7 +2,6 @@ package database
 
 import (
 	"database/sql"
-	"fmt"
 
 	_ "github.com/lib/pq"
 )
@@ -11,44 +10,31 @@ const (
 	host     = "localhost"
 	port     = "5432"
 	user     = "postgres"
-	password = " "
+	password = ""
 	dbname   = "dbsupermarket"
 )
 
-type Category struct {
-	idcategoria int
-	nombre      string
-	descripcion string
-}
+var db *sql.DB
 
-type CategoryList []Category
-
-func ConnectDB() {
+func OpenConnection() {
 	connStr := "host=" + host + " port=" + port + " user=" + user + " password=" + password + " dbname=" + dbname + " sslmode=disable"
-	db, err := sql.Open("postgres", connStr)
+
+	var err error
+	db, err = sql.Open("postgres", connStr)
 	if err != nil {
 		panic("Connection error")
 	}
+}
 
-	defer db.Close()
-
-	rows, err := db.Query(`SELECT idcategoria, nombre, descripcion FROM public.categoria`)
+func Query(query string, args ...interface{}) (*sql.Rows, error) {
+	rows, err := db.Query(query, args...)
 	if err != nil {
-		fmt.Println("errorrrr", err)
 		panic("Error executing the query")
 	}
 
-	categoryList := CategoryList{}
-	for rows.Next() {
-		category := Category{}
-		rows.Scan(&category.idcategoria, &category.nombre, &category.descripcion)
-		categoryList = append(categoryList, category)
-	}
+	return rows, err
+}
 
-	for i, v := range categoryList {
-		fmt.Println("i", i)
-		fmt.Println("v", v.nombre)
-	}
-
-	fmt.Println("Successful connection")
+func CloseConnection() {
+	db.Close()
 }
