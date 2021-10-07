@@ -4,9 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/JeanCntrs/admin-system/database"
+	"github.com/JeanCntrs/admin-system/datalayer"
 	"github.com/JeanCntrs/admin-system/handlers"
-	"github.com/JeanCntrs/admin-system/models"
 )
 
 func main() {
@@ -29,20 +28,8 @@ func main() {
 		http.Error(w, "Server error", 500)
 	})
 
-	http.HandleFunc("/conn", func(w http.ResponseWriter, r *http.Request) {
-		query := `SELECT idcategoria, nombre, descripcion FROM public.categoria`
-		database.OpenConnection()
-		rows, _ := database.Query(query)
-		database.CloseConnection()
-
-		type CategoryList []models.Category
-
-		categoryList := CategoryList{}
-		for rows.Next() {
-			category := models.Category{}
-			rows.Scan(&category.Idcategoria, &category.Nombre, &category.Descripcion)
-			categoryList = append(categoryList, category)
-		}
+	http.HandleFunc("/list-categories", func(w http.ResponseWriter, r *http.Request) {
+		categoryList := datalayer.ListCategories()
 
 		for i, v := range categoryList {
 			fmt.Println("i", i)
