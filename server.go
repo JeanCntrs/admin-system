@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/JeanCntrs/admin-system/datalayer"
+	"github.com/JeanCntrs/admin-system/dal"
 	"github.com/JeanCntrs/admin-system/handlers"
 )
 
@@ -29,7 +29,7 @@ func main() {
 	})
 
 	http.HandleFunc("/list-categories", func(w http.ResponseWriter, r *http.Request) {
-		categoryList := datalayer.ListCategories()
+		categoryList := dal.ListCategories()
 
 		for i, v := range categoryList {
 			fmt.Println("i", i)

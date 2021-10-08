@@ -1,4 +1,4 @@
-package datalayer
+package dal
 
 import (
 	"github.com/JeanCntrs/admin-system/database"
