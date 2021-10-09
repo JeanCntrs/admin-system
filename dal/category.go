@@ -8,7 +8,7 @@ import (
 type CategoryList []models.Category
 
 func ListCategories() CategoryList {
-	query := `SELECT idcategoria, nombre, descripcion FROM public.categoria`
+	query := `SELECT * FROM uspListCategories()`
 	database.OpenConnection()
 	rows, _ := database.Query(query)
 	database.CloseConnection()
