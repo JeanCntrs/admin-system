@@ -17,6 +17,7 @@ func ListCategories() CategoryList {
 	for rows.Next() {
 		category := models.Category{}
 		rows.Scan(&category.Idcategoria, &category.Nombre, &category.Descripcion)
+
 		categoryList = append(categoryList, category)
 	}
 
