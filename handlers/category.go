@@ -8,7 +8,7 @@ import (
 )
 
 func Category(w http.ResponseWriter, r *http.Request) {
-	person := dal.ListCategories()
+	categoryList := dal.ListCategories()
 
-	utils.RenderTemplate(w, "category", person)
+	utils.RenderTemplate(w, "category", categoryList)
 }
