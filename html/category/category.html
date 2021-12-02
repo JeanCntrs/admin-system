@@ -24,6 +24,7 @@
           class="form-control"
           placeholder="Category name"
           name="categoryName"
+          value="{{.CategoryName}}"
         />
         <button
           class="btn btn-outline-secondary"
@@ -43,7 +44,7 @@
         </tr>
       </thead>
       <tbody>
-        {{range .}}
+        {{range .CategoryList}}
         <tr>
           <td>{{.Idcategoria}}</td>
           <td>{{.Nombre}}</td>
