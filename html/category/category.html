@@ -2,38 +2,57 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
     <title>Admin System</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <h1>Categories</h1>
+    <form method="post" action="/categories">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Category name"
+          name="categoryName"
+        />
+        <button
+          class="btn btn-outline-secondary"
+          type="submit"
+          id="button-addon2"
+        >
+          Button
+        </button>
+      </div>
+    </form>
     <table class="table">
-        <thead class="table-dark">
-            <tr>
-                <td>Category ID</td>
-                <td>Name</td>
-                <td>Description</td>
-            </tr>
-        </thead>
-        <tbody>
-            {{range .}}
-            <tr>
-                <td>{{.Idcategoria}}</td>
-                <td>{{.Nombre}}</td>
-                <td>{{.Descripcion}}</td>
-            </tr>
-            {{end}}
-        </tbody>
+      <thead class="table-dark">
+        <tr>
+          <td>Category ID</td>
+          <td>Name</td>
+          <td>Description</td>
+        </tr>
+      </thead>
+      <tbody>
+        {{range .}}
+        <tr>
+          <td>{{.Idcategoria}}</td>
+          <td>{{.Nombre}}</td>
+          <td>{{.Descripcion}}</td>
+        </tr>
+        {{end}}
+      </tbody>
     </table>
-</body>
-
+  </body>
 </html>
 
 {{end}}
