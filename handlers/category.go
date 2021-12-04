@@ -29,4 +29,5 @@ func Category(w http.ResponseWriter, r *http.Request) {
 	category := categoryForm{CategoryList: categories, CategoryName: searchParam}
 
 	utils.RenderTemplate(w, "category", category)
+
 }
