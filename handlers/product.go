@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/JeanCntrs/admin-system/dal"
 	"github.com/JeanCntrs/admin-system/models"
@@ -14,8 +15,27 @@ type productForm struct {
 }
 
 func Product(w http.ResponseWriter, r *http.Request) {
-	productList := dal.ListProducts()
+	var productList []models.Product
 	categoryList := dal.ListCategories()
+
+	searchValue := r.FormValue("categoryId")
+
+	if r.Method == "GET" {
+		productList = dal.ListProducts()
+	}
+
+	if r.Method == "POST" {
+		if searchValue == "" {
+			productList = dal.ListProducts()
+		} else {
+			categoryId, err := strconv.Atoi(searchValue)
+			if err != nil {
+				panic("Category id cannot be converted")
+			}
+
+			productList = dal.FilterProductsByCategory(categoryId)
+		}
+	}
 
 	product := productForm{ProductList: productList, CategoryList: categoryList}
 

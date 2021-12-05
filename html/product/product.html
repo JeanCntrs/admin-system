@@ -16,15 +16,17 @@
   </head>
 
   <body>
-    <div class="input-group container">
-      <select class="form-select" id="inputGroupSelect04">
-        <option value="" selected>Choose Category</option>
-        {{range .CategoryList}}
-        <option value="{{.CategoryId}}">{{.Name}}</option>
-        {{end}}
-      </select>
-      <button class="btn btn-outline-secondary" type="submit">Search</button>
-    </div>
+    <form method="post" action="/products" class="container">
+      <div class="input-group">
+        <select class="form-select" id="inputGroupSelect04" name="categoryId">
+          <option value="" selected>Choose Category</option>
+          {{range .CategoryList}}
+          <option value="{{.CategoryId}}">{{.Name}}</option>
+          {{end}}
+        </select>
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
+      </div>
+    </form>
     <table class="table container">
       <thead class="table-dark">
         <tr>
