@@ -16,8 +16,7 @@
   </head>
 
   <body>
-    <h1>Categories</h1>
-    <form method="post" action="/categories">
+    <form method="post" action="/categories" class="container">
       <div class="input-group mb-3">
         <input
           type="text"
@@ -35,7 +34,7 @@
         </button>
       </div>
     </form>
-    <table class="table">
+    <table class="table container">
       <thead class="table-dark">
         <tr>
           <td>Category ID</td>
@@ -46,9 +45,9 @@
       <tbody>
         {{range .CategoryList}}
         <tr>
-          <td>{{.Idcategoria}}</td>
-          <td>{{.Nombre}}</td>
-          <td>{{.Descripcion}}</td>
+          <td>{{.CategoryId}}</td>
+          <td>{{.Name}}</td>
+          <td>{{.Description}}</td>
         </tr>
         {{end}}
       </tbody>

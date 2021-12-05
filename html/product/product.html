@@ -2,41 +2,52 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
     <title>Admin System</title>
-</head>
+  </head>
 
-<body>
-    <table class="table">
-        <thead class="table-dark">
-            <tr>
-                <th>Product ID</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Stock</th>
-                <th>Category Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{range .}}
-            <tr>
-                <td>{{.IdProduct}}</td>
-                <td>{{.ProductName}}</td>
-                <td>{{.Price}}</td>
-                <td>{{.Stock}}</td>
-                <td>{{.CategoryName}}</td>
-            </tr>
-            {{end}}
-        </tbody>
+  <body>
+    <div class="input-group container">
+      <select class="form-select" id="inputGroupSelect04">
+        <option value="" selected>Choose Category</option>
+        {{range .CategoryList}}
+        <option value="{{.CategoryId}}">{{.Name}}</option>
+        {{end}}
+      </select>
+      <button class="btn btn-outline-secondary" type="submit">Search</button>
+    </div>
+    <table class="table container">
+      <thead class="table-dark">
+        <tr>
+          <th>Product ID</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th>Category Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{range .ProductList}}
+        <tr>
+          <td>{{.IdProduct}}</td>
+          <td>{{.ProductName}}</td>
+          <td>{{.Price}}</td>
+          <td>{{.Stock}}</td>
+          <td>{{.CategoryName}}</td>
+        </tr>
+        {{end}}
+      </tbody>
     </table>
-</body>
-
+  </body>
 </html>
 
 {{end}}

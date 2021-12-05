@@ -1,7 +1,7 @@
 package models
 
 type Category struct {
-	Idcategoria int
-	Nombre      string
-	Descripcion string
+	CategoryId  int
+	Name        string
+	Description string
 }

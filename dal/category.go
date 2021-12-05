@@ -14,7 +14,7 @@ func ListCategories() []models.Category {
 	categoryList := []models.Category{}
 	for rows.Next() {
 		category := models.Category{}
-		rows.Scan(&category.Idcategoria, &category.Nombre, &category.Descripcion)
+		rows.Scan(&category.CategoryId, &category.Name, &category.Description)
 		categoryList = append(categoryList, category)
 	}
 
@@ -30,7 +30,7 @@ func FilterCategories(searchParam string) []models.Category {
 	categoryList := []models.Category{}
 	for rows.Next() {
 		category := models.Category{}
-		rows.Scan(&category.Idcategoria, &category.Nombre, &category.Descripcion)
+		rows.Scan(&category.CategoryId, &category.Name, &category.Description)
 		categoryList = append(categoryList, category)
 	}
 

@@ -33,7 +33,7 @@ func main() {
 
 		for i, v := range categoryList {
 			fmt.Println("i", i)
-			fmt.Println("v", v.Nombre)
+			fmt.Println("v", v.Name)
 		}
 	})
 
