@@ -12,6 +12,7 @@ import (
 type productForm struct {
 	ProductList  []models.Product
 	CategoryList []models.Category
+	CategoryId   string
 }
 
 func Product(w http.ResponseWriter, r *http.Request) {
@@ -37,8 +38,7 @@ func Product(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	product := productForm{ProductList: productList, CategoryList: categoryList}
+	product := productForm{ProductList: productList, CategoryList: categoryList, CategoryId: searchValue}
 
 	utils.RenderTemplate(w, "product", product)
-
 }
