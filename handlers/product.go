@@ -40,4 +40,5 @@ func Product(w http.ResponseWriter, r *http.Request) {
 	product := productForm{ProductList: productList, CategoryList: categoryList}
 
 	utils.RenderTemplate(w, "product", product)
+
 }
