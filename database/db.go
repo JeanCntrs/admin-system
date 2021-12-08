@@ -38,6 +38,15 @@ func Query(query string, args ...interface{}) (*sql.Rows, error) {
 	return rows, err
 }
 
+func Excec(query string, args ...interface{}) (sql.Result, error) {
+	result, err := db.Exec(query, args...)
+	if err != nil {
+		panic("Error executing the query")
+	}
+
+	return result, err
+}
+
 func CloseConnection() {
 	db.Close()
 }

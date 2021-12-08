@@ -17,6 +17,7 @@ func main() {
 	http.HandleFunc("/products", handlers.Product)
 
 	http.HandleFunc("/categories", handlers.Category)
+	http.HandleFunc("/categories/create", handlers.CreateCategory)
 
 	http.HandleFunc("/persons", handlers.Person)
 

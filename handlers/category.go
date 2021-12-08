@@ -30,3 +30,7 @@ func Category(w http.ResponseWriter, r *http.Request) {
 
 	utils.RenderTemplate(w, "category", category)
 }
+
+func CreateCategory(w http.ResponseWriter, r *http.Request) {
+	utils.RenderTemplate(w, "create_category", nil)
+}

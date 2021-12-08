@@ -1,6 +1,8 @@
 package dal
 
 import (
+	"database/sql"
+
 	"github.com/JeanCntrs/admin-system/database"
 	"github.com/JeanCntrs/admin-system/models"
 )
@@ -35,4 +37,11 @@ func FilterCategories(searchParam string) []models.Category {
 	}
 
 	return categoryList
+}
+
+func CreateCategory(name, description string) (sql.Result, error) {
+	query := "INSERT INTO categoria(nombre, descripcion) values ($1, $2)"
+	result, err := database.Excec(query, name, description)
+
+	return result, err
 }
