@@ -2,6 +2,7 @@ package database
 
 import (
 	"database/sql"
+	"fmt"
 	"os"
 
 	_ "github.com/lib/pq"
@@ -40,6 +41,7 @@ func Query(query string, args ...interface{}) (*sql.Rows, error) {
 
 func Excec(query string, args ...interface{}) (sql.Result, error) {
 	result, err := db.Exec(query, args...)
+	fmt.Println("fuckingError", err)
 	if err != nil {
 		panic("Error executing the query")
 	}

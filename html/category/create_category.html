@@ -15,7 +15,7 @@
   </head>
   <body>
     {{template "menu"}}
-    <form class="container">
+    <form class="container" method="post" action="/categories/create">
       <div class="mb-3">
         <label for="txtName" class="form-label"> Category name </label>
         <input
@@ -23,17 +23,23 @@
           type="text"
           class="form-control"
           placeholder="Category name"
+          name="categoryName"
         />
       </div>
       <div class="mb-3">
-        <label for="txtDescription" class="form-label"
-          >Category description
+        <label for="txtDescription" class="form-label">
+          Category description
         </label>
-        <textarea id="txtDescription" class="form-control" rows="3"></textarea>
+        <textarea
+          id="txtDescription"
+          class="form-control"
+          rows="3"
+          name="categoryDescription"
+        ></textarea>
       </div>
 
       <div>
-        <button type="button" class="btn btn-outline-success">Aceptar</button>
+        <button type="submit" class="btn btn-outline-success">Aceptar</button>
         <a href="/categories" class="btn btn-outline-danger">Cancelar</a>
       </div>
     </form>
