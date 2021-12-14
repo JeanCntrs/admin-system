@@ -24,35 +24,32 @@
         <button class="btn btn-outline-secondary" type="submit">Search</button>
       </div>
     </form>
-    <table class="table container">
-      <thead class="table-dark">
-        <tr>
-          <th>Product ID</th>
-          <th>Name</th>
-          <th>Price</th>
-          <th>Stock</th>
-          <th>Category Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{range .ProductList}}
-        <tr>
-          <td>{{.IdProduct}}</td>
-          <td>{{.ProductName}}</td>
-          <td>{{.Price}}</td>
-          <td>{{.Stock}}</td>
-          <td>{{.CategoryName}}</td>
-        </tr>
-        {{end}}
-      </tbody>
-    </table>
-
-    <script>
-      window.onload = () => {
-        const categoryId = document.getElementById("categoryIdSearched").value;
-        document.getElementById("categoryId").value = categoryId;
-      };
-    </script>
+    <div class="container mt-4">
+      <table id="table" class="table">
+        <thead class="table-dark">
+          <tr>
+            <th>Product ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Category Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{range .ProductList}}
+          <tr>
+            <td>{{.IdProduct}}</td>
+            <td>{{.ProductName}}</td>
+            <td>{{.Price}}</td>
+            <td>{{.Stock}}</td>
+            <td>{{.CategoryName}}</td>
+          </tr>
+          {{end}}
+        </tbody>
+      </table>
+    </div>
+    {{template "scripts"}}
+    <script src="../../static/js/product.js"></script>
   </body>
 </html>
 

@@ -27,30 +27,33 @@
           type="submit"
           id="button-addon2"
         >
-          Button
+          Search
         </button>
       </div>
     </form>
-    <table id="table" class="table container">
-      <thead class="table-dark">
-        <tr>
-          <td>Category ID</td>
-          <td>Name</td>
-          <td>Description</td>
-        </tr>
-      </thead>
-      <tbody>
-        {{range .CategoryList}}
-        <tr>
-          <td>{{.CategoryId}}</td>
-          <td>{{.Name}}</td>
-          <td>{{.Description}}</td>
-        </tr>
-        {{end}}
-      </tbody>
-    </table>
+    <div class="container mt-4">
+      <table id="table" class="table">
+        <thead class="table-dark">
+          <tr>
+            <td>Category ID</td>
+            <td>Name</td>
+            <td>Description</td>
+          </tr>
+        </thead>
+        <tbody>
+          {{range .CategoryList}}
+          <tr>
+            <td>{{.CategoryId}}</td>
+            <td>{{.Name}}</td>
+            <td>{{.Description}}</td>
+          </tr>
+          {{end}}
+        </tbody>
+      </table>
+    </div>
+    {{template "scripts"}}
+    <script src="../../static/js/category.js"></script>
   </body>
-  {{template "scripts"}}
 </html>
 
 {{end}}

@@ -1,3 +1,3 @@
-window.onload = () => {
-    $('#table').DataTable()
+const paginate = tableId => {
+    $(`#${tableId}`).DataTable();
 }
