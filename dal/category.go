@@ -40,7 +40,8 @@ func FilterCategories(searchParam string) []models.Category {
 }
 
 func CreateCategory(name, description string) (sql.Result, error) {
-	query := "INSERT INTO categoria(nombre, descripcion) values ($1, $2)"
+	// query := "INSERT INTO categoria(nombre, descripcion) values ($1, $2)"
+	query := "SELECT insertCategory($1, $2)"
 	database.OpenConnection()
 	result, err := database.Excec(query, name, description)
 	database.CloseConnection()

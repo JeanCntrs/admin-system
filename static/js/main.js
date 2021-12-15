@@ -8,7 +8,7 @@ const alert = (title = 'Success', message = 'Your data has been saved', icon = '
         message,
         icon,
         allowOutsideClick: false
-    })
+    });
 }
 
 const confirmation = (title = 'Are you sure?', text = 'If you are sure confirm the action') => {
@@ -21,5 +21,5 @@ const confirmation = (title = 'Are you sure?', text = 'If you are sure confirm t
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, confirm it!',
         allowOutsideClick: false
-    })
+    });
 }
