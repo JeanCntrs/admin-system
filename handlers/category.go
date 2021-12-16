@@ -46,3 +46,7 @@ func CreateCategory(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 }
+
+func EditCategory(w http.ResponseWriter, r *http.Request) {
+	utils.RenderTemplate(w, "edit_category", nil)
+}

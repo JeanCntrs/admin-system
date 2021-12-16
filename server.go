@@ -6,30 +6,36 @@ import (
 
 	"github.com/JeanCntrs/admin-system/dal"
 	"github.com/JeanCntrs/admin-system/handlers"
+	"github.com/gorilla/mux"
 )
 
 func main() {
-	files := http.FileServer(http.Dir("static"))
-	http.Handle("/static/", http.StripPrefix("/static/", files))
+	r := mux.NewRouter()
 
-	http.HandleFunc("/", handlers.Index)
+	// files := http.FileServer(http.Dir("static"))
+	// http.Handle("/static/", http.StripPrefix("/static/", files))
 
-	http.HandleFunc("/products", handlers.Product)
+	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
-	http.HandleFunc("/categories", handlers.Category)
-	http.HandleFunc("/categories/create", handlers.CreateCategory)
+	r.HandleFunc("/", handlers.Index)
 
-	http.HandleFunc("/persons", handlers.Person)
+	r.HandleFunc("/products", handlers.Product)
 
-	http.HandleFunc("/not-found", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/categories", handlers.Category)
+	r.HandleFunc("/categories/create", handlers.CreateCategory)
+	r.HandleFunc("/categories/edit/{id}", handlers.EditCategory)
+
+	r.HandleFunc("/persons", handlers.Person)
+
+	r.HandleFunc("/not-found", func(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 	})
 
-	http.HandleFunc("/error", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/error", func(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Server error", 500)
 	})
 
-	http.HandleFunc("/list-categories", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/list-categories", func(w http.ResponseWriter, r *http.Request) {
 		categoryList := dal.ListCategories()
 
 		for i, v := range categoryList {
@@ -40,5 +46,5 @@ func main() {
 
 	fmt.Println("Server started on port :8000")
 
-	http.ListenAndServe(":8000", nil)
+	http.ListenAndServe(":8000", r)
 }
