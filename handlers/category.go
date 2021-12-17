@@ -1,11 +1,13 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/JeanCntrs/admin-system/dal"
 	"github.com/JeanCntrs/admin-system/models"
 	"github.com/JeanCntrs/admin-system/utils"
+	"github.com/gorilla/mux"
 )
 
 type categoryForm struct {
@@ -48,5 +50,8 @@ func CreateCategory(w http.ResponseWriter, r *http.Request) {
 }
 
 func EditCategory(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	fmt.Println("id", id)
 	utils.RenderTemplate(w, "edit_category", nil)
 }
