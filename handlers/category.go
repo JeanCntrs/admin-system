@@ -39,6 +39,7 @@ func CreateCategory(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if r.Method == "POST" {
+
 		categoryName := r.FormValue("categoryName")
 		categoryDescription := r.FormValue("categoryDescription")
 
