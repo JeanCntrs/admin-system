@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/JeanCntrs/admin-system/dal"
 	"github.com/JeanCntrs/admin-system/models"
@@ -37,6 +37,7 @@ func CreateCategory(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		utils.RenderTemplate(w, "create_category", nil)
 	}
+
 	if r.Method == "POST" {
 		categoryName := r.FormValue("categoryName")
 		categoryDescription := r.FormValue("categoryDescription")
@@ -51,6 +52,13 @@ func CreateCategory(w http.ResponseWriter, r *http.Request) {
 func EditCategory(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
-	fmt.Println("id", id)
-	utils.RenderTemplate(w, "edit_category", nil)
+	idConv, err := strconv.Atoi(id)
+
+	if err != nil {
+		panic("An error occurred")
+	}
+
+	category := dal.SearchCategoryById(idConv)
+
+	utils.RenderTemplate(w, "edit_category", category)
 }

@@ -48,3 +48,17 @@ func CreateCategory(name, description string) (sql.Result, error) {
 
 	return result, err
 }
+
+func SearchCategoryById(id int) models.Category {
+	query := `SELECT * FROM uspSearchCategoryById($1)`
+	database.OpenConnection()
+	rows, _ := database.Query(query, id)
+	database.CloseConnection()
+
+	category := models.Category{}
+	for rows.Next() {
+		rows.Scan(&category.CategoryId, &category.Name, &category.Description)
+	}
+
+	return category
+}

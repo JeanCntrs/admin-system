@@ -11,6 +11,53 @@
   <body>
     {{template "menu"}} 
     <h1>Edit Category</h1>
+    <form id="frmCreateCategory" class="container" method="put" action="/categories/create">
+      <div class="mb-3">
+        <label for="txtId" class="form-label"> Category ID </label>
+        <input
+          id="txtId"
+          type="text"
+          class="form-control"
+          placeholder="Category id"
+          name="categoryId"
+          value={{.CategoryId}}
+          readonly
+        />
+      </div>
+      <div class="mb-3">
+        <label for="txtName" class="form-label"> Category name </label>
+        <input
+          id="txtName"
+          type="text"
+          class="form-control"
+          placeholder="Category name"
+          name="categoryName"
+          value={{.Name}}
+        />
+      </div>
+      <div class="mb-3">
+        <label for="txtDescription" class="form-label">
+          Category description
+        </label>
+        <textarea
+          id="txtDescription"
+          class="form-control"
+          rows="3"
+          name="categoryDescription"
+        >{{.Description}}</textarea>
+      </div>
+
+      <div>
+        <button
+          type="button"
+          class="btn btn-outline-success"
+          onclick="showAlert()"
+        >
+          Aceptar
+        </button>
+        <a href="/categories" class="btn btn-outline-danger">Cancelar</a>
+      </div>
+    </form>
     {{template "scripts"}}
   </body>
 </html>
