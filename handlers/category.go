@@ -46,17 +46,25 @@ func CreateCategory(w http.ResponseWriter, r *http.Request) {
 		if categoryId == "" {
 			// Insert
 			_, err := dal.CreateCategory(categoryName, categoryDescription)
-			if err == nil {
-				http.Redirect(w, r, "/categories", http.StatusMovedPermanently)
+			if err != nil {
+				category := models.Category{Name: categoryName, Description: categoryDescription}
+				utils.RenderTemplate(w, "create_category", category)
+				return
 			}
+
+			http.Redirect(w, r, "/categories", http.StatusMovedPermanently)
 		} else {
 			// Update
 			categoryIdConv, _ := strconv.Atoi(categoryId)
 
 			_, err := dal.UpdateCategory(categoryIdConv, categoryName, categoryDescription)
-			if err == nil {
-				http.Redirect(w, r, "/categories", http.StatusMovedPermanently)
+			if err != nil {
+				category := models.Category{CategoryId: categoryIdConv, Name: categoryName, Description: categoryDescription}
+				utils.RenderTemplate(w, "edit_category", category)
+				return
 			}
+
+			http.Redirect(w, r, "/categories", http.StatusMovedPermanently)
 		}
 	}
 }

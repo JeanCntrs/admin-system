@@ -2,6 +2,7 @@ package database
 
 import (
 	"database/sql"
+	"errors"
 	"os"
 
 	_ "github.com/lib/pq"
@@ -32,7 +33,7 @@ func OpenConnection() {
 func Query(query string, args ...interface{}) (*sql.Rows, error) {
 	rows, err := db.Query(query, args...)
 	if err != nil {
-		panic("Error executing the query")
+		return nil, errors.New("error executing the query")
 	}
 
 	return rows, err
@@ -41,7 +42,7 @@ func Query(query string, args ...interface{}) (*sql.Rows, error) {
 func Excec(query string, args ...interface{}) (sql.Result, error) {
 	result, err := db.Exec(query, args...)
 	if err != nil {
-		panic("Error executing the query")
+		return nil, errors.New("error inserting, updating or deleting")
 	}
 
 	return result, err
