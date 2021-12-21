@@ -9,9 +9,14 @@
     <title>Admin System</title>
   </head>
   <body>
-    {{template "menu"}} 
+    {{template "menu"}}
     <h1>Edit Category</h1>
-    <form id="frmCreateCategory" class="container" method="post" action="/categories/create">
+    <form
+      id="frmCreateCategory"
+      class="container"
+      method="post"
+      action="/categories/create"
+    >
       <div class="mb-3">
         <label for="txtId" class="form-label"> Category ID </label>
         <input
@@ -44,7 +49,9 @@
           class="form-control"
           rows="3"
           name="categoryDescription"
-        >{{.Description}}</textarea>
+        >
+{{.Description}}</textarea
+        >
       </div>
 
       <div>
@@ -57,9 +64,19 @@
         </button>
         <a href="/categories" class="btn btn-outline-danger">Cancelar</a>
       </div>
+
+      <input id="txtErrorMessage" type="hidden" value="{{.ErrorMessage}}" />
     </form>
     {{template "scripts"}}
     <script src="../../static/js/edit_category.js"></script>
+    {{if .ErrorExist}}
+    <script>
+      (() => {
+        const errorMessage = document.getElementById("txtErrorMessage").value;
+        alert("Something is wrong", errorMessage, "error");
+      })();
+    </script>
+    {{end}}
   </body>
 </html>
 {{end}}

@@ -42,6 +42,17 @@ func FilterCategories(searchParam string) []models.Category {
 func CreateCategory(name, description string) (sql.Result, error) {
 	// query := "INSERT INTO categoria(nombre, descripcion) values ($1, $2)"
 	query := "SELECT insertCategory($1, $2)"
+
+	errorFound := models.MaxNameCharacters(name)
+	if errorFound != nil {
+		return nil, errorFound
+	}
+
+	errorFound = models.MaxDescriptionCharacters(description)
+	if errorFound != nil {
+		return nil, errorFound
+	}
+
 	database.OpenConnection()
 	result, err := database.Excec(query, name, description)
 	database.CloseConnection()
@@ -65,6 +76,17 @@ func SearchCategoryById(id int) models.Category {
 
 func UpdateCategory(id int, name, description string) (sql.Result, error) {
 	query := "SELECT updateCategory($1, $2, $3)"
+
+	errorFound := models.MaxNameCharacters(name)
+	if errorFound != nil {
+		return nil, errorFound
+	}
+
+	errorFound = models.MaxDescriptionCharacters(description)
+	if errorFound != nil {
+		return nil, errorFound
+	}
+
 	database.OpenConnection()
 	result, err := database.Excec(query, id, name, description)
 	database.CloseConnection()

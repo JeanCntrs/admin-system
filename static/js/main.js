@@ -2,10 +2,10 @@ const paginate = tableId => {
     $(`#${tableId}`).DataTable();
 }
 
-const alert = (title = 'Success', message = 'Your data has been saved', icon = 'success') => {
+const alert = (title = 'Success', text = 'Your data has been saved', icon = 'success') => {
     Swal.fire({
         title,
-        message,
+        text,
         icon,
         allowOutsideClick: false
     });

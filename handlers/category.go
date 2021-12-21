@@ -47,7 +47,12 @@ func CreateCategory(w http.ResponseWriter, r *http.Request) {
 			// Insert
 			_, err := dal.CreateCategory(categoryName, categoryDescription)
 			if err != nil {
-				category := models.Category{Name: categoryName, Description: categoryDescription}
+				category := models.Category{
+					Name:         categoryName,
+					Description:  categoryDescription,
+					ErrorExist:   true,
+					ErrorMessage: err.Error(),
+				}
 				utils.RenderTemplate(w, "create_category", category)
 				return
 			}
@@ -59,7 +64,13 @@ func CreateCategory(w http.ResponseWriter, r *http.Request) {
 
 			_, err := dal.UpdateCategory(categoryIdConv, categoryName, categoryDescription)
 			if err != nil {
-				category := models.Category{CategoryId: categoryIdConv, Name: categoryName, Description: categoryDescription}
+				category := models.Category{
+					CategoryId:   categoryIdConv,
+					Name:         categoryName,
+					Description:  categoryDescription,
+					ErrorExist:   true,
+					ErrorMessage: err.Error(),
+				}
 				utils.RenderTemplate(w, "edit_category", category)
 				return
 			}

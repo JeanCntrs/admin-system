@@ -20,7 +20,7 @@ func MaxNameCharacters(name string) error {
 
 func MaxDescriptionCharacters(name string) error {
 	if len(name) > 800 {
-		return errors.New("maximum characters number for description field is 150")
+		return errors.New("maximum characters number for description field is 800")
 	}
 
 	return nil
