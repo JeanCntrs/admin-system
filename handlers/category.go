@@ -39,12 +39,24 @@ func CreateCategory(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if r.Method == "POST" {
+		categoryId := r.FormValue("categoryId")
 		categoryName := r.FormValue("categoryName")
 		categoryDescription := r.FormValue("categoryDescription")
 
-		_, err := dal.CreateCategory(categoryName, categoryDescription)
-		if err == nil {
-			http.Redirect(w, r, "/categories", http.StatusMovedPermanently)
+		if categoryId == "" {
+			// Insert
+			_, err := dal.CreateCategory(categoryName, categoryDescription)
+			if err == nil {
+				http.Redirect(w, r, "/categories", http.StatusMovedPermanently)
+			}
+		} else {
+			// Update
+			categoryIdConv, _ := strconv.Atoi(categoryId)
+
+			_, err := dal.UpdateCategory(categoryIdConv, categoryName, categoryDescription)
+			if err == nil {
+				http.Redirect(w, r, "/categories", http.StatusMovedPermanently)
+			}
 		}
 	}
 }

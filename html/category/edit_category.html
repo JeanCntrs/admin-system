@@ -11,7 +11,7 @@
   <body>
     {{template "menu"}} 
     <h1>Edit Category</h1>
-    <form id="frmCreateCategory" class="container" method="put" action="/categories/create">
+    <form id="frmCreateCategory" class="container" method="post" action="/categories/create">
       <div class="mb-3">
         <label for="txtId" class="form-label"> Category ID </label>
         <input
@@ -59,6 +59,7 @@
       </div>
     </form>
     {{template "scripts"}}
+    <script src="../../static/js/edit_category.js"></script>
   </body>
 </html>
 {{end}}

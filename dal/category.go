@@ -62,3 +62,12 @@ func SearchCategoryById(id int) models.Category {
 
 	return category
 }
+
+func UpdateCategory(id int, name, description string) (sql.Result, error) {
+	query := "SELECT updateCategory($1, $2, $3)"
+	database.OpenConnection()
+	result, err := database.Excec(query, id, name, description)
+	database.CloseConnection()
+
+	return result, err
+}
