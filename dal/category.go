@@ -93,3 +93,13 @@ func UpdateCategory(id int, name, description string) (sql.Result, error) {
 
 	return result, err
 }
+
+func DeleteCategory(id int) (sql.Result, error) {
+	query := "SELECT uspDeleteLogicalCategory($1)"
+
+	database.OpenConnection()
+	result, err := database.Excec(query, id)
+	database.CloseConnection()
+
+	return result, err
+}

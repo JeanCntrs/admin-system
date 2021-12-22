@@ -93,3 +93,19 @@ func EditCategory(w http.ResponseWriter, r *http.Request) {
 
 	utils.RenderTemplate(w, "edit_category", category)
 }
+
+func DeleteCategory(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	idConv, err := strconv.Atoi(id)
+
+	if err != nil {
+		panic("An error occurred")
+	}
+
+	_, errorFound := dal.DeleteCategory(idConv)
+
+	if errorFound == nil {
+		http.Redirect(w, r, "/categories", http.StatusMovedPermanently)
+	}
+}

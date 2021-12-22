@@ -24,6 +24,7 @@ func main() {
 	r.HandleFunc("/categories", handlers.Category)
 	r.HandleFunc("/categories/create", handlers.CreateCategory)
 	r.HandleFunc("/categories/edit/{id}", handlers.EditCategory)
+	r.HandleFunc("/categories/delete/{id}", handlers.DeleteCategory)
 
 	r.HandleFunc("/persons", handlers.Person)
 
