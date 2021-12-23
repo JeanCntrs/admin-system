@@ -2,10 +2,14 @@ window.onload = () => {
     paginate('table');
 }
 
-const showAlert = () => {
+const showDeleteModal = (categoryId) => {
+    document.getElementById('txtId').value = categoryId;
+
     confirmation().then((result) => {
         if (result.isConfirmed) {
-            alert()
+            const frm = document.getElementById('frm');
+            frm.action = `/categories/delete/${categoryId}`;
+            frm.submit();
         }
     })
 }

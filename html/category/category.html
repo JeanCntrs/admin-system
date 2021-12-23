@@ -48,8 +48,11 @@
             <td>{{.Name}}</td>
             <td>{{.Description}}</td>
             <td>
-              <div style="display: flex; justify-content: space-between">
-                <a href="/categories/edit/{{.CategoryId}}" class="btn btn-primary">
+              <div style="display: flex; justify-content: space-evenly">
+                <a
+                  href="/categories/edit/{{.CategoryId}}"
+                  class="btn btn-primary"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -67,7 +70,10 @@
                     />
                   </svg>
                 </a>
-                <a href="/categories/delete/{{.CategoryId}}" class="btn btn-danger">
+                <a
+                  class="btn btn-danger"
+                  onclick="showDeleteModal({{.CategoryId}})"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -92,6 +98,9 @@
         </tbody>
       </table>
     </div>
+    <form id="frm" action="post">
+      <input id="txtId" type="hidden" name="id" />
+    </form>
     {{template "scripts"}}
     <script src="../../static/js/category.js"></script>
   </body>
