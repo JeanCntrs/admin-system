@@ -42,3 +42,11 @@ func Product(w http.ResponseWriter, r *http.Request) {
 
 	utils.RenderTemplate(w, "product", product)
 }
+
+func CreateProduct(w http.ResponseWriter, r *http.Request) {
+	utils.RenderTemplate(w, "create_product", nil)
+}
+
+func EditProduct(w http.ResponseWriter, r *http.Request) {
+	utils.RenderTemplate(w, "edit_product", nil)
+}

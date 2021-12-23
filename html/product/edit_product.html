@@ -1,0 +1,34 @@
+{{define "edit_product"}}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {{template "styles"}}
+    <title>Admin System</title>
+  </head>
+  <body>
+    {{template "menu"}}
+
+    <form method="post" action="/products/edit" class="container">
+        <h1>Edit Product</h1>
+
+        <div>
+          <button
+            type="button"
+            class="btn btn-outline-success"
+            onclick="showAlert()"
+          >
+            Aceptar
+          </button>
+          <a href="/products" class="btn btn-outline-danger">Cancelar</a>
+        </div>
+    </form>
+
+    {{template "scripts"}}
+  </body>
+</html>
+
+{{end}}

@@ -20,6 +20,8 @@ func main() {
 	r.HandleFunc("/", handlers.Index)
 
 	r.HandleFunc("/products", handlers.Product)
+	r.HandleFunc("/products/create", handlers.CreateProduct)
+	r.HandleFunc("/products/edit/{id}", handlers.EditProduct)
 
 	r.HandleFunc("/categories", handlers.Category)
 	r.HandleFunc("/categories/create", handlers.CreateCategory)

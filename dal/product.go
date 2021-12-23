@@ -14,7 +14,7 @@ func ListProducts() []models.Product {
 	productList := []models.Product{}
 	for rows.Next() {
 		product := models.Product{}
-		rows.Scan(&product.IdProduct, &product.ProductName, &product.Price, &product.Stock, &product.CategoryName)
+		rows.Scan(&product.ProductId, &product.ProductName, &product.Price, &product.Stock, &product.CategoryName)
 		productList = append(productList, product)
 	}
 
@@ -30,7 +30,7 @@ func FilterProductsByCategory(categoryId int) []models.Product {
 	productList := []models.Product{}
 	for rows.Next() {
 		product := models.Product{}
-		rows.Scan(&product.IdProduct, &product.ProductName, &product.Price, &product.Stock, &product.CategoryName)
+		rows.Scan(&product.ProductId, &product.ProductName, &product.Price, &product.Stock, &product.CategoryName)
 		productList = append(productList, product)
 	}
 
