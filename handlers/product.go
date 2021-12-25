@@ -7,6 +7,7 @@ import (
 	"github.com/JeanCntrs/admin-system/dal"
 	"github.com/JeanCntrs/admin-system/models"
 	"github.com/JeanCntrs/admin-system/utils"
+	"github.com/gorilla/mux"
 )
 
 type productForm struct {
@@ -53,4 +54,20 @@ func EditProduct(w http.ResponseWriter, r *http.Request) {
 	categoryList := dal.ListCategories()
 	product := models.Product{CategoryList: categoryList}
 	utils.RenderTemplate(w, "edit_product", product)
+}
+
+func DeleteProduct(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	idConv, err := strconv.Atoi(id)
+
+	if err != nil {
+		panic("An error occurred")
+	}
+
+	_, errorFound := dal.DeleteProduct(idConv)
+
+	if errorFound == nil {
+		http.Redirect(w, r, "/products", http.StatusMovedPermanently)
+	}
 }
