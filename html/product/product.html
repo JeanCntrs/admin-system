@@ -47,10 +47,7 @@
             <td>{{.CategoryName}}</td>
             <td>
               <div style="display: flex; justify-content: space-evenly">
-                <a
-                  href="/products/edit/{{.ProductId}}"
-                  class="btn btn-primary"
-                >
+                <a href="/products/edit/{{.ProductId}}" class="btn btn-primary">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -69,8 +66,9 @@
                   </svg>
                 </a>
                 <a
+                  id="{{.ProductId}}"
                   class="btn btn-danger"
-                  onclick="showDeleteModal({{.ProductId}})"
+                  onclick="showDeleteModal(this)"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

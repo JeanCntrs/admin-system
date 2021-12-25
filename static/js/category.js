@@ -2,13 +2,13 @@ window.onload = () => {
     paginate('table');
 }
 
-const showDeleteModal = (categoryId) => {
-    document.getElementById('txtId').value = categoryId;
+const showDeleteModal = (element) => {
+    document.getElementById('txtId').value = element.id;
 
     confirmation().then((result) => {
         if (result.isConfirmed) {
             const frm = document.getElementById('frm');
-            frm.action = `/categories/delete/${categoryId}`;
+            frm.action = `/categories/delete/${element.id}`;
             frm.submit();
         }
     })
