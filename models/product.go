@@ -6,4 +6,5 @@ type Product struct {
 	Price        float64
 	Stock        int
 	CategoryName string
+	CategoryList []Category
 }
