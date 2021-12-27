@@ -47,13 +47,16 @@ func Product(w http.ResponseWriter, r *http.Request) {
 func CreateProduct(w http.ResponseWriter, r *http.Request) {
 	categoryList := dal.ListCategories()
 	product := models.Product{CategoryList: categoryList}
-
 	utils.RenderTemplate(w, "create_product", product)
 }
 
 func EditProduct(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	idConv, _ := strconv.Atoi(id)
+	product := dal.FilterProductsById(idConv)
 	categoryList := dal.ListCategories()
-	product := models.Product{CategoryList: categoryList}
+	product.CategoryList = categoryList
 	utils.RenderTemplate(w, "edit_product", product)
 }
 

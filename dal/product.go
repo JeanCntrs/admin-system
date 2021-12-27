@@ -77,7 +77,7 @@ func FilterProductsById(id int) models.Product {
 
 	product := models.Product{}
 	for rows.Next() {
-		rows.Scan(&product.ProductId, &product.ProductName, &product.Price, &product.Stock, &product.CategoryName)
+		rows.Scan(&product.ProductId, &product.ProductName, &product.Description, &product.Price, &product.Stock, &product.CategoryId)
 	}
 
 	return product
