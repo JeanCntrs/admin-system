@@ -50,6 +50,42 @@ func CreateProduct(w http.ResponseWriter, r *http.Request) {
 	utils.RenderTemplate(w, "create_product", product)
 }
 
+func SaveProduct(w http.ResponseWriter, r *http.Request) {
+	id := r.FormValue("id")
+	idConve, _ := strconv.Atoi(id)
+	name := r.FormValue("name")
+	description := r.FormValue("description")
+	price := r.FormValue("price")
+	priceConv, _ := strconv.ParseFloat(price, 64)
+	stock := r.FormValue("stock")
+	stockConv, _ := strconv.Atoi(stock)
+	categoryId := r.FormValue("category")
+	categoryIdConv, _ := strconv.Atoi(categoryId)
+
+	product := models.Product{
+		ProductId:   idConve,
+		ProductName: name,
+		Description: description,
+		Price:       priceConv,
+		Stock:       stockConv,
+		CategoryId:  categoryIdConv,
+	}
+
+	if id == "" {
+		_, err := dal.InsertProduct(product.Stock, product.CategoryId, product.ProductName, product.Description, product.Price)
+
+		if err == nil {
+			http.Redirect(w, r, "/products", http.StatusMovedPermanently)
+		}
+	} else {
+		_, err := dal.UpdateProduct(product.ProductId, product.Stock, product.CategoryId, product.ProductName, product.Description, product.Price)
+
+		if err == nil {
+			http.Redirect(w, r, "/products", http.StatusMovedPermanently)
+		}
+	}
+}
+
 func EditProduct(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]

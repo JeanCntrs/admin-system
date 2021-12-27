@@ -21,6 +21,7 @@ func main() {
 
 	r.HandleFunc("/products", handlers.Product)
 	r.HandleFunc("/products/create", handlers.CreateProduct)
+	r.HandleFunc("/products/save", handlers.SaveProduct)
 	r.HandleFunc("/products/edit/{id}", handlers.EditProduct)
 	r.HandleFunc("/products/delete/{id}", handlers.DeleteProduct)
 
