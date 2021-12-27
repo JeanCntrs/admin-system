@@ -47,6 +47,7 @@ func Product(w http.ResponseWriter, r *http.Request) {
 func CreateProduct(w http.ResponseWriter, r *http.Request) {
 	categoryList := dal.ListCategories()
 	product := models.Product{CategoryList: categoryList}
+
 	utils.RenderTemplate(w, "create_product", product)
 }
 
