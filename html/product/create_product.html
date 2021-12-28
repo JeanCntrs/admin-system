@@ -58,7 +58,7 @@
       <div class="mb-3">
         <label for="slcCategory" class="form-label">Category</label>
         <select id="slcCategory" class="form-select" name="category">
-          <option selected>Choose Category</option>
+          <option value="" selected>Choose Category</option>
           {{range .CategoryList}}
           <option value="{{.CategoryId}}">{{.Name}}</option>
           {{end}}
