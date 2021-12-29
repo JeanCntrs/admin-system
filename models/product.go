@@ -9,4 +9,5 @@ type Product struct {
 	CategoryId   int
 	CategoryName string
 	CategoryList []Category
+	Errors       []string
 }

@@ -12,7 +12,12 @@
   <body>
     {{template "menu"}}
 
-    <form id="frmCreateProduct" method="post" action="/products/save" class="container">
+    <form
+      id="frmCreateProduct"
+      method="post"
+      action="/products/save"
+      class="container"
+    >
       <h1>Create Product</h1>
       <div class="mb-3">
         <label for="txtProductName" class="form-label">Product Name</label>
@@ -76,6 +81,10 @@
       </div>
     </form>
 
+    {{range .Errors}}
+    <div class="alert alert-danger">{{.}}</div>
+    {{end}} 
+    
     {{template "scripts"}}
     <script src="../../static/js/create_product.js"></script>
   </body>

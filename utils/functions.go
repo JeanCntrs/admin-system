@@ -1,11 +1,13 @@
 package utils
 
 import (
+	"errors"
 	"fmt"
 	"html/template"
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strconv"
 )
 
 // GenerateURL generates a url dynamically
@@ -63,4 +65,28 @@ func RenderTemplate(w http.ResponseWriter, pageName string, data interface{}) {
 
 func Welcome(name string) string {
 	return "Welcome to the page " + name
+}
+
+func RequiredField(value, name string) error {
+	if value == "" {
+		return errors.New(name + " field must be mandatory")
+	}
+
+	return nil
+}
+
+func MaxLength(value, name string, maxLength int) error {
+	if len(value) > maxLength {
+		return errors.New(name + " field exceeds maximum length " + strconv.Itoa(maxLength))
+	}
+
+	return nil
+}
+
+func MinLength(value, name string, minLength int) error {
+	if len(value) < minLength {
+		return errors.New(name + " field exceeds minimum length " + strconv.Itoa(minLength))
+	}
+
+	return nil
 }

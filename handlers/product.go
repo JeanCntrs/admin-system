@@ -62,6 +62,28 @@ func SaveProduct(w http.ResponseWriter, r *http.Request) {
 	categoryId := r.FormValue("category")
 	categoryIdConv, _ := strconv.Atoi(categoryId)
 
+	var errorMessages []string
+
+	errorMaxName := utils.MaxLength(name, "name", 100)
+	if errorMaxName != nil {
+		errorMessages = append(errorMessages, errorMaxName.Error())
+	}
+
+	errorMinName := utils.MinLength(name, "name", 3)
+	if errorMinName != nil {
+		errorMessages = append(errorMessages, errorMinName.Error())
+	}
+
+	errorMaxDescription := utils.MaxLength(description, "description", 200)
+	if errorMaxDescription != nil {
+		errorMessages = append(errorMessages, errorMaxDescription.Error())
+	}
+
+	errorMinDescription := utils.MinLength(description, "description", 4)
+	if errorMinDescription != nil {
+		errorMessages = append(errorMessages, errorMinDescription.Error())
+	}
+
 	product := models.Product{
 		ProductId:   idConve,
 		ProductName: name,
@@ -72,12 +94,34 @@ func SaveProduct(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if id == "" {
+		if len(errorMessages) > 0 {
+			product.Errors = errorMessages
+
+			utils.RenderTemplate(w, "create_product", product)
+
+			return
+		}
+
+		categoryList := dal.ListCategories()
+		product.CategoryList = categoryList
+
 		_, err := dal.InsertProduct(product.Stock, product.CategoryId, product.ProductName, product.Description, product.Price)
 
 		if err == nil {
 			http.Redirect(w, r, "/products", http.StatusMovedPermanently)
 		}
 	} else {
+		if len(errorMessages) > 0 {
+			product.Errors = errorMessages
+
+			utils.RenderTemplate(w, "edit_product", product)
+
+			return
+		}
+
+		categoryList := dal.ListCategories()
+		product.CategoryList = categoryList
+
 		_, err := dal.UpdateProduct(product.ProductId, product.Stock, product.CategoryId, product.ProductName, product.Description, product.Price)
 
 		if err == nil {
