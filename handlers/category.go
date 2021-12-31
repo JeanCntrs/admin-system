@@ -45,6 +45,20 @@ func CreateCategory(w http.ResponseWriter, r *http.Request) {
 
 		if categoryId == "" {
 			// Insert
+			errorDuplicateData := utils.ValidateDuplicateData("categoria", "nombre", categoryName)
+			if errorDuplicateData != nil {
+				category := models.Category{
+					Name:         categoryName,
+					Description:  categoryDescription,
+					ErrorExist:   true,
+					ErrorMessage: errorDuplicateData.Error(),
+				}
+
+				utils.RenderTemplate(w, "create_category", category)
+
+				return
+			}
+
 			_, err := dal.CreateCategory(categoryName, categoryDescription)
 			if err != nil {
 				category := models.Category{
@@ -53,7 +67,9 @@ func CreateCategory(w http.ResponseWriter, r *http.Request) {
 					ErrorExist:   true,
 					ErrorMessage: err.Error(),
 				}
+
 				utils.RenderTemplate(w, "create_category", category)
+
 				return
 			}
 
@@ -71,7 +87,9 @@ func CreateCategory(w http.ResponseWriter, r *http.Request) {
 					ErrorExist:   true,
 					ErrorMessage: err.Error(),
 				}
+
 				utils.RenderTemplate(w, "edit_category", category)
+
 				return
 			}
 
