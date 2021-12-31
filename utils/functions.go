@@ -81,12 +81,29 @@ func MaxLength(value, name string, maxLength int) error {
 	}
 
 	return nil
-
 }
 
 func MinLength(value, name string, minLength int) error {
 	if len(value) < minLength {
 		return errors.New(name + " field exceeds minimum length " + strconv.Itoa(minLength))
+	}
+
+	return nil
+}
+
+func ValidateInteger(value, name string) error {
+	_, err := strconv.Atoi(value)
+	if err != nil {
+		return errors.New(name + " field must be an integer")
+	}
+
+	return nil
+}
+
+func ValidateDecimal(value, name string) error {
+	_, err := strconv.ParseFloat(value, 64)
+	if err != nil {
+		return errors.New(name + " field must be decimal")
 	}
 
 	return nil

@@ -1,3 +1,11 @@
+window.onload = () => {
+    const categoryId = document.getElementById('slcCategory').getAttribute('data-id');
+    
+    if (categoryId != '0') {
+        document.getElementById('slcCategory').value = categoryId;
+    }
+}
+
 const showAlert = () => {
     const productName = document.getElementById('txtProductName').value;
     const productDescription = document.getElementById('txtProductDescription').value;

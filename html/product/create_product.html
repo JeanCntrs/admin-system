@@ -27,6 +27,7 @@
           id="txtProductName"
           placeholder="Product Name"
           name="name"
+          value="{{.ProductName}}"
         />
       </div>
       <div class="mb-3">
@@ -38,7 +39,7 @@
           id="txtProductDescription"
           rows="3"
           name="description"
-        ></textarea>
+        >{{.Description}}</textarea>
       </div>
       <div class="mb-3">
         <label for="txtProductPrice" class="form-label">Product Price</label>
@@ -48,6 +49,7 @@
           id="txtProductPrice"
           placeholder="Product Price"
           name="price"
+          value="{{.Price}}"
         />
       </div>
       <div class="mb-3">
@@ -58,11 +60,12 @@
           id="txtProductStock"
           placeholder="Product Stock"
           name="stock"
+          value="{{.Stock}}"
         />
       </div>
       <div class="mb-3">
         <label for="slcCategory" class="form-label">Category</label>
-        <select id="slcCategory" class="form-select" name="category">
+        <select id="slcCategory" class="form-select" data-id="{{.CategoryId}}" name="category">
           <option value="" selected>Choose Category</option>
           {{range .CategoryList}}
           <option value="{{.CategoryId}}">{{.Name}}</option>

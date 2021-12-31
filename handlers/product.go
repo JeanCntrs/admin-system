@@ -84,6 +84,16 @@ func SaveProduct(w http.ResponseWriter, r *http.Request) {
 		errorMessages = append(errorMessages, errorMinDescription.Error())
 	}
 
+	errorStock := utils.ValidateInteger(stock, "stock")
+	if errorStock != nil {
+		errorMessages = append(errorMessages, errorStock.Error())
+	}
+
+	errorPrice := utils.ValidateDecimal(price, "price")
+	if errorPrice != nil {
+		errorMessages = append(errorMessages, errorPrice.Error())
+	}
+
 	product := models.Product{
 		ProductId:   idConve,
 		ProductName: name,
@@ -97,13 +107,13 @@ func SaveProduct(w http.ResponseWriter, r *http.Request) {
 		if len(errorMessages) > 0 {
 			product.Errors = errorMessages
 
+			categoryList := dal.ListCategories()
+			product.CategoryList = categoryList
+
 			utils.RenderTemplate(w, "create_product", product)
 
 			return
 		}
-
-		categoryList := dal.ListCategories()
-		product.CategoryList = categoryList
 
 		_, err := dal.InsertProduct(product.Stock, product.CategoryId, product.ProductName, product.Description, product.Price)
 
@@ -114,13 +124,13 @@ func SaveProduct(w http.ResponseWriter, r *http.Request) {
 		if len(errorMessages) > 0 {
 			product.Errors = errorMessages
 
+			categoryList := dal.ListCategories()
+			product.CategoryList = categoryList
+
 			utils.RenderTemplate(w, "edit_product", product)
 
 			return
 		}
-
-		categoryList := dal.ListCategories()
-		product.CategoryList = categoryList
 
 		_, err := dal.UpdateProduct(product.ProductId, product.Stock, product.CategoryId, product.ProductName, product.Description, product.Price)
 
