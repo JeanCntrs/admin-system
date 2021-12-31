@@ -81,6 +81,7 @@ func MaxLength(value, name string, maxLength int) error {
 	}
 
 	return nil
+
 }
 
 func MinLength(value, name string, minLength int) error {
