@@ -105,6 +105,7 @@ func ValidateInteger(value, name string) error {
 
 func ValidateDecimal(value, name string) error {
 	_, err := strconv.ParseFloat(value, 64)
+
 	if err != nil {
 		return errors.New(name + " field must be decimal")
 	}
