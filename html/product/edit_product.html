@@ -87,9 +87,19 @@
         </button>
         <a href="/products" class="btn btn-outline-danger">Cancelar</a>
       </div>
+
+      <input id="txtErrorMessage" type="hidden" value="{{.Errors}}" />
     </form>
     {{template "scripts"}}
     <script src="../../static/js/edit_product.js"></script>
+    {{if .Errors}}
+    <script>
+      (() => {
+        const errorMessage = document.getElementById("txtErrorMessage").value;
+        alert("Something is wrong", errorMessage, "error");
+      })();
+    </script>
+    {{end}}
   </body>
 </html>
 {{end}}

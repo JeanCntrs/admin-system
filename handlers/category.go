@@ -3,6 +3,7 @@ package handlers
 import (
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/JeanCntrs/admin-system/dal"
 	"github.com/JeanCntrs/admin-system/models"
@@ -40,19 +41,20 @@ func CreateCategory(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == "POST" {
 		categoryId := r.FormValue("categoryId")
-		categoryName := r.FormValue("categoryName")
-		categoryDescription := r.FormValue("categoryDescription")
+		categoryName := strings.TrimSpace(r.FormValue("categoryName"))
+		categoryDescription := strings.TrimSpace(r.FormValue("categoryDescription"))
+
+		category := models.Category{
+			Name:        categoryName,
+			Description: categoryDescription,
+		}
 
 		if categoryId == "" {
 			// Insert
 			errorDuplicateDataInsert := utils.ValidateDuplicateDataInsert("categoria", "nombre", categoryName)
 			if errorDuplicateDataInsert != nil {
-				category := models.Category{
-					Name:         categoryName,
-					Description:  categoryDescription,
-					ErrorExist:   true,
-					ErrorMessage: errorDuplicateDataInsert.Error(),
-				}
+				category.ErrorExist = true
+				category.ErrorMessage = errorDuplicateDataInsert.Error()
 
 				utils.RenderTemplate(w, "create_category", category)
 
@@ -61,12 +63,8 @@ func CreateCategory(w http.ResponseWriter, r *http.Request) {
 
 			_, err := dal.CreateCategory(categoryName, categoryDescription)
 			if err != nil {
-				category := models.Category{
-					Name:         categoryName,
-					Description:  categoryDescription,
-					ErrorExist:   true,
-					ErrorMessage: err.Error(),
-				}
+				category.ErrorExist = true
+				category.ErrorMessage = err.Error()
 
 				utils.RenderTemplate(w, "create_category", category)
 
@@ -77,16 +75,12 @@ func CreateCategory(w http.ResponseWriter, r *http.Request) {
 		} else {
 			// Update
 			categoryIdConv, _ := strconv.Atoi(categoryId)
+			category.CategoryId = categoryIdConv
 
 			errorDuplicateDataUpdate := utils.ValidateDuplicateDataUpdate("categoria", "nombre", categoryName, "idcategoria", categoryIdConv)
 			if errorDuplicateDataUpdate != nil {
-				category := models.Category{
-					CategoryId:   categoryIdConv,
-					Name:         categoryName,
-					Description:  categoryDescription,
-					ErrorExist:   true,
-					ErrorMessage: errorDuplicateDataUpdate.Error(),
-				}
+				category.ErrorExist = true
+				category.ErrorMessage = errorDuplicateDataUpdate.Error()
 
 				utils.RenderTemplate(w, "edit_category", category)
 
@@ -95,13 +89,8 @@ func CreateCategory(w http.ResponseWriter, r *http.Request) {
 
 			_, err := dal.UpdateCategory(categoryIdConv, categoryName, categoryDescription)
 			if err != nil {
-				category := models.Category{
-					CategoryId:   categoryIdConv,
-					Name:         categoryName,
-					Description:  categoryDescription,
-					ErrorExist:   true,
-					ErrorMessage: err.Error(),
-				}
+				category.ErrorExist = true
+				category.ErrorMessage = err.Error()
 
 				utils.RenderTemplate(w, "edit_category", category)
 

@@ -3,6 +3,7 @@ package handlers
 import (
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/JeanCntrs/admin-system/dal"
 	"github.com/JeanCntrs/admin-system/models"
@@ -51,15 +52,15 @@ func CreateProduct(w http.ResponseWriter, r *http.Request) {
 }
 
 func SaveProduct(w http.ResponseWriter, r *http.Request) {
-	id := r.FormValue("id")
+	id := strings.TrimSpace(r.FormValue("id"))
 	idConve, _ := strconv.Atoi(id)
-	name := r.FormValue("name")
-	description := r.FormValue("description")
-	price := r.FormValue("price")
+	name := strings.TrimSpace(r.FormValue("name"))
+	description := strings.TrimSpace(r.FormValue("description"))
+	price := strings.TrimSpace(r.FormValue("price"))
 	priceConv, _ := strconv.ParseFloat(price, 64)
-	stock := r.FormValue("stock")
+	stock := strings.TrimSpace(r.FormValue("stock"))
 	stockConv, _ := strconv.Atoi(stock)
-	categoryId := r.FormValue("category")
+	categoryId := strings.TrimSpace(r.FormValue("category"))
 	categoryIdConv, _ := strconv.Atoi(categoryId)
 
 	var errorMessages []string
