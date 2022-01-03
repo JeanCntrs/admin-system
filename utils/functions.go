@@ -105,7 +105,6 @@ func ValidateInteger(value, name string) error {
 
 func ValidateDecimal(value, name string) error {
 	_, err := strconv.ParseFloat(value, 64)
-
 	if err != nil {
 		return errors.New(name + " field must be decimal")
 	}
@@ -113,8 +112,28 @@ func ValidateDecimal(value, name string) error {
 	return nil
 }
 
-func ValidateDuplicateData(table, field, value string) error {
+func ValidateDuplicateDataInsert(table, field, value string) error {
 	sql := fmt.Sprintf("SELECT count(*) FROM %s WHERE upper(%s) = '%s'", table, field, strings.ToUpper(value))
+	count := 0
+
+	database.OpenConnection()
+
+	rows, _ := database.Query(sql)
+	for rows.Next() {
+		rows.Scan(&count)
+	}
+
+	database.CloseConnection()
+
+	if count > 0 {
+		return errors.New("Value " + value + " already exists for the " + field + " field")
+	}
+
+	return nil
+}
+
+func ValidateDuplicateDataUpdate(table, field, value, fieldId string, id int) error {
+	sql := fmt.Sprintf("SELECT count(*) FROM %s WHERE upper(%s) = '%s' AND %s != %d", table, field, strings.ToUpper(value), fieldId, id)
 	count := 0
 
 	database.OpenConnection()
