@@ -53,7 +53,7 @@ func CreateProduct(w http.ResponseWriter, r *http.Request) {
 
 func SaveProduct(w http.ResponseWriter, r *http.Request) {
 	id := strings.TrimSpace(r.FormValue("id"))
-	idConve, _ := strconv.Atoi(id)
+	idConv, _ := strconv.Atoi(id)
 	name := strings.TrimSpace(r.FormValue("name"))
 	description := strings.TrimSpace(r.FormValue("description"))
 	price := strings.TrimSpace(r.FormValue("price"))
@@ -95,21 +95,31 @@ func SaveProduct(w http.ResponseWriter, r *http.Request) {
 		errorMessages = append(errorMessages, errorPrice.Error())
 	}
 
+	categoryList := dal.ListCategories()
 	product := models.Product{
-		ProductId:   idConve,
-		ProductName: name,
-		Description: description,
-		Price:       priceConv,
-		Stock:       stockConv,
-		CategoryId:  categoryIdConv,
+		ProductId:    idConv,
+		ProductName:  name,
+		Description:  description,
+		Price:        priceConv,
+		Stock:        stockConv,
+		CategoryId:   categoryIdConv,
+		CategoryList: categoryList,
 	}
 
 	if id == "" {
 		if len(errorMessages) > 0 {
 			product.Errors = errorMessages
 
-			categoryList := dal.ListCategories()
-			product.CategoryList = categoryList
+			utils.RenderTemplate(w, "create_product", product)
+
+			return
+		}
+
+		errorDuplicateDataInsert := utils.ValidateDuplicateDataInsert("producto", "nombre", name)
+		if errorDuplicateDataInsert != nil {
+			errorMessages = append(errorMessages, errorDuplicateDataInsert.Error())
+
+			product.Errors = errorMessages
 
 			utils.RenderTemplate(w, "create_product", product)
 
@@ -125,8 +135,16 @@ func SaveProduct(w http.ResponseWriter, r *http.Request) {
 		if len(errorMessages) > 0 {
 			product.Errors = errorMessages
 
-			categoryList := dal.ListCategories()
-			product.CategoryList = categoryList
+			utils.RenderTemplate(w, "edit_product", product)
+
+			return
+		}
+
+		errorDuplicateDataInsert := utils.ValidateDuplicateDataUpdate("producto", "nombre", name, "idproducto", idConv)
+		if errorDuplicateDataInsert != nil {
+			errorMessages = append(errorMessages, errorDuplicateDataInsert.Error())
+
+			product.Errors = errorMessages
 
 			utils.RenderTemplate(w, "edit_product", product)
 
