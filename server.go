@@ -17,8 +17,6 @@ func main() {
 
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
-	r.HandleFunc("/", handlers.Index)
-
 	r.HandleFunc("/products", handlers.Product)
 	r.HandleFunc("/products/create", handlers.CreateProduct)
 	r.HandleFunc("/products/save", handlers.SaveProduct)
@@ -30,7 +28,9 @@ func main() {
 	r.HandleFunc("/categories/edit/{id}", handlers.EditCategory)
 	r.HandleFunc("/categories/delete/{id}", handlers.DeleteCategory)
 
-	r.HandleFunc("/persons", handlers.Person)
+	r.HandleFunc("/countries", handlers.Country)
+
+	r.HandleFunc("/providers", handlers.Provider)
 
 	r.HandleFunc("/not-found", func(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
