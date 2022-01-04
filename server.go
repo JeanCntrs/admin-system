@@ -29,6 +29,7 @@ func main() {
 	r.HandleFunc("/categories/delete/{id}", handlers.DeleteCategory)
 
 	r.HandleFunc("/countries", handlers.Country)
+	r.HandleFunc("/countries/list", handlers.GetCountries)
 
 	r.HandleFunc("/providers", handlers.Provider)
 
