@@ -3,8 +3,11 @@ window.onload = () => {
     const tableHeaders = ['Country ID', 'Name', 'Capital'];
     const fields = ['CountryId', 'Name', 'Capital'];
     const elementId = 'country_table';
+    const showBtnEdit = true;
+    const showBtnDelete = true;
+    const propertyName = 'CountryId';
 
-    getData(url, tableHeaders, fields, elementId);
+    getData(url, tableHeaders, fields, elementId, showBtnEdit, showBtnDelete, propertyName);
 }
 
 const getCountriesByName = () => {
@@ -14,6 +17,9 @@ const getCountriesByName = () => {
     const tableHeaders = ['Country ID', 'Name', 'Capital'];
     const fields = ['CountryId', 'Name', 'Capital'];
     const elementId = 'country_table';
+    const showBtnEdit = true;
+    const showBtnDelete = true;
+    const propertyName = 'CountryId';
 
-    getData(url, tableHeaders, fields, elementId);
+    getData(url, tableHeaders, fields, elementId, showBtnEdit, showBtnDelete, propertyName);
 }
