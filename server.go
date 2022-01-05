@@ -30,6 +30,7 @@ func main() {
 
 	r.HandleFunc("/countries", handlers.Country)
 	r.HandleFunc("/countries/list", handlers.GetCountries)
+	r.HandleFunc("/countries/list/{name}", handlers.GetCountriesByName)
 
 	r.HandleFunc("/providers", handlers.Provider)
 	r.HandleFunc("/providers/list", handlers.GetProviders)

@@ -20,3 +20,19 @@ func GetCountries() []models.Country {
 
 	return countries
 }
+
+func GetCountriesByName(name string) []models.Country {
+	query := "SELECT * FROM getCategoriesByName($1)"
+	database.OpenConnection()
+	rows, _ := database.Query(query, name)
+	database.CloseConnection()
+
+	countries := []models.Country{}
+	for rows.Next() {
+		country := models.Country{}
+		rows.Scan(&country.CountryId, &country.Name, &country.Capital)
+		countries = append(countries, country)
+	}
+
+	return countries
+}

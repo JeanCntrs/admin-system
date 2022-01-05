@@ -51,7 +51,7 @@ func CreateCategory(w http.ResponseWriter, r *http.Request) {
 
 		if categoryId == "" {
 			// Insert
-			errorDuplicateDataInsert := utils.ValidateDuplicateDataInsert("categoria", "nombre", categoryName)
+			errorDuplicateDataInsert := utils.ValidateDuplicateDataInsert("categories", "name", categoryName)
 			if errorDuplicateDataInsert != nil {
 				category.ErrorExist = true
 				category.ErrorMessage = errorDuplicateDataInsert.Error()
@@ -77,7 +77,7 @@ func CreateCategory(w http.ResponseWriter, r *http.Request) {
 			categoryIdConv, _ := strconv.Atoi(categoryId)
 			category.CategoryId = categoryIdConv
 
-			errorDuplicateDataUpdate := utils.ValidateDuplicateDataUpdate("categoria", "nombre", categoryName, "idcategoria", categoryIdConv)
+			errorDuplicateDataUpdate := utils.ValidateDuplicateDataUpdate("categories", "name", categoryName, "category_id", categoryIdConv)
 			if errorDuplicateDataUpdate != nil {
 				category.ErrorExist = true
 				category.ErrorMessage = errorDuplicateDataUpdate.Error()

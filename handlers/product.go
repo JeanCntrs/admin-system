@@ -115,7 +115,7 @@ func SaveProduct(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		errorDuplicateDataInsert := utils.ValidateDuplicateDataInsert("producto", "nombre", name)
+		errorDuplicateDataInsert := utils.ValidateDuplicateDataInsert("products", "name", name)
 		if errorDuplicateDataInsert != nil {
 			errorMessages = append(errorMessages, errorDuplicateDataInsert.Error())
 
@@ -140,7 +140,7 @@ func SaveProduct(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		errorDuplicateDataInsert := utils.ValidateDuplicateDataUpdate("producto", "nombre", name, "idproducto", idConv)
+		errorDuplicateDataInsert := utils.ValidateDuplicateDataUpdate("products", "name", name, "product_id", idConv)
 		if errorDuplicateDataInsert != nil {
 			errorMessages = append(errorMessages, errorDuplicateDataInsert.Error())
 
