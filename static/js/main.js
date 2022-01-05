@@ -24,7 +24,7 @@ const confirmation = (title = 'Are you sure?', text = 'If you are sure confirm t
     });
 }
 
-const getData = (url, tableHeaders, fields, elementId, showBtnEdit = false, showBtnDelete = false, propertyName = '') => {
+const getDataTable = (url, tableHeaders, fields, elementId, showBtnEdit = false, showBtnDelete = false, propertyName = '') => {
     let table = '<table id="table" class="table">';
 
     fetch(url)
@@ -115,4 +115,18 @@ const getData = (url, tableHeaders, fields, elementId, showBtnEdit = false, show
             table += '</table>';
             document.getElementById(elementId).innerHTML = table;
         })
+}
+
+const getDataSelect = (url, value, name, elementId) => {
+    let options = '';
+
+    fetch(url).then(response => response.json()).then(response => {
+        options += '<option value="" selected>Choose Country</option>';
+
+        response.forEach(element => {
+            options += `<option value="${element[value]}">${element[name]}</option>`
+        });
+
+        document.getElementById(elementId).innerHTML = options;
+    })
 }

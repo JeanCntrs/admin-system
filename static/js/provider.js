@@ -1,4 +1,9 @@
 window.onload = () => {
+    buildTable();
+    buildSelect();
+}
+
+const buildTable = () => {
     const url = '/providers/list';
     const tableHeaders = ['Provider ID', 'Name', 'Phone', 'Country Name'];
     const fields = ['ProviderId', 'Name', 'Phone', 'CountryName'];
@@ -7,5 +12,14 @@ window.onload = () => {
     const showBtnDelete = true;
     const propertyName = 'ProviderId';
 
-    getData(url, tableHeaders, fields, elementId, showBtnEdit, showBtnDelete, propertyName);
+    getDataTable(url, tableHeaders, fields, elementId, showBtnEdit, showBtnDelete, propertyName);
+}
+
+const buildSelect = () => {
+    const url = '/countries/list';
+    const value = 'CountryId';
+    const name = 'Name';
+    const elementId = 'slc_search_country';
+
+    getDataSelect(url, value, name, elementId);
 }
