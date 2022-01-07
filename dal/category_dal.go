@@ -8,7 +8,7 @@ import (
 )
 
 func ListCategories() []models.Category {
-	query := `SELECT * FROM uspListCategories()`
+	query := "SELECT * FROM uspListCategories()"
 	database.OpenConnection()
 	rows, _ := database.Query(query)
 	database.CloseConnection()
@@ -24,7 +24,7 @@ func ListCategories() []models.Category {
 }
 
 func FilterCategories(searchParam string) []models.Category {
-	query := `SELECT * FROM uspFilterCategories($1)`
+	query := "SELECT * FROM uspFilterCategories($1)"
 	database.OpenConnection()
 	rows, _ := database.Query(query, searchParam)
 	database.CloseConnection()
@@ -61,7 +61,7 @@ func CreateCategory(name, description string) (sql.Result, error) {
 }
 
 func SearchCategoryById(id int) models.Category {
-	query := `SELECT * FROM uspSearchCategoryById($1)`
+	query := "SELECT * FROM uspSearchCategoryById($1)"
 	database.OpenConnection()
 	rows, _ := database.Query(query, id)
 	database.CloseConnection()

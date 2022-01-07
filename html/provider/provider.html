@@ -12,7 +12,7 @@
     {{template "menu"}}
     <div class="input-group mb-3 container">
         <label class="input-group-text" for="slc_search_country">Countries</label>
-        <select class="form-select" id="slc_search_country">
+        <select class="form-select" id="slc_search_country" onchange="getProviderByCountryId()">
         </select>
       </div>
     <div id="provider_table" class="container"></div>

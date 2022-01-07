@@ -6,7 +6,7 @@ import (
 )
 
 func GetCountries() []models.Country {
-	query := `SELECT * FROM getCountries()`
+	query := "SELECT * FROM getCountries()"
 	database.OpenConnection()
 	rows, _ := database.Query(query)
 	database.CloseConnection()

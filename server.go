@@ -34,6 +34,7 @@ func main() {
 
 	r.HandleFunc("/providers", handlers.Provider)
 	r.HandleFunc("/providers/list", handlers.GetProviders)
+	r.HandleFunc("/providers/list/{countryId}", handlers.GetProvidersByCountryId)
 
 	r.HandleFunc("/not-found", func(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)

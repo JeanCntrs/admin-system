@@ -7,7 +7,7 @@ window.onload = () => {
     const showBtnDelete = true;
     const propertyName = 'CountryId';
 
-    getData(url, tableHeaders, fields, elementId, showBtnEdit, showBtnDelete, propertyName);
+    getDataTable(url, tableHeaders, fields, elementId, showBtnEdit, showBtnDelete, propertyName);
 }
 
 const getCountriesByName = () => {
@@ -21,5 +21,5 @@ const getCountriesByName = () => {
     const showBtnDelete = true;
     const propertyName = 'CountryId';
 
-    getData(url, tableHeaders, fields, elementId, showBtnEdit, showBtnDelete, propertyName);
+    getDataTable(url, tableHeaders, fields, elementId, showBtnEdit, showBtnDelete, propertyName);
 }
