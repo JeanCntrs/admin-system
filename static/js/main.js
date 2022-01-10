@@ -61,6 +61,8 @@ const getDataTable = (url, tableHeaders, fields, elementId, showBtnEdit = false,
                         table += `<a
                         onclick="edit(${element[propertyName]})"
                         class="btn btn-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
