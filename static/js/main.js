@@ -1,65 +1,65 @@
 const paginate = tableId => {
-    $(`#${tableId}`).DataTable();
+  $(`#${tableId}`).DataTable();
 }
 
 const alert = (title = 'Success', text = 'Your data has been saved', icon = 'success') => {
-    Swal.fire({
-        title,
-        text,
-        icon,
-        allowOutsideClick: false
-    });
+  Swal.fire({
+    title,
+    text,
+    icon,
+    allowOutsideClick: false
+  });
 }
 
 const confirmation = (title = 'Are you sure?', text = 'If you are sure confirm the action') => {
-    return Swal.fire({
-        title,
-        text,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, confirm it!',
-        allowOutsideClick: false
-    });
+  return Swal.fire({
+    title,
+    text,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, confirm it!',
+    allowOutsideClick: false
+  });
 }
 
-const getDataTable = (url, tableHeaders, fields, elementId, showBtnEdit = false, showBtnDelete = false, propertyName = '') => {
-    let table = '<table id="table" class="table">';
+const getDataTable = (url, tableHeaders, fields, elementId, showBtnEdit = false, showBtnDelete = false, propertyName = '', tableId = 'table') => {
+  let table = `<table id="${tableId}" class="table">`;
 
-    fetch(url)
-        .then(response => response.json())
-        .then(response => {
-            table += '<thead class="table-dark">';
-            table += '<tr>';
+  fetch(url)
+    .then(response => response.json())
+    .then(response => {
+      table += '<thead class="table-dark">';
+      table += '<tr>';
 
-            tableHeaders.forEach(header => {
-                table += `<th>${header}</th>`;
-            });
+      tableHeaders.forEach(header => {
+        table += `<th>${header}</th>`;
+      });
 
-            if (showBtnEdit || showBtnDelete) {
-                table += '<th>Actions</th>';
-            }
+      if (showBtnEdit || showBtnDelete) {
+        table += '<th>Actions</th>';
+      }
 
-            table += '</tr>';
-            table += '</thead>';
-            table += '<tbody>';
+      table += '</tr>';
+      table += '</thead>';
+      table += '<tbody>';
 
-            response.forEach(element => {
-                table += '<tr>';
+      response.forEach(element => {
+        table += '<tr>';
 
-                fields.forEach(field => {
-                    table += '<td>';
-                    table += element[field]
-                    table += '</td>';
-                });
+        fields.forEach(field => {
+          table += '<td>';
+          table += element[field]
+          table += '</td>';
+        });
 
-                if (showBtnEdit || showBtnDelete) {
-                    table += '<td>';
+        if (showBtnEdit || showBtnDelete) {
+          table += '<td>';
 
-                    if (showBtnEdit) {
-                        table += `<a
-                        onclick="edit(${element[propertyName]})"
+          if (showBtnEdit) {
+            table += `<a
+                        onclick="openModal(${element[propertyName]})"
                         class="btn btn-primary"
                         data-bs-toggle="modal"
                         data-bs-target="#staticBackdrop"
@@ -81,10 +81,10 @@ const getDataTable = (url, tableHeaders, fields, elementId, showBtnEdit = false,
                           />
                         </svg>
                       </a>`
-                    }
+          }
 
-                    if (showBtnDelete) {
-                        table += ` <a
+          if (showBtnDelete) {
+            table += ` <a
                         class="btn btn-danger"
                         onclick="showDeleteModalById(${element[propertyName]})"
                       >
@@ -105,30 +105,31 @@ const getDataTable = (url, tableHeaders, fields, elementId, showBtnEdit = false,
                           />
                         </svg>
                       </a>`
-                    }
+          }
 
-                    table += '</td>';
-                }
+          table += '</td>';
+        }
 
-                table += '</tr>';
-            });
+        table += '</tr>';
+      });
 
-            table += '</tbody>';
-            table += '</table>';
-            document.getElementById(elementId).innerHTML = table;
-        })
+      table += '</tbody>';
+      table += '</table>';
+      document.getElementById(elementId).innerHTML = table;
+      paginate(`${tableId}`);
+    })
 }
 
 const getDataSelect = (url, value, name, elementId) => {
-    let options = '';
+  let options = '';
 
-    fetch(url).then(response => response.json()).then(response => {
-        options += '<option value="" selected>Choose Country</option>';
+  fetch(url).then(response => response.json()).then(response => {
+    options += '<option value="" selected>Choose Country</option>';
 
-        response.forEach(element => {
-            options += `<option value="${element[value]}">${element[name]}</option>`
-        });
+    response.forEach(element => {
+      options += `<option value="${element[value]}">${element[name]}</option>`
+    });
 
-        document.getElementById(elementId).innerHTML = options;
-    })
+    document.getElementById(elementId).innerHTML = options;
+  })
 }
