@@ -23,11 +23,3 @@ const getCountriesByName = () => {
 
     getDataTable(url, tableHeaders, fields, elementId, showBtnEdit, showBtnDelete, propertyName);
 }
-
-const openModal = id => {
-    if (id == 0) {
-        document.getElementById('txtModalTitle').innerHTML = 'Add country';
-    } else {
-        document.getElementById('txtModalTitle').innerHTML = 'Edit country';
-    }
-}

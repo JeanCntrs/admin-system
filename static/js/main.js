@@ -25,7 +25,7 @@ const confirmation = (title = 'Are you sure?', text = 'If you are sure confirm t
 }
 
 const getDataTable = (url, tableHeaders, fields, elementId, showBtnEdit = false, showBtnDelete = false, propertyName = '', tableId = 'table') => {
-  let table = `<table id="${tableId}" class="table">`;
+  let table = `<table data-property-name="${propertyName}" id="${tableId}" class="table">`;
 
   fetch(url)
     .then(response => response.json())
@@ -59,7 +59,7 @@ const getDataTable = (url, tableHeaders, fields, elementId, showBtnEdit = false,
 
           if (showBtnEdit) {
             table += `<a
-                        onclick="openModal(${element[propertyName]})"
+                        onclick="openModal(${element[propertyName]}, '${tableId}')"
                         class="btn btn-primary"
                         data-bs-toggle="modal"
                         data-bs-target="#staticBackdrop"
@@ -132,4 +132,13 @@ const getDataSelect = (url, value, name, elementId) => {
 
     document.getElementById(elementId).innerHTML = options;
   })
+}
+
+const openModal = (id, tableId = 'table') => {
+  const propertyName = document.getElementById(`${tableId}`).getAttribute('data-property-name').replace('Id','').toLowerCase();
+  if (id == 0) {
+      document.getElementById('txtModalTitle').innerHTML = `Add ${propertyName}`;
+  } else {
+      document.getElementById('txtModalTitle').innerHTML = `Edit ${propertyName}`;
+  }
 }
