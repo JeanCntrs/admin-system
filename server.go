@@ -30,11 +30,12 @@ func main() {
 
 	r.HandleFunc("/countries", handlers.Country)
 	r.HandleFunc("/countries/list", handlers.GetCountries)
-	r.HandleFunc("/countries/list/{name}", handlers.GetCountriesByName)
+	r.HandleFunc("/countries/list/name/{name}", handlers.GetCountriesByName)
+	r.HandleFunc("/countries/list/id/{countryId}", handlers.GetCountryById)
 
 	r.HandleFunc("/providers", handlers.Provider)
 	r.HandleFunc("/providers/list", handlers.GetProviders)
-	r.HandleFunc("/providers/list/{countryId}", handlers.GetProvidersByCountryId)
+	r.HandleFunc("/providers/list/id/{countryId}", handlers.GetProvidersByCountryId)
 
 	r.HandleFunc("/not-found", func(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)

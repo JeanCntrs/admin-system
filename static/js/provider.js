@@ -27,7 +27,7 @@ const buildSelect = () => {
 const getProviderByCountryId = () => {
     const countryId = document.getElementById('slc_search_country').value;
 
-    const url = countryId ? `/providers/list/${countryId}` : '/providers/list';
+    const url = countryId ? `/providers/list/id/${countryId}` : '/providers/list';
     const tableHeaders = ['Provider ID', 'Name', 'Phone', 'Country Name'];
     const fields = ['ProviderId', 'Name', 'Phone', 'CountryName'];
     const elementId = 'provider_table';

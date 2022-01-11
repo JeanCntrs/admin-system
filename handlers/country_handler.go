@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/JeanCntrs/admin-system/dal"
 	"github.com/JeanCntrs/admin-system/utils"
@@ -25,6 +26,16 @@ func GetCountriesByName(w http.ResponseWriter, r *http.Request) {
 	name := vars["name"]
 
 	countries := dal.GetCountriesByName(name)
+	countriesByte, _ := json.Marshal(countries)
+	fmt.Fprint(w, string(countriesByte))
+}
+
+func GetCountryById(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	countryId := vars["countryId"]
+	countryIdConv, _ := strconv.Atoi(countryId)
+
+	countries := dal.GetCountryById(countryIdConv)
 	countriesByte, _ := json.Marshal(countries)
 	fmt.Fprint(w, string(countriesByte))
 }

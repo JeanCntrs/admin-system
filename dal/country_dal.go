@@ -36,3 +36,17 @@ func GetCountriesByName(name string) []models.Country {
 
 	return countries
 }
+
+func GetCountryById(id int) models.Country {
+	query := "SELECT * FROM getCountryById($1)"
+	database.OpenConnection()
+	rows, _ := database.Query(query, id)
+	database.CloseConnection()
+
+	country := models.Country{}
+	for rows.Next() {
+		rows.Scan(&country.CountryId, &country.Name, &country.Capital)
+	}
+
+	return country
+}

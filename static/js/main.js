@@ -59,7 +59,7 @@ const getDataTable = (url, tableHeaders, fields, elementId, showBtnEdit = false,
 
           if (showBtnEdit) {
             table += `<a
-                        onclick="openModal(${element[propertyName]}, '${tableId}')"
+                        onclick="openModal(${element[propertyName]}, '${tableId}'); getCountryById(${element[propertyName]})"
                         class="btn btn-primary"
                         data-bs-toggle="modal"
                         data-bs-target="#staticBackdrop"
@@ -135,10 +135,20 @@ const getDataSelect = (url, value, name, elementId) => {
 }
 
 const openModal = (id, tableId = 'table') => {
+  clearInputs();
+
   const propertyName = document.getElementById(`${tableId}`).getAttribute('data-property-name').replace('Id','').toLowerCase();
   if (id == 0) {
       document.getElementById('txtModalTitle').innerHTML = `Add ${propertyName}`;
   } else {
       document.getElementById('txtModalTitle').innerHTML = `Edit ${propertyName}`;
+  }
+}
+
+const clearInputs = () => {
+  const controls = document.getElementsByClassName('form-control');
+
+  for (let index = 0; index < controls.length; index++) {
+    controls[index].value = '';
   }
 }
