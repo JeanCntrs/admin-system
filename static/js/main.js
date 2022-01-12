@@ -124,7 +124,7 @@ const getDataSelect = (url, value, name, elementId) => {
   let options = '';
 
   fetch(url).then(response => response.json()).then(response => {
-    options += '<option value="" selected>Choose Country</option>';
+    options += '<option value="" selected>Choose</option>';
 
     response.forEach(element => {
       options += `<option value="${element[value]}">${element[name]}</option>`

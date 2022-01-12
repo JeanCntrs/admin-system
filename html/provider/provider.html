@@ -15,12 +15,12 @@
       <!-- Button trigger modal -->
       <button
         type="button"
-        class="btn btn-primary"
+        class="btn btn-success"
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
         onclick="openModal(0)"
       >
-        Launch static backdrop modal
+        Create
       </button>
     </div>
 
@@ -57,37 +57,99 @@
           </div>
           <div class="modal-body">
             <div class="mb-3">
-              <label for="inp_country_id" class="form-label">Country ID</label>
+              <label for="inp_provider_id" class="form-label">Provider ID</label>
               <input
                 type="text"
                 class="form-control"
-                id="inp_country_id"
+                id="inp_provider_id"
                 readonly
               />
             </div>
             <div class="mb-3">
-              <label for="inp_country_name" class="form-label"
-                >Country Name</label
+              <label for="inp_provider_name" class="form-label"
+                >Provider Name</label
               >
               <input
                 type="text"
                 class="form-control"
-                id="inp_country_name"
-                placeholder="Country Name"
+                id="inp_provider_name"
+                placeholder="Provider Name"
               />
             </div>
             <div class="mb-3">
-              <label for="inp_country_capital" class="form-label"
-                >Country Capital</label
+              <label for="inp_address" class="form-label"
+                >Address</label
               >
               <input
                 type="text"
                 class="form-control"
-                id="inp_country_capital"
-                placeholder="Country Capital"
+                id="inp_address"
+                placeholder="Address"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="inp_phone" class="form-label"
+                >Phone</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="inp_phone"
+                placeholder="Phone"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="inp_email" class="form-label"
+                >Email</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="inp_email"
+                placeholder="Email"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="inp_legal_representative" class="form-label"
+                >Legal Representative</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="inp_legal_representative"
+                placeholder="Legal Representative"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="inp_cell_phone" class="form-label"
+                >Cell Phone</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="inp_cell_phone"
+                placeholder="Cell Phone"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="slcCountry" class="form-label">Country</label>
+              <select id="slcCountry" class="form-select" name="country">
+  
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="inp_ruc" class="form-label"
+                >RUC</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="inp_ruc"
+                placeholder="RUC"
               />
             </div>
           </div>
+          <div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary">Understood</button>
             <button

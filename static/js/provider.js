@@ -1,5 +1,6 @@
 window.onload = () => {
     buildTable();
+    buildSelectSearch();
     buildSelect();
 }
 
@@ -15,11 +16,20 @@ const buildTable = () => {
     getDataTable(url, tableHeaders, fields, elementId, showBtnEdit, showBtnDelete, propertyName);
 }
 
-const buildSelect = () => {
+const buildSelectSearch = () => {
     const url = '/countries/list';
     const value = 'CountryId';
     const name = 'Name';
     const elementId = 'slc_search_country';
+
+    getDataSelect(url, value, name, elementId);
+}
+
+const buildSelect = () => {
+    const url = '/countries/list';
+    const value = 'CountryId';
+    const name = 'Name';
+    const elementId = 'slcCountry';
 
     getDataSelect(url, value, name, elementId);
 }
