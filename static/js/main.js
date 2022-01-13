@@ -59,7 +59,7 @@ const getDataTable = (url, tableHeaders, fields, elementId, showBtnEdit = false,
 
           if (showBtnEdit) {
             table += `<a
-                        onclick="openModal(${element[propertyName]}, '${tableId}'); getCountryById(${element[propertyName]})"
+                        onclick="openModal(${element[propertyName]}, '${tableId}'); getEntityById(${element[propertyName]})"
                         class="btn btn-primary"
                         data-bs-toggle="modal"
                         data-bs-target="#staticBackdrop"

@@ -36,3 +36,17 @@ func GetProvidersByCountryId(countryId int) []models.Provider {
 
 	return providers
 }
+
+func GetProviderById(id int) models.Provider {
+	query := "SELECT * FROM getProviderById($1)"
+	database.OpenConnection()
+	rows, _ := database.Query(query, id)
+	database.CloseConnection()
+
+	provider := models.Provider{}
+	for rows.Next() {
+		rows.Scan(&provider.ProviderId, &provider.Name, &provider.Address, &provider.Phone, &provider.Email, &provider.LegalRepresentative, &provider.CellPhone, &provider.CountryId, &provider.Ruc)
+	}
+
+	return provider
+}

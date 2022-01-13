@@ -24,7 +24,7 @@ const getCountriesByName = () => {
     getDataTable(url, tableHeaders, fields, elementId, showBtnEdit, showBtnDelete, propertyName);
 }
 
-const getCountryById = countryId => {
+const getEntityById = countryId => {
     fetch(`/countries/list/id/${countryId}`)
         .then(response => response.json())
         .then(response => {

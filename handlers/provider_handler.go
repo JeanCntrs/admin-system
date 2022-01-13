@@ -30,3 +30,13 @@ func GetProvidersByCountryId(w http.ResponseWriter, r *http.Request) {
 	providersByte, _ := json.Marshal(providers)
 	fmt.Fprint(w, string(providersByte))
 }
+
+func GetProviderById(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	providerId := vars["providerId"]
+	providerIdConv, _ := strconv.Atoi(providerId)
+
+	provider := dal.GetProviderById(providerIdConv)
+	providerByte, _ := json.Marshal(provider)
+	fmt.Fprint(w, string(providerByte))
+}
