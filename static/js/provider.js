@@ -45,7 +45,6 @@ const getProviderByCountryId = () => {
     const showBtnDelete = true;
     const propertyName = 'ProviderId';
 
-    
     getDataTable(url, tableHeaders, fields, elementId, showBtnEdit, showBtnDelete, propertyName);
 }
 
