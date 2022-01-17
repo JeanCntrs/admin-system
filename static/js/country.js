@@ -33,3 +33,25 @@ const getEntityById = countryId => {
             document.getElementById('inp_country_capital').value = response.Capital;
         })
 }
+
+const create = () => {
+    const countryName = document.getElementById('inp_country_name').value;
+    const countryCapital = document.getElementById('inp_country_capital').value;
+
+    if (countryName.trim().length === 0) {
+        alert('Name field is required', '', 'error');
+        return;
+    }
+
+    if (countryCapital.trim().length === 0) {
+        alert('Capital field is required', '', 'error');
+        return;
+    }
+
+    console.log('create country success');
+    // confirmation().then((result) => {
+    //     if (result.isConfirmed) {
+    //         document.getElementById('frmCreateCategory').submit();
+    //     }
+    // })
+}

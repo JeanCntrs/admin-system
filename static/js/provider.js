@@ -45,7 +45,6 @@ const getProviderByCountryId = () => {
     const showBtnDelete = true;
     const propertyName = 'ProviderId';
 
-    
     getDataTable(url, tableHeaders, fields, elementId, showBtnEdit, showBtnDelete, propertyName);
 }
 
@@ -63,4 +62,50 @@ const getEntityById = providerId => {
             document.getElementById('slcCountry').value = response.CountryId;
             document.getElementById('inp_ruc').value = response.Ruc;
         })
+}
+
+const create = () => {
+    const name = document.getElementById('inp_provider_name').value;
+    const address = document.getElementById('inp_address').value;
+    const legarRepresentative = document.getElementById('inp_legal_representative').value;
+    const cellPhone = document.getElementById('inp_cell_phone').value;
+    const country = document.getElementById('slcCountry').value;
+    const ruc = document.getElementById('inp_ruc').value;
+
+    if (name.trim().length === 0) {
+        alert('Name field is required', '', 'error');
+        return;
+    }
+
+    if (address.trim().length === 0) {
+        alert('Address field is required', '', 'error');
+        return;
+    }
+
+    if (legarRepresentative.trim().length === 0) {
+        alert('Legal representative field is required', '', 'error');
+        return;
+    }
+
+    if (cellPhone.trim().length === 0) {
+        alert('Cell phone field is required', '', 'error');
+        return;
+    }
+
+    if (country.trim().length === 0) {
+        alert('Country field is required', '', 'error');
+        return;
+    }
+
+    if (ruc.trim().length === 0) {
+        alert('RUC field is required', '', 'error');
+        return;
+    }
+
+    console.log('create provider success');
+    // confirmation().then((result) => {
+    //     if (result.isConfirmed) {
+    //         document.getElementById('frmCreateCategory').submit();
+    //     }
+    // })
 }
