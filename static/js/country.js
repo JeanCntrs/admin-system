@@ -48,10 +48,13 @@ const create = () => {
         return;
     }
 
-    console.log('create country success');
-    // confirmation().then((result) => {
-    //     if (result.isConfirmed) {
-    //         document.getElementById('frmCreateCategory').submit();
-    //     }
-    // })
+    const obj = { name: 'Chile', capital: 'Santiago' }
+
+    fetch('countries/create', {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify(obj)
+    })
 }

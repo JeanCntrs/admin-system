@@ -1,6 +1,8 @@
 package dal
 
 import (
+	"database/sql"
+
 	"github.com/JeanCntrs/admin-system/database"
 	"github.com/JeanCntrs/admin-system/models"
 )
@@ -49,4 +51,54 @@ func GetCountryById(id int) models.Country {
 	}
 
 	return country
+}
+
+func InsertCategory(name, capital string) (sql.Result, error) {
+	query := "SELECT insertCountry($1, $2)"
+
+	// errorFound := models.MaxNameCharacters(name)
+	// if errorFound != nil {
+	// 	return nil, errorFound
+	// }
+
+	// errorFound = models.MaxDescriptionCharacters(capital)
+	// if errorFound != nil {
+	// 	return nil, errorFound
+	// }
+
+	database.OpenConnection()
+	result, err := database.Excec(query, name, capital)
+	database.CloseConnection()
+
+	return result, err
+}
+
+func UpdateCountry(id int, name, capital string) (sql.Result, error) {
+	query := "SELECT updateCountry($1, $2, $3)"
+
+	// errorFound := models.MaxNameCharacters(name)
+	// if errorFound != nil {
+	// 	return nil, errorFound
+	// }
+
+	// errorFound = models.MaxDescriptionCharacters(capital)
+	// if errorFound != nil {
+	// 	return nil, errorFound
+	// }
+
+	database.OpenConnection()
+	result, err := database.Excec(query, id, name, capital)
+	database.CloseConnection()
+
+	return result, err
+}
+
+func DeleteCountry(id int) (sql.Result, error) {
+	query := "SELECT deleteCountry($1)"
+
+	database.OpenConnection()
+	result, err := database.Excec(query, id)
+	database.CloseConnection()
+
+	return result, err
 }

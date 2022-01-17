@@ -32,6 +32,7 @@ func main() {
 	r.HandleFunc("/countries/list", handlers.GetCountries)
 	r.HandleFunc("/countries/list/name/{name}", handlers.GetCountriesByName)
 	r.HandleFunc("/countries/list/id/{countryId}", handlers.GetCountryById)
+	r.HandleFunc("/countries/create", handlers.CreateCountry)
 
 	r.HandleFunc("/providers", handlers.Provider)
 	r.HandleFunc("/providers/list", handlers.GetProviders)

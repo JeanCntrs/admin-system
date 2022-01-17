@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/JeanCntrs/admin-system/dal"
+	"github.com/JeanCntrs/admin-system/models"
 	"github.com/JeanCntrs/admin-system/utils"
 	"github.com/gorilla/mux"
 )
@@ -38,4 +39,16 @@ func GetCountryById(w http.ResponseWriter, r *http.Request) {
 	countries := dal.GetCountryById(countryIdConv)
 	countriesByte, _ := json.Marshal(countries)
 	fmt.Fprint(w, string(countriesByte))
+}
+
+func CreateCountry(w http.ResponseWriter, r *http.Request) {
+	country := models.Country{}
+	data := json.NewDecoder(r.Body)
+	err := data.Decode(&country)
+
+	if err != nil {
+		panic("An error occurred while decoding country")
+	}
+
+	fmt.Printf("country %+v", country)
 }
