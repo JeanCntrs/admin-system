@@ -58,26 +58,29 @@ const create = () => {
         capital: document.getElementById('inp_country_capital').value
     }
 
-    fetch('countries/create', {
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        method: 'POST',
-        body: JSON.stringify(country)
+    confirmation().then((result) => {
+        if (result.isConfirmed) {
+            fetch('countries/create', {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify(country)
+            })
+                .then(response => response.text())
+                .then(response => {
+                    if (response != 1) {
+                        alert('An error has occurred');
+
+                        return;
+                    }
+
+                    document.getElementById('btnCloseModal').click();
+                    listCountries();
+                    alert();
+
+                    return;
+                })
+        }
     })
-        .then(response => response.text())
-        .then(response => {
-            if (response != 1) {
-                alert('An error has occurred');
-
-                return;
-            }
-
-            document.getElementById('btnCloseModal').click();
-            listCountries();
-
-            return;
-
-
-        })
 }   
