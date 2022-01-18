@@ -53,7 +53,7 @@ func GetCountryById(id int) models.Country {
 	return country
 }
 
-func InsertCategory(name, capital string) (sql.Result, error) {
+func InsertCountry(country models.Country) (sql.Result, error) {
 	query := "SELECT insertCountry($1, $2)"
 
 	// errorFound := models.MaxNameCharacters(name)
@@ -67,13 +67,13 @@ func InsertCategory(name, capital string) (sql.Result, error) {
 	// }
 
 	database.OpenConnection()
-	result, err := database.Excec(query, name, capital)
+	result, err := database.Excec(query, country.Name, country.Capital)
 	database.CloseConnection()
 
 	return result, err
 }
 
-func UpdateCountry(id int, name, capital string) (sql.Result, error) {
+func UpdateCountry(country models.Country) (sql.Result, error) {
 	query := "SELECT updateCountry($1, $2, $3)"
 
 	// errorFound := models.MaxNameCharacters(name)
@@ -87,7 +87,7 @@ func UpdateCountry(id int, name, capital string) (sql.Result, error) {
 	// }
 
 	database.OpenConnection()
-	result, err := database.Excec(query, id, name, capital)
+	result, err := database.Excec(query, country.CountryId, country.Name, country.Capital)
 	database.CloseConnection()
 
 	return result, err

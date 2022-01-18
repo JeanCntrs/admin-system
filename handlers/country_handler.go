@@ -50,5 +50,17 @@ func CreateCountry(w http.ResponseWriter, r *http.Request) {
 		panic("An error occurred while decoding country")
 	}
 
-	fmt.Printf("country %+v", country)
+	if country.CountryId == 0 {
+		_, err := dal.InsertCountry(country)
+		if err != nil {
+			fmt.Fprintf(w, "0")
+		}
+	} else {
+		_, err := dal.UpdateCountry(country)
+		if err != nil {
+			fmt.Fprintf(w, "0")
+		}
+	}
+
+	fmt.Fprintf(w, "1")
 }

@@ -1,4 +1,8 @@
 window.onload = () => {
+    listCountries();
+}
+
+const listCountries = () => {
     const url = '/countries/list';
     const tableHeaders = ['Country ID', 'Name', 'Capital'];
     const fields = ['CountryId', 'Name', 'Capital'];
@@ -48,13 +52,32 @@ const create = () => {
         return;
     }
 
-    const obj = { name: 'Chile', capital: 'Santiago' }
+    const country = {
+        countryId: document.getElementById('inp_country_id').value == '' ? 0 : parseInt(document.getElementById('inp_country_id').value),
+        name: document.getElementById('inp_country_name').value,
+        capital: document.getElementById('inp_country_capital').value
+    }
 
     fetch('countries/create', {
         headers: {
             'Content-Type': 'application/json'
         },
         method: 'POST',
-        body: JSON.stringify(obj)
+        body: JSON.stringify(country)
     })
-}
+        .then(response => response.text())
+        .then(response => {
+            if (response != 1) {
+                alert('An error has occurred');
+
+                return;
+            }
+
+            document.getElementById('btnCloseModal').click();
+            listCountries();
+
+            return;
+
+
+        })
+}   
