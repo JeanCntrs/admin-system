@@ -39,6 +39,7 @@ const getEntityById = countryId => {
 }
 
 const create = () => {
+    const countryId = document.getElementById('inp_country_id').value;
     const countryName = document.getElementById('inp_country_name').value;
     const countryCapital = document.getElementById('inp_country_capital').value;
 
@@ -53,9 +54,9 @@ const create = () => {
     }
 
     const country = {
-        countryId: document.getElementById('inp_country_id').value == '' ? 0 : parseInt(document.getElementById('inp_country_id').value),
-        name: document.getElementById('inp_country_name').value,
-        capital: document.getElementById('inp_country_capital').value
+        countryId: countryId == '' ? 0 : parseInt(countryId),
+        name: countryName,
+        capital: countryCapital
     }
 
     confirmation().then((result) => {

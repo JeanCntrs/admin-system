@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/JeanCntrs/admin-system/dal"
+	"github.com/JeanCntrs/admin-system/models"
 	"github.com/JeanCntrs/admin-system/utils"
 	"github.com/gorilla/mux"
 )
@@ -39,4 +40,28 @@ func GetProviderById(w http.ResponseWriter, r *http.Request) {
 	provider := dal.GetProviderById(providerIdConv)
 	providerByte, _ := json.Marshal(provider)
 	fmt.Fprint(w, string(providerByte))
+}
+
+func CreateProvider(w http.ResponseWriter, r *http.Request) {
+	provider := models.Provider{}
+	data := json.NewDecoder(r.Body)
+	err := data.Decode(&provider)
+
+	if err != nil {
+		panic("An error occurred while decoding country")
+	}
+
+	if provider.ProviderId == 0 {
+		_, err := dal.InsertProvider(provider)
+		if err != nil {
+			fmt.Fprintf(w, "0")
+		}
+	} else {
+		_, err := dal.UpdateProvider(provider)
+		if err != nil {
+			fmt.Fprintf(w, "0")
+		}
+	}
+
+	fmt.Fprintf(w, "1")
 }

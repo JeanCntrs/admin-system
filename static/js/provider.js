@@ -65,9 +65,12 @@ const getEntityById = providerId => {
 }
 
 const create = () => {
+    const providerId = document.getElementById('inp_provider_id').value;
     const name = document.getElementById('inp_provider_name').value;
     const address = document.getElementById('inp_address').value;
-    const legarRepresentative = document.getElementById('inp_legal_representative').value;
+    const phone = document.getElementById('inp_phone').value;
+    const email = document.getElementById('inp_email').value;
+    const legalRepresentative = document.getElementById('inp_legal_representative').value;
     const cellPhone = document.getElementById('inp_cell_phone').value;
     const country = document.getElementById('slcCountry').value;
     const ruc = document.getElementById('inp_ruc').value;
@@ -82,7 +85,7 @@ const create = () => {
         return;
     }
 
-    if (legarRepresentative.trim().length === 0) {
+    if (legalRepresentative.trim().length === 0) {
         alert('Legal representative field is required', '', 'error');
         return;
     }
@@ -102,10 +105,41 @@ const create = () => {
         return;
     }
 
-    console.log('create provider success');
-    // confirmation().then((result) => {
-    //     if (result.isConfirmed) {
-    //         document.getElementById('frmCreateCategory').submit();
-    //     }
-    // })
+    const provider = {
+        providerId: providerId == '' ? 0 : parseInt(providerId),
+        name,
+        address,
+        phone,
+        email,
+        legalRepresentative,
+        cellPhone,
+        countryId: parseInt(country),
+        ruc
+    }
+
+    confirmation().then((result) => {
+        if (result.isConfirmed) {
+            fetch('providers/create', {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify(provider)
+            })
+                .then(response => response.text())
+                .then(response => {
+                    if (response != 1) {
+                        alert('An error has occurred');
+
+                        return;
+                    }
+
+                    document.getElementById('btnCloseModal').click();
+                    buildTable();
+                    alert();
+
+                    return;
+                })
+        }
+    })
 }
