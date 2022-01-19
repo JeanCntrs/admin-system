@@ -72,3 +72,13 @@ func UpdateProvider(provider models.Provider) (sql.Result, error) {
 
 	return result, err
 }
+
+func DeleteProvider(id int) (sql.Result, error) {
+	query := "SELECT deleteProvider($1)"
+
+	database.OpenConnection()
+	result, err := database.Excec(query, id)
+	database.CloseConnection()
+
+	return result, err
+}

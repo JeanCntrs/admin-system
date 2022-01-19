@@ -152,3 +152,11 @@ const clearInputs = () => {
     controls[index].value = '';
   }
 }
+
+const showDeleteModalById = (id) => {
+  confirmation().then((result) => {
+    if (result.isConfirmed) {
+      deleteEntity(id);
+    }
+})
+}

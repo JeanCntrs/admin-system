@@ -33,12 +33,14 @@ func main() {
 	r.HandleFunc("/countries/list", handlers.GetCountries)
 	r.HandleFunc("/countries/list/name/{name}", handlers.GetCountriesByName)
 	r.HandleFunc("/countries/list/id/{countryId}", handlers.GetCountryById)
+	r.HandleFunc("/countries/delete/{id}", handlers.DeleteCountry)
 
 	r.HandleFunc("/providers", handlers.Provider)
 	r.HandleFunc("/providers/create", handlers.CreateProvider)
 	r.HandleFunc("/providers/list", handlers.GetProviders)
 	r.HandleFunc("/providers/list/id/{countryId}", handlers.GetProvidersByCountryId)
 	r.HandleFunc("/providers/{providerId}", handlers.GetProviderById)
+	r.HandleFunc("/providers/delete/{id}", handlers.DeleteProvider)
 
 	r.HandleFunc("/not-found", func(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)

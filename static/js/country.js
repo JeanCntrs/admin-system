@@ -70,7 +70,7 @@ const create = () => {
             })
                 .then(response => response.text())
                 .then(response => {
-                    if (response != 1) {
+                    if (response != '1') {
                         alert('An error has occurred');
 
                         return;
@@ -84,4 +84,25 @@ const create = () => {
                 })
         }
     })
-}   
+}
+
+const deleteEntity = (id) => {
+    confirmation().then((result) => {
+        if (result.isConfirmed) {
+            fetch(`countries/delete/${id}`)
+                .then(response => response.text())
+                .then(response => {
+                    if (response != '1') {
+                        alert('An error has occurred', '');
+
+                        return;
+                    }
+
+                    listCountries();
+                    alert('Success', 'Your data has been deleted');
+
+                    return;
+                })
+        }
+    })
+}
