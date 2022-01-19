@@ -11,7 +11,124 @@
   <body>
     {{template "menu"}}
 
+    <div class="container mb-3">
+      <!-- Button trigger modal -->
+      <button
+        type="button"
+        class="btn btn-success"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+        onclick="openModal(0)"
+      >
+        Create
+      </button>
+    </div>
+
+    <div class="input-group mb-3 container">
+      <span class="input-group-text" id="basic-addon3">Fullname</span>
+      <input
+        type="text"
+        class="form-control"
+        id="inp_search_person_fullname"
+        onkeyup="getPersonsByFullname()"
+        aria-describedby="basic-addon3"
+      />
+    </div>
+
     <div id="person_table" class="container"></div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="staticBackdrop"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="txtModalTitle"></h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="inp_person_id" class="form-label">Person ID</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inp_person_id"
+                readonly
+              />
+            </div>
+            <div class="mb-3">
+              <label for="inp_person_name" class="form-label"
+                >Person Name</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="inp_person_name"
+                placeholder="Person Name"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="inp_father_last_name" class="form-label"
+                >Father Last Name</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="inp_father_last_name"
+                placeholder="Father Last Name"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="inp_mother_last_name" class="form-label"
+                >Mother Last Name</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="inp_mother_last_name"
+                placeholder="Mother Last Name"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="inp_birthday" class="form-label"
+                >Birthday</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="inp_birthday"
+                placeholder="Birthday"
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="create()">
+              Understood
+            </button>
+            <button
+              id="btnCloseModal"
+              type="button"
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     {{template "scripts"}}
     <script src="../../static/js/person.js"></script>

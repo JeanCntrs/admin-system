@@ -15,6 +15,7 @@ func GetPersons() []models.Person {
 	for rows.Next() {
 		person := models.Person{}
 		rows.Scan(&person.PersonId, &person.Fullname, &person.NameTypePerson, &person.Birthday)
+		person.FormattedBirthday = person.Birthday.Format("02/01/2006")
 		persons = append(persons, person)
 	}
 
@@ -31,6 +32,7 @@ func GetPersonsByFullname(fullname string) []models.Person {
 	for rows.Next() {
 		person := models.Person{}
 		rows.Scan(&person.PersonId, &person.Fullname, &person.NameTypePerson, &person.Birthday)
+		person.FormattedBirthday = person.Birthday.Format("02/01/2006")
 		persons = append(persons, person)
 	}
 
