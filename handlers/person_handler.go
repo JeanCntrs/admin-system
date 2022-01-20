@@ -70,3 +70,23 @@ func CreatePerson(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Fprintf(w, "1")
 }
+
+func DeletePerson(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	idConv, err := strconv.Atoi(id)
+
+	if err != nil {
+		fmt.Fprintf(w, "0")
+		return
+	}
+
+	_, errorFound := dal.DeletePerson(idConv)
+
+	if errorFound != nil {
+		fmt.Fprintf(w, "0")
+		return
+	}
+
+	fmt.Fprintf(w, "1")
+}

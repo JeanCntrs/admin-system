@@ -120,3 +120,24 @@ const create = () => {
         }
     })
 }
+
+const deleteEntity = (id) => {
+    confirmation().then((result) => {
+        if (result.isConfirmed) {
+            fetch(`persons/delete/${id}`)
+                .then(response => response.text())
+                .then(response => {
+                    if (response != '1') {
+                        alert('An error has occurred', '');
+
+                        return;
+                    }
+
+                    buildTable();
+                    alert('Success', 'Your data has been deleted');
+
+                    return;
+                })
+        }
+    })
+}

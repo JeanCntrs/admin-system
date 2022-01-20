@@ -91,3 +91,13 @@ func UpdatePerson(person models.Person) (sql.Result, error) {
 
 	return result, err
 }
+
+func DeletePerson(id int) (sql.Result, error) {
+	query := "SELECT deletePerson($1)"
+
+	database.OpenConnection()
+	result, err := database.Excec(query, id)
+	database.CloseConnection()
+
+	return result, err
+}
