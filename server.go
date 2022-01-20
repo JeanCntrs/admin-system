@@ -43,7 +43,9 @@ func main() {
 	r.HandleFunc("/providers/delete/{id}", handlers.DeleteProvider)
 
 	r.HandleFunc("/persons", handlers.Person)
+	r.HandleFunc("/persons/create", handlers.CreatePerson)
 	r.HandleFunc("/persons/list", handlers.GetPersons)
+	r.HandleFunc("/persons/list/type", handlers.GetTypePersons)
 	r.HandleFunc("/persons/list/name/{fullname}", handlers.GetPersonsByFullname)
 
 	r.HandleFunc("/not-found", func(w http.ResponseWriter, r *http.Request) {

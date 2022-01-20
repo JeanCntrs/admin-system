@@ -11,4 +11,5 @@ type Person struct {
 	Birthday          time.Time
 	FormattedBirthday string
 	NameTypePerson    string
+	TypePersonId      int
 }

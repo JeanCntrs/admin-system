@@ -1,6 +1,8 @@
 package dal
 
 import (
+	"database/sql"
+
 	"github.com/JeanCntrs/admin-system/database"
 	"github.com/JeanCntrs/admin-system/models"
 )
@@ -37,4 +39,40 @@ func GetPersonsByFullname(fullname string) []models.Person {
 	}
 
 	return persons
+}
+
+func GetTypePersons() []models.TypePerson {
+	query := "SELECT * FROM getTypePersons()"
+	database.OpenConnection()
+	rows, _ := database.Query(query)
+	database.CloseConnection()
+
+	typePersons := []models.TypePerson{}
+	for rows.Next() {
+		typePerson := models.TypePerson{}
+		rows.Scan(&typePerson.TypePersonId, &typePerson.Name)
+		typePersons = append(typePersons, typePerson)
+	}
+
+	return typePersons
+}
+
+func InsertPerson(person models.Person) (sql.Result, error) {
+	query := "SELECT insertPerson($1, $2, $3, $4, $5)"
+
+	database.OpenConnection()
+	result, err := database.Excec(query, person.Name, person.FatherLastName, person.MotherLastName, person.TypePersonId, person.Birthday)
+	database.CloseConnection()
+
+	return result, err
+}
+
+func UpdatePerson(person models.Person) (sql.Result, error) {
+	query := "SELECT updatePerson($1, $2, $3, $4, $5, $6)"
+
+	database.OpenConnection()
+	result, err := database.Excec(query, person.PersonId, person.Name, person.FatherLastName, person.MotherLastName, person.TypePersonId, person.Birthday)
+	database.CloseConnection()
+
+	return result, err
 }

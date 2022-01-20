@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/JeanCntrs/admin-system/dal"
+	"github.com/JeanCntrs/admin-system/models"
 	"github.com/JeanCntrs/admin-system/utils"
 	"github.com/gorilla/mux"
 )
@@ -20,6 +21,12 @@ func GetPersons(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, string(personsByte))
 }
 
+func GetTypePersons(w http.ResponseWriter, r *http.Request) {
+	typePersons := dal.GetTypePersons()
+	typePersonsByte, _ := json.Marshal(typePersons)
+	fmt.Fprint(w, string(typePersonsByte))
+}
+
 func GetPersonsByFullname(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	fullname := vars["fullname"]
@@ -27,4 +34,28 @@ func GetPersonsByFullname(w http.ResponseWriter, r *http.Request) {
 	persons := dal.GetPersonsByFullname(fullname)
 	personsByte, _ := json.Marshal(persons)
 	fmt.Fprint(w, string(personsByte))
+}
+
+func CreatePerson(w http.ResponseWriter, r *http.Request) {
+	person := models.Person{}
+	data := json.NewDecoder(r.Body)
+	err := data.Decode(&person)
+
+	if err != nil {
+		panic("An error occurred while decoding country")
+	}
+
+	if person.PersonId == 0 {
+		_, err := dal.InsertPerson(person)
+		if err != nil {
+			fmt.Fprintf(w, "0")
+		}
+	} else {
+		_, err := dal.UpdatePerson(person)
+		if err != nil {
+			fmt.Fprintf(w, "0")
+		}
+	}
+
+	fmt.Fprintf(w, "1")
 }
