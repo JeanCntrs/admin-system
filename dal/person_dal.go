@@ -41,6 +41,21 @@ func GetPersonsByFullname(fullname string) []models.Person {
 	return persons
 }
 
+func GetPersonById(id int) models.Person {
+	query := "SELECT * FROM getPersonById($1)"
+	database.OpenConnection()
+	rows, _ := database.Query(query, id)
+	database.CloseConnection()
+
+	person := models.Person{}
+	for rows.Next() {
+		rows.Scan(&person.PersonId, &person.Name, &person.FatherLastName, &person.MotherLastName, &person.TypePersonId, &person.Birthday)
+		person.FormattedBirthday = person.Birthday.Format("02/01/2006")
+	}
+
+	return person
+}
+
 func GetTypePersons() []models.TypePerson {
 	query := "SELECT * FROM getTypePersons()"
 	database.OpenConnection()

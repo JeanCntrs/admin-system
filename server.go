@@ -47,6 +47,7 @@ func main() {
 	r.HandleFunc("/persons/list", handlers.GetPersons)
 	r.HandleFunc("/persons/list/type", handlers.GetTypePersons)
 	r.HandleFunc("/persons/list/name/{fullname}", handlers.GetPersonsByFullname)
+	r.HandleFunc("/persons/list/id/{personId}", handlers.GetPersonById)
 
 	r.HandleFunc("/not-found", func(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)

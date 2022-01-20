@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/JeanCntrs/admin-system/dal"
 	"github.com/JeanCntrs/admin-system/models"
@@ -17,6 +18,16 @@ func Person(w http.ResponseWriter, r *http.Request) {
 
 func GetPersons(w http.ResponseWriter, r *http.Request) {
 	persons := dal.GetPersons()
+	personsByte, _ := json.Marshal(persons)
+	fmt.Fprint(w, string(personsByte))
+}
+
+func GetPersonById(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	PersonId := vars["personId"]
+	personIdConv, _ := strconv.Atoi(PersonId)
+
+	persons := dal.GetPersonById(personIdConv)
 	personsByte, _ := json.Marshal(persons)
 	fmt.Fprint(w, string(personsByte))
 }

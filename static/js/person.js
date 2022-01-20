@@ -39,6 +39,19 @@ const getPersonsByFullname = () => {
     getDataTable(url, tableHeaders, fields, elementId, showBtnEdit, showBtnDelete, propertyName);
 }
 
+const getEntityById = personId => {
+    fetch(`/persons/list/id/${personId}`)
+        .then(response => response.json())
+        .then(response => {
+            document.getElementById('inp_person_id').value = response.PersonId;
+            document.getElementById('inp_person_name').value = response.Name;
+            document.getElementById('inp_father_last_name').value = response.FatherLastName;
+            document.getElementById('inp_mother_last_name').value = response.MotherLastName;
+            document.getElementById('slcTypePerson').value = response.TypePersonId;
+            document.getElementById('inp_birthday').value = response.FormattedBirthday;
+        })
+}
+
 const create = () => {
     const personId = document.getElementById('inp_person_id').value;
     const personName = document.getElementById('inp_person_name').value;
