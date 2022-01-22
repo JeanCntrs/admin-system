@@ -133,7 +133,6 @@ const deleteEntity = (id) => {
                         return;
                     }
 
-                    
                     buildTable();
                     alert('Success', 'Your data has been deleted');
 
