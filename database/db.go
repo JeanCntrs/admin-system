@@ -48,6 +48,15 @@ func Excec(query string, args ...interface{}) (sql.Result, error) {
 	return result, err
 }
 
+func Begin() (*sql.Tx, error) {
+	tx, err := db.Begin()
+	if err != nil {
+		return nil, err
+	}
+
+	return tx, nil
+}
+
 func CloseConnection() {
 	db.Close()
 }
