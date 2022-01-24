@@ -7,6 +7,6 @@ type User struct {
 	PersonId     int
 	RoleTypeId   int
 	RoleTypeName string
-	PersonName   string
+	Fullname     string
 	Errors       []string
 }

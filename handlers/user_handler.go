@@ -1,12 +1,24 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 
 	"github.com/JeanCntrs/admin-system/dal"
 	"github.com/JeanCntrs/admin-system/models"
+	"github.com/JeanCntrs/admin-system/utils"
 )
+
+func User(w http.ResponseWriter, r *http.Request) {
+	utils.RenderTemplate(w, "user", nil)
+}
+
+func GetUsers(w http.ResponseWriter, r *http.Request) {
+	users := dal.GetUsers()
+	usersByte, _ := json.Marshal(users)
+	fmt.Fprint(w, string(usersByte))
+}
 
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 	user := models.User{

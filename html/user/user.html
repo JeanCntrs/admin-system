@@ -1,0 +1,44 @@
+{{define "user"}}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {{template "styles"}}
+    <title>Admin System</title>
+  </head>
+  <body>
+    {{template "menu"}}
+    
+    <div class="container mb-3">
+        <!-- Button trigger modal -->
+        <button
+          type="button"
+          class="btn btn-success"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+          onclick="openModal(0)"
+        >
+          Create
+        </button>
+      </div>
+
+      <div class="input-group mb-3 container">
+        <span class="input-group-text" id="basic-addon3">Username</span>
+        <input
+          type="text"
+          class="form-control"
+          id="inp_search_username"
+          onkeyup="getCountriesByName()"
+          aria-describedby="basic-addon3"
+        />
+      </div>
+      
+      <div id="user_table" class="container"></div>
+
+    {{template "scripts"}}
+    <script src="../../static/js/user.js"></script>
+  </body>
+</html>
+{{end}}

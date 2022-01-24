@@ -50,6 +50,8 @@ func main() {
 	r.HandleFunc("/persons/list/id/{personId}", handlers.GetPersonById)
 	r.HandleFunc("/persons/delete/{id}", handlers.DeletePerson)
 
+	r.HandleFunc("/users", handlers.User)
+	r.HandleFunc("/users/list", handlers.GetUsers)
 	r.HandleFunc("/users/create", handlers.CreateUser)
 
 	r.HandleFunc("/not-found", func(w http.ResponseWriter, r *http.Request) {

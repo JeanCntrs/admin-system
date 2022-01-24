@@ -51,3 +51,25 @@ func RegisterUserTx(user models.User) error {
 
 	return nil
 }
+
+func GetUsers() []models.User {
+	query := `SELECT u.user_id, u.username, p.name||' '||p.father_last_name||' '||p.mother_last_name fullname, rt.name
+	FROM users u INNER JOIN persons p
+	ON p.person_id = u.person_id
+	INNER JOIN role_type rt
+	ON rt.role_type_id = u.role_type_id
+	WHERE u.active = true`
+
+	database.OpenConnection()
+	rows, _ := database.Query(query)
+	database.CloseConnection()
+
+	users := []models.User{}
+	for rows.Next() {
+		user := models.User{}
+		rows.Scan(&user.UserId, &user.Username, &user.Fullname, &user.RoleTypeName)
+		users = append(users, user)
+	}
+
+	return users
+}
