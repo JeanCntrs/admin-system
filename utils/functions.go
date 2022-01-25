@@ -1,6 +1,8 @@
 package utils
 
 import (
+	"crypto/sha256"
+	"encoding/hex"
 	"errors"
 	"fmt"
 	"html/template"
@@ -150,4 +152,11 @@ func ValidateDuplicateDataUpdate(table, field, value, fieldId string, id int) er
 	}
 
 	return nil
+}
+
+func Encrypt(data string) string {
+	encryptedBytes := sha256.Sum256([]byte(data))
+	encryptedData := hex.EncodeToString(encryptedBytes[:])
+
+	return encryptedData
 }

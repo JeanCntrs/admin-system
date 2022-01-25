@@ -5,11 +5,14 @@ import (
 
 	"github.com/JeanCntrs/admin-system/database"
 	"github.com/JeanCntrs/admin-system/models"
+	"github.com/JeanCntrs/admin-system/utils"
 )
 
 func InsertUserTx(user models.User, tx *sql.Tx) error {
+	encryptedPassword := utils.Encrypt(user.Password)
+
 	query := "INSERT INTO users(username, password, person_id, role_type_id, active) values($1, $2, $3, $4, true)"
-	_, err := tx.Exec(query, user.Username, user.Password, user.PersonId, user.RoleTypeId)
+	_, err := tx.Exec(query, user.Username, encryptedPassword, user.PersonId, user.RoleTypeId)
 	if err != nil {
 		return err
 	}
