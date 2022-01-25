@@ -1,44 +1,116 @@
 {{define "user"}}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {{template "styles"}}
-    <title>Admin System</title>
-  </head>
-  <body>
-    {{template "menu"}}
-    
-    <div class="container mb-3">
-        <!-- Button trigger modal -->
-        <button
-          type="button"
-          class="btn btn-success"
-          data-bs-toggle="modal"
-          data-bs-target="#staticBackdrop"
-          onclick="openModal(0)"
-        >
-          Create
-        </button>
-      </div>
 
-      <div class="input-group mb-3 container">
-        <span class="input-group-text" id="basic-addon3">Username</span>
-        <input
-          type="text"
-          class="form-control"
-          id="inp_search_username"
-          onkeyup="getCountriesByName()"
-          aria-describedby="basic-addon3"
-        />
-      </div>
-      
-      <div id="user_table" class="container"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {{template "styles"}}
+  <title>Admin System</title>
+</head>
 
-    {{template "scripts"}}
-    <script src="../../static/js/user.js"></script>
-  </body>
+<body>
+  {{template "menu"}}
+
+  <div class="container mb-3">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+      onclick="openModal(0)">
+      Create
+    </button>
+  </div>
+
+  <div class="input-group mb-3 container">
+    <span class="input-group-text" id="basic-addon3">Username</span>
+    <input type="text" class="form-control" id="inp_search_username" onkeyup="getCountriesByName()"
+      aria-describedby="basic-addon3" />
+  </div>
+
+  <div id="user_table" class="container"></div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="txtModalTitle"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="inp_user_id" class="form-label">User ID</label>
+            <input type="text" class="form-control" id="inp_user_id" readonly />
+          </div>
+          <div class="mb-3">
+            <label for="inp_user_name" class="form-label">User Name</label>
+            <input type="text" class="form-control" id="inp_user_name" placeholder="User Name" />
+          </div>
+          <div class="mb-3">
+            <label for="inp_password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="inp_password" placeholder="Password" />
+          </div>
+          <div class="mb-3">
+            <label for="inp_person" class="form-label">Search Person</label>
+            <div class="input-group mb-3">
+              <input id="inp_person" type="text" class="form-control" placeholder="Person" readonly>
+              <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#staticBackdropSubPopup">Search</button>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="inp_role_type" class="form-label">Search Role Type</label>
+            <div class="input-group mb-3">
+              <input id="inp_role_type" type="text" class="form-control" placeholder="Role Type" readonly>
+              <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#staticBackdropSubPopup">Search</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="create()">Understood</button>
+            <button id="btnCloseModal" type="button" class="btn btn-danger" data-bs-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdropSubPopup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="txtModalTitle"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="inp_role_type" class="form-label">Search Role Type</label>
+            <div class="input-group mb-3">
+              <input id="inp_role_type" type="text" class="form-control" placeholder="Role Type" readonly>
+              <button class="btn btn-outline-success">Search</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="create()">Understood</button>
+            <button id="btnCloseModal" type="button" class="btn btn-danger" data-bs-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{template "scripts"}}
+  <script src="../../static/js/user.js"></script>
+</body>
+
 </html>
 {{end}}
