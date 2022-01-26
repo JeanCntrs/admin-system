@@ -54,6 +54,8 @@ func main() {
 	r.HandleFunc("/users/list", handlers.GetUsers)
 	r.HandleFunc("/users/create", handlers.CreateUser)
 
+	r.HandleFunc("/role-types/list", handlers.GetRoleTypes)
+
 	r.HandleFunc("/not-found", func(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 	})

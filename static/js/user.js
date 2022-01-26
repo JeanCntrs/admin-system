@@ -1,5 +1,6 @@
 window.onload = () => {
     buildTable();
+    buildSelectRoleType();
 }
 
 const buildTable = () => {
@@ -12,4 +13,13 @@ const buildTable = () => {
     const propertyName = 'UserId';
 
     getDataTable(url, tableHeaders, fields, elementId, showBtnEdit, showBtnDelete, propertyName);
+}
+
+const buildSelectRoleType = () => {
+    const url = '/role-types/list';
+    const value = 'RoleTypeId';
+    const name = 'Name';
+    const elementId = 'slcRoleType';
+
+    getDataSelect(url, value, name, elementId);
 }
