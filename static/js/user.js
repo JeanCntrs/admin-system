@@ -1,6 +1,7 @@
 window.onload = () => {
     buildTable();
     buildSelectRoleType();
+    buildSelectPerson();
 }
 
 const buildTable = () => {
@@ -20,6 +21,15 @@ const buildSelectRoleType = () => {
     const value = 'RoleTypeId';
     const name = 'Name';
     const elementId = 'slcRoleType';
+
+    getDataSelect(url, value, name, elementId);
+}
+
+const buildSelectPerson = () => {
+    const url = '/persons/list';
+    const value = 'PersonId';
+    const name = 'Fullname';
+    const elementId = 'slcPerson';
 
     getDataSelect(url, value, name, elementId);
 }
