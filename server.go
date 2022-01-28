@@ -45,6 +45,7 @@ func main() {
 	r.HandleFunc("/persons", handlers.Person)
 	r.HandleFunc("/persons/create", handlers.CreatePerson)
 	r.HandleFunc("/persons/list", handlers.GetPersons)
+	r.HandleFunc("/persons/list/without-user", handlers.GetPersonsWithoutUser)
 	r.HandleFunc("/persons/list/type", handlers.GetTypePersons)
 	r.HandleFunc("/persons/list/name/{fullname}", handlers.GetPersonsByFullname)
 	r.HandleFunc("/persons/list/id/{personId}", handlers.GetPersonById)

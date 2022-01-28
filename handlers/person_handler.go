@@ -22,6 +22,12 @@ func GetPersons(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, string(personsByte))
 }
 
+func GetPersonsWithoutUser(w http.ResponseWriter, r *http.Request) {
+	persons := dal.GetPersonsWithoutUser()
+	personsByte, _ := json.Marshal(persons)
+	fmt.Fprint(w, string(personsByte))
+}
+
 func GetPersonById(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	PersonId := vars["personId"]

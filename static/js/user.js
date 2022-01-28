@@ -26,10 +26,73 @@ const buildSelectRoleType = () => {
 }
 
 const buildSelectPerson = () => {
-    const url = '/persons/list';
+    const url = '/persons/list/without-user';
     const value = 'PersonId';
     const name = 'Fullname';
     const elementId = 'slcPerson';
 
     getDataSelect(url, value, name, elementId);
+}
+
+const create = () => {
+    const userId = document.getElementById('inp_user_id').value;
+    const username = document.getElementById('inp_user_name').value;
+    const password = document.getElementById('inp_password').value;
+    const personId = document.getElementById('slcPerson').value;
+    const roleTypeId = document.getElementById('slcRoleType').value;
+
+    if (username.trim().length === 0) {
+        alert('Username field is required', '', 'error');
+        return;
+    }
+
+    if (password.trim().length === 0) {
+        alert('Password field is required', '', 'error');
+        return;
+    }
+
+    if (personId.trim().length === 0) {
+        alert('Person field is required', '', 'error');
+        return;
+    }
+
+    if (roleTypeId.trim().length === 0) {
+        alert('Role type field is required', '', 'error');
+        return;
+    }
+
+    const user = {
+        userId: userId == '' ? 0 : parseInt(userId),
+        username,
+        password,
+        personId: parseInt(personId),
+        roleTypeId: parseInt(roleTypeId)
+    }
+
+    confirmation().then((result) => {
+        if (result.isConfirmed) {
+            fetch('users/create', {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify(user)
+            })
+                .then(response => response.text())
+                .then(response => {
+                    if (response != '1') {
+                        alert('An error has occurred');
+
+                        return;
+                    }
+
+                    document.getElementById('btnCloseModal').click();
+                    buildTable();
+                    buildSelectPerson();
+                    alert();
+
+                    return;
+                })
+        }
+    })
 }

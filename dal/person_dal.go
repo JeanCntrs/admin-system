@@ -24,6 +24,22 @@ func GetPersons() []models.Person {
 	return persons
 }
 
+func GetPersonsWithoutUser() []models.Person {
+	query := "SELECT * FROM getPersonsWithoutUser()"
+	database.OpenConnection()
+	rows, _ := database.Query(query)
+	database.CloseConnection()
+
+	persons := []models.Person{}
+	for rows.Next() {
+		person := models.Person{}
+		rows.Scan(&person.PersonId, &person.Fullname)
+		persons = append(persons, person)
+	}
+
+	return persons
+}
+
 func GetPersonsByFullname(fullname string) []models.Person {
 	query := "SELECT * FROM getPersonsByFullname($1)"
 	database.OpenConnection()

@@ -21,19 +21,13 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateUser(w http.ResponseWriter, r *http.Request) {
-	user := models.User{
-		UserId:     0,
-		Username:   "username 001",
-		Password:   "pwd",
-		PersonId:   5,
-		RoleTypeId: 1,
-	}
-	// data := json.NewDecoder(r.Body)
-	// err := data.Decode(&user)
+	user := models.User{}
+	data := json.NewDecoder(r.Body)
+	err := data.Decode(&user)
 
-	// if err != nil {
-	// 	panic("An error occurred while decoding country")
-	// }
+	if err != nil {
+		panic("An error occurred while decoding country")
+	}
 
 	if user.UserId == 0 {
 		err := dal.RegisterUserTx(user)
