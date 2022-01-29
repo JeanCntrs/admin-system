@@ -4,6 +4,7 @@ window.onload = () => {
     buildSelectPerson();
 }
 
+
 const buildTable = () => {
     const url = '/users/list';
     const tableHeaders = ['User ID', 'Username', 'Fullname', 'Role Type'];
