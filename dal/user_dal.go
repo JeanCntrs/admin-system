@@ -76,3 +76,17 @@ func GetUsers() []models.User {
 
 	return users
 }
+
+func GetUserById(id int) models.User {
+	query := "SELECT * FROM getUserById($1)"
+	database.OpenConnection()
+	rows, _ := database.Query(query, id)
+	database.CloseConnection()
+
+	user := models.User{}
+	for rows.Next() {
+		rows.Scan(&user.UserId, &user.Username, &user.PersonId, &user.RoleTypeId, &user.RoleTypeName, &user.Fullname)
+	}
+
+	return user
+}

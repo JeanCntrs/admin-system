@@ -19,7 +19,7 @@
         class="btn btn-success"
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
-        onclick="openModal(0)"
+        onclick="openModal(0); showPwd()"
       >
         Create
       </button>
@@ -78,7 +78,7 @@
                 placeholder="User Name"
               />
             </div>
-            <div class="mb-3">
+            <div id="dv_pwd" class="mb-3">
               <label for="inp_password" class="form-label">Password</label>
               <input
                 type="password"

@@ -53,6 +53,7 @@ func main() {
 
 	r.HandleFunc("/users", handlers.User)
 	r.HandleFunc("/users/list", handlers.GetUsers)
+	r.HandleFunc("/users/list/id/{userId}", handlers.GetUserById)
 	r.HandleFunc("/users/create", handlers.CreateUser)
 
 	r.HandleFunc("/role-types/list", handlers.GetRoleTypes)

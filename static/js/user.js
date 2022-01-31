@@ -34,6 +34,24 @@ const buildSelectPerson = () => {
     getDataSelect(url, value, name, elementId);
 }
 
+const getEntityById = userId => {
+    document.getElementById('dv_pwd').style.display = 'none';
+    document.getElementById('inp_password').value = 'pwd';
+    
+    fetch(`/users/list/id/${userId}`)
+        .then(response => response.json())
+        .then(response => {
+            document.getElementById('inp_user_id').value = response.UserId;
+            document.getElementById('inp_user_name').value = response.Username;
+            //document.getElementById('slcPerson').value = response.PersonId;
+            document.getElementById('slcRoleType').value = response.RoleTypeId;
+        })
+}
+
+const showPwd = () => {
+    document.getElementById('dv_pwd').style.display = 'block';
+}
+
 const create = () => {
     const userId = document.getElementById('inp_user_id').value;
     const username = document.getElementById('inp_user_name').value;

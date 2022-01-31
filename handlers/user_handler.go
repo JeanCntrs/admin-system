@@ -4,10 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/JeanCntrs/admin-system/dal"
 	"github.com/JeanCntrs/admin-system/models"
 	"github.com/JeanCntrs/admin-system/utils"
+	"github.com/gorilla/mux"
 )
 
 func User(w http.ResponseWriter, r *http.Request) {
@@ -16,6 +18,16 @@ func User(w http.ResponseWriter, r *http.Request) {
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
 	users := dal.GetUsers()
+	usersByte, _ := json.Marshal(users)
+	fmt.Fprint(w, string(usersByte))
+}
+
+func GetUserById(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	userId := vars["userId"]
+	userIdConv, _ := strconv.Atoi(userId)
+
+	users := dal.GetUserById(userIdConv)
 	usersByte, _ := json.Marshal(users)
 	fmt.Fprint(w, string(usersByte))
 }
