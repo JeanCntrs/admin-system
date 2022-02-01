@@ -57,6 +57,9 @@ func main() {
 	r.HandleFunc("/users/create", handlers.CreateUser)
 	r.HandleFunc("/users/delete/{id}", handlers.DeleteUser)
 
+	r.HandleFunc("/pages", handlers.Page)
+	r.HandleFunc("/pages/list", handlers.GetPages)
+
 	r.HandleFunc("/role-types/list", handlers.GetRoleTypes)
 
 	r.HandleFunc("/not-found", func(w http.ResponseWriter, r *http.Request) {

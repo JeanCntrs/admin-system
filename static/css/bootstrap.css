@@ -341,7 +341,7 @@ textarea {
     resize: vertical
 }
 
-fieldset {
+/* fieldset {
     min-width: 0;
     padding: 0;
     margin: 0;
@@ -355,7 +355,7 @@ legend {
     margin-bottom: .5rem;
     font-size: calc(1.275rem + .3vw);
     line-height: inherit
-}
+} */
 
 @media (min-width:1200px) {
     legend {
