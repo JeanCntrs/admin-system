@@ -46,6 +46,31 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			fmt.Fprintf(w, "0")
 		}
+	} else {
+		_, err := dal.UpdateUser(user)
+		if err != nil {
+			fmt.Fprintf(w, "0")
+		}
+	}
+
+	fmt.Fprintf(w, "1")
+}
+
+func DeleteUser(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	idConv, err := strconv.Atoi(id)
+
+	if err != nil {
+		fmt.Fprintf(w, "0")
+		return
+	}
+
+	_, errorFound := dal.DeleteUser(idConv)
+
+	if errorFound != nil {
+		fmt.Fprintf(w, "0")
+		return
 	}
 
 	fmt.Fprintf(w, "1")

@@ -35,7 +35,8 @@ const buildSelectPerson = () => {
 }
 
 const getEntityById = userId => {
-    document.getElementById('dv_pwd').style.display = 'none';
+    document.getElementById('dv_password').style.display = 'none';
+    document.getElementById('dv_person').style.display = 'none';
     document.getElementById('inp_password').value = 'pwd';
     
     fetch(`/users/list/id/${userId}`)
@@ -48,15 +49,16 @@ const getEntityById = userId => {
         })
 }
 
-const showPwd = () => {
-    document.getElementById('dv_pwd').style.display = 'block';
+const showFields = () => {
+    document.getElementById('dv_password').style.display = 'block';
+    document.getElementById('dv_person').style.display = 'block';
 }
 
 const create = () => {
     const userId = document.getElementById('inp_user_id').value;
     const username = document.getElementById('inp_user_name').value;
     const password = document.getElementById('inp_password').value;
-    const personId = document.getElementById('slcPerson').value;
+    // const personId = document.getElementById('slcPerson').value;
     const roleTypeId = document.getElementById('slcRoleType').value;
 
     if (username.trim().length === 0) {
@@ -69,10 +71,10 @@ const create = () => {
         return;
     }
 
-    if (personId.trim().length === 0) {
-        alert('Person field is required', '', 'error');
-        return;
-    }
+    // if (personId.trim().length === 0) {
+    //     alert('Person field is required', '', 'error');
+    //     return;
+    // }
 
     if (roleTypeId.trim().length === 0) {
         alert('Role type field is required', '', 'error');
@@ -83,7 +85,7 @@ const create = () => {
         userId: userId == '' ? 0 : parseInt(userId),
         username,
         password,
-        personId: parseInt(personId),
+        //personId: parseInt(personId),
         roleTypeId: parseInt(roleTypeId)
     }
 
@@ -108,6 +110,27 @@ const create = () => {
                     buildTable();
                     buildSelectPerson();
                     alert();
+
+                    return;
+                })
+        }
+    })
+}
+
+const deleteEntity = (id) => {
+    confirmation().then((result) => {
+        if (result.isConfirmed) {
+            fetch(`users/delete/${id}`)
+                .then(response => response.text())
+                .then(response => {
+                    if (response != '1') {
+                        alert('An error has occurred', '');
+
+                        return;
+                    }
+
+                    buildTable();
+                    alert('Success', 'Your data has been deleted');
 
                     return;
                 })

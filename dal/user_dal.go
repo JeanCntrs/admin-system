@@ -90,3 +90,23 @@ func GetUserById(id int) models.User {
 
 	return user
 }
+
+func UpdateUser(user models.User) (sql.Result, error) {
+	query := "SELECT updateUser($1, $2, $3)"
+
+	database.OpenConnection()
+	result, err := database.Excec(query, user.UserId, user.Username, user.RoleTypeId)
+	database.CloseConnection()
+
+	return result, err
+}
+
+func DeleteUser(id int) (sql.Result, error) {
+	query := "SELECT deleteUser($1)"
+
+	database.OpenConnection()
+	result, err := database.Excec(query, id)
+	database.CloseConnection()
+
+	return result, err
+}

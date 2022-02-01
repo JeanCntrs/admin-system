@@ -19,7 +19,7 @@
         class="btn btn-success"
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
-        onclick="openModal(0); showPwd()"
+        onclick="openModal(0); showFields()"
       >
         Create
       </button>
@@ -78,7 +78,7 @@
                 placeholder="User Name"
               />
             </div>
-            <div id="dv_pwd" class="mb-3">
+            <div id="dv_password" class="mb-3">
               <label for="inp_password" class="form-label">Password</label>
               <input
                 type="password"
@@ -87,7 +87,7 @@
                 placeholder="Password"
               />
             </div>
-            <div class="mb-3">
+            <div id="dv_person" class="mb-3">
               <label for="slcPerson" class="form-label">Person</label>
               <select id="slcPerson" class="form-select form-control"></select>
             </div>
