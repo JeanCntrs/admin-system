@@ -17,16 +17,17 @@
         <legend>Create Page</legend>
         <div>
           <div class="mb-3">
-            <label for="txtName" class="form-label">Page ID</label>
+            <label for="inp_page_id" class="form-label">Page ID</label>
             <input
               id="inp_page_id"
               type="text"
               class="form-control"
               placeholder="Page ID"
+              readonly
             />
           </div>
           <div class="mb-3">
-            <label for="txtName" class="form-label">Message</label>
+            <label for="inp_message" class="form-label">Message</label>
             <input
               id="inp_message"
               type="text"
@@ -35,7 +36,7 @@
             />
           </div>
           <div class="mb-3">
-            <label for="txtName" class="form-label">Route</label>
+            <label for="inp_route" class="form-label">Route</label>
             <input
               id="inp_route"
               type="text"
@@ -64,6 +65,8 @@
         </div>
       </fieldset>
     </div>
+
+    <div id="page_table" class="container"></div>
 
     {{template "scripts"}}
     <script src="../../static/js/page.js"></script>

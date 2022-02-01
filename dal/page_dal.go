@@ -20,3 +20,17 @@ func GetPages() []models.Page {
 
 	return pages
 }
+
+func GetPageById(id int) models.Page {
+	query := "SELECT * FROM getPageById($1)"
+	database.OpenConnection()
+	rows, _ := database.Query(query, id)
+	database.CloseConnection()
+
+	page := models.Page{}
+	for rows.Next() {
+		rows.Scan(&page.PageId, &page.Message, &page.Route)
+	}
+
+	return page
+}

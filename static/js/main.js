@@ -24,7 +24,7 @@ const confirmation = (title = 'Are you sure?', text = 'If you are sure confirm t
   });
 }
 
-const getDataTable = (url, tableHeaders, fields, elementId, showBtnEdit = false, showBtnDelete = false, propertyName = '', tableId = 'table') => {
+const getDataTable = (url, tableHeaders, fields, elementId, showBtnEdit = false, showBtnDelete = false, propertyName = '', tableId = 'table', isPopup = true) => {
   let table = `<table data-property-name="${propertyName}" id="${tableId}" class="table">`;
 
   fetch(url)
@@ -59,10 +59,14 @@ const getDataTable = (url, tableHeaders, fields, elementId, showBtnEdit = false,
 
           if (showBtnEdit) {
             table += `<a
-                        onclick="openModal(${element[propertyName]}, '${tableId}'); getEntityById(${element[propertyName]})"
                         class="btn btn-primary"
-                        data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop"
+
+                        ${isPopup
+                          ? `data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop"
+                            onclick="openModal(${element[propertyName]}, '${tableId}'); getEntityById(${element[propertyName]})"`
+                          : `onclick="getEntityById(${element[propertyName]})"`
+                        }
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -137,11 +141,11 @@ const getDataSelect = (url, value, name, elementId) => {
 const openModal = (id, tableId = 'table') => {
   clearInputs();
 
-  const propertyName = document.getElementById(`${tableId}`).getAttribute('data-property-name').replace('Id','').toLowerCase();
+  const propertyName = document.getElementById(`${tableId}`).getAttribute('data-property-name').replace('Id', '').toLowerCase();
   if (id == 0) {
-      document.getElementById('txtModalTitle').innerHTML = `Add ${propertyName}`;
+    document.getElementById('txtModalTitle').innerHTML = `Add ${propertyName}`;
   } else {
-      document.getElementById('txtModalTitle').innerHTML = `Edit ${propertyName}`;
+    document.getElementById('txtModalTitle').innerHTML = `Edit ${propertyName}`;
   }
 }
 
@@ -158,5 +162,5 @@ const showDeleteModalById = (id) => {
     if (result.isConfirmed) {
       deleteEntity(id);
     }
-})
+  })
 }
