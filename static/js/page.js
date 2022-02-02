@@ -24,3 +24,51 @@ const getEntityById = pageId => {
             document.getElementById('inp_route').value = response.Route;
         })
 }
+
+const create = () => {
+    const pageId = document.getElementById('inp_page_id').value;
+    const message = document.getElementById('inp_message').value;
+    const route = document.getElementById('inp_route').value;
+
+    if (message.trim().length === 0) {
+        alert('Message field is required', '', 'error');
+        return;
+    }
+
+    if (route.trim().length === 0) {
+        alert('Route field is required', '', 'error');
+        return;
+    }
+
+    const page = {
+        pageId: pageId == '' ? 0 : parseInt(pageId),
+        message,
+        route
+    }
+    
+    confirmation().then((result) => {
+        if (result.isConfirmed) {
+            fetch('pages/create', {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify(page)
+            })
+                .then(response => response.text())
+                .then(response => {
+                    if (response != '1') {
+                        alert('An error has occurred');
+
+                        return;
+                    }
+
+                    buildTable();
+                    clearInputs();
+                    alert();
+
+                    return;
+                })
+        }
+    })
+}

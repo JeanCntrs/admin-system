@@ -1,6 +1,8 @@
 package dal
 
 import (
+	"database/sql"
+
 	"github.com/JeanCntrs/admin-system/database"
 	"github.com/JeanCntrs/admin-system/models"
 )
@@ -33,4 +35,24 @@ func GetPageById(id int) models.Page {
 	}
 
 	return page
+}
+
+func InsertPage(page models.Page) (sql.Result, error) {
+	query := "SELECT insertPage($1, $2)"
+
+	database.OpenConnection()
+	result, err := database.Excec(query, page.Message, page.Route)
+	database.CloseConnection()
+
+	return result, err
+}
+
+func UpdatePage(page models.Page) (sql.Result, error) {
+	query := "SELECT updatePage($1, $2, $3)"
+
+	database.OpenConnection()
+	result, err := database.Excec(query, page.PageId, page.Message, page.Route)
+	database.CloseConnection()
+
+	return result, err
 }
