@@ -38,7 +38,6 @@ func GetPageById(id int) models.Page {
 }
 
 func InsertPage(page models.Page) (sql.Result, error) {
-
 	query := "SELECT insertPage($1, $2)"
 
 	database.OpenConnection()
