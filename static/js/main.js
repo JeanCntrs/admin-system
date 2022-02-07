@@ -24,7 +24,7 @@ const confirmation = (title = 'Are you sure?', text = 'If you are sure confirm t
   });
 }
 
-const getDataTable = (url, tableHeaders, fields, elementId, showBtnEdit = false, showBtnDelete = false, propertyName = '', tableId = 'table', isPopup = true) => {
+const getDataTable = (url, tableHeaders, fields, elementId, showBtnEdit = false, showBtnDelete = false, propertyName = '', tableId = 'table', isPopup = true, isChecked = false) => {
   let table = `<table data-property-name="${propertyName}" id="${tableId}" class="table">`;
 
   fetch(url)
@@ -32,6 +32,11 @@ const getDataTable = (url, tableHeaders, fields, elementId, showBtnEdit = false,
     .then(response => {
       table += '<thead class="table-dark">';
       table += '<tr>';
+
+      if (isChecked) {
+        table += '<th>';
+        table += '</th>';
+      }
 
       tableHeaders.forEach(header => {
         table += `<th>${header}</th>`;
@@ -47,6 +52,12 @@ const getDataTable = (url, tableHeaders, fields, elementId, showBtnEdit = false,
 
       response.forEach(element => {
         table += '<tr>';
+
+        if (isChecked) {
+          table += '<td>';
+          table += '<input type="checkbox" />';
+          table += '</td>';
+        }
 
         fields.forEach(field => {
           table += '<td>';

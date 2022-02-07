@@ -1,0 +1,44 @@
+{{define "create_role_page"}}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {{template "styles"}}
+    <title>Admin System</title>
+  </head>
+  <body>
+    {{template "menu"}}
+
+    <div class="container">
+      <div class="mb-3">
+        <label for="inp_role_type_id">Role Type ID</label>
+        <input id="inp_role_type_id" class="form-control" type="text" readonly/>
+      </div>
+
+      <div class="mb-3">
+        <label for="inp_name_role_type">Name Role Type</label>
+        <input id="inp_name_role_type" class="form-control" type="text" />
+      </div>
+
+      <div class="mb-3">
+        <label for="inp_description" class="form-label">
+           Description
+        </label>
+        <textarea
+          id="inp_description"
+          class="form-control"
+          rows="3"
+        >
+        </textarea>
+      </div>
+
+      <div id="create_role_page_table" class="container"></div>
+    </div>
+
+    {{template "scripts"}}
+    <script src="../../static/js/create_role_page.js"></script>
+  </body>
+</html>
+{{end}}
