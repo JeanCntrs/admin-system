@@ -1,6 +1,7 @@
 package models
 
 type RoleType struct {
-	RoleTypeId int
-	Name       string
+	RoleTypeId  int
+	Name        string
+	Description string
 }

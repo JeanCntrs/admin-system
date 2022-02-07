@@ -1,6 +1,8 @@
 package dal
 
 import (
+	"database/sql"
+
 	"github.com/JeanCntrs/admin-system/database"
 	"github.com/JeanCntrs/admin-system/models"
 )
@@ -8,7 +10,7 @@ import (
 func GetRoleTypes() []models.RoleType {
 	query := `SELECT role_type_id, name
 	FROM role_type
-	WHERE active = true`
+	WHERE active = true `
 
 	database.OpenConnection()
 	rows, _ := database.Query(query)
@@ -22,4 +24,31 @@ func GetRoleTypes() []models.RoleType {
 	}
 
 	return roleTypes
+}
+
+func InsertRoleTypes(roleType models.RoleType, tx *sql.Tx) (int, error) {
+	var roleTypeId int
+	query := `INSERT INTO role_type(name, description, active) value($1, $2, true) returning role_type_id`
+	err := tx.QueryRow(query, roleType.Name, roleType.Description).Scan(&roleTypeId)
+
+	if err != nil {
+		return 0, err
+	}
+
+	return roleTypeId, nil
+}
+
+func InsertRolePages(rolePage models.RolePage, tx *sql.Tx) error {
+	query := `INSERT INTO role_page(role_type_id, page_id, active) value($1, $2, true)`
+	_, err := tx.Exec(query, rolePage.RolePageId, rolePage.PageId)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerRoleType(roleType models.RoleType, listRolePage []models.RolePage) error {
+
 }
