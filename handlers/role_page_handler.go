@@ -13,3 +13,7 @@ func RolePage(w http.ResponseWriter, r *http.Request) {
 func CreateRolePage(w http.ResponseWriter, r *http.Request) {
 	utils.RenderTemplate(w, "create_role_page", nil)
 }
+
+func EditRolePage(w http.ResponseWriter, r *http.Request) {
+	utils.RenderTemplate(w, "edit_role_page", nil)
+}

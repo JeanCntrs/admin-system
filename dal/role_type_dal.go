@@ -8,9 +8,9 @@ import (
 )
 
 func GetRoleTypes() []models.RoleType {
-	query := `SELECT role_type_id, name
+	query := `SELECT role_type_id, name, description
 	FROM role_type
-	WHERE active = true `
+	WHERE active = true`
 
 	database.OpenConnection()
 	rows, _ := database.Query(query)
@@ -19,11 +19,28 @@ func GetRoleTypes() []models.RoleType {
 	roleTypes := []models.RoleType{}
 	for rows.Next() {
 		roleType := models.RoleType{}
-		rows.Scan(&roleType.RoleTypeId, &roleType.Name)
+		rows.Scan(&roleType.RoleTypeId, &roleType.Name, &roleType.Description)
 		roleTypes = append(roleTypes, roleType)
 	}
 
 	return roleTypes
+}
+
+func GetRoleTypeById(id int) models.RoleType {
+	query := `SELECT role_type_id, name, description
+	FROM role_type
+	WHERE role_type_id = $1`
+
+	database.OpenConnection()
+	rows, _ := database.Query(query, id)
+	database.CloseConnection()
+
+	roleType := models.RoleType{}
+	for rows.Next() {
+		rows.Scan(&roleType.RoleTypeId, &roleType.Name, &roleType.Description)
+	}
+
+	return roleType
 }
 
 func InsertRoleTypes(roleType models.RoleType, tx *sql.Tx) (int, error) {
@@ -57,6 +74,7 @@ func RegisterRoleType(roleType models.RoleType, listRolePage []models.RolePage) 
 	}
 
 	roleTypeId, insertRoleTypeError := InsertRoleTypes(roleType, tx)
+
 	if insertRoleTypeError != nil {
 		tx.Rollback()
 		return insertRoleTypeError

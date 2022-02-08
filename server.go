@@ -64,9 +64,11 @@ func main() {
 
 	r.HandleFunc("/role-page", handlers.RolePage)
 	r.HandleFunc("/role-page/create", handlers.CreateRolePage)
+	r.HandleFunc("/role-page/edit/{rolePageId}", handlers.EditRolePage)
 
 	r.HandleFunc("/role-types/create", handlers.CreateRoleType)
 	r.HandleFunc("/role-types/list", handlers.GetRoleTypes)
+	r.HandleFunc("/role-types/list/id/{roleTypeId}", handlers.GetRoleTypeById)
 
 	r.HandleFunc("/not-found", func(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)

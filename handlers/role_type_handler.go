@@ -9,6 +9,7 @@ import (
 
 	"github.com/JeanCntrs/admin-system/dal"
 	"github.com/JeanCntrs/admin-system/models"
+	"github.com/gorilla/mux"
 )
 
 func GetRoleTypes(w http.ResponseWriter, r *http.Request) {
@@ -43,4 +44,14 @@ func CreateRoleType(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Fprintf(w, "1")
+}
+
+func GetRoleTypeById(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	roloeTypeId := vars["roleTypeId"]
+	roloeTypeIdConv, _ := strconv.Atoi(roloeTypeId)
+
+	roleTypes := dal.GetRoleTypeById(roloeTypeIdConv)
+	roleTypesByte, _ := json.Marshal(roleTypes)
+	fmt.Fprint(w, string(roleTypesByte))
 }
