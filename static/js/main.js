@@ -55,7 +55,7 @@ const getDataTable = (url, tableHeaders, fields, elementId, showBtnEdit = false,
 
         if (isChecked) {
           table += '<td>';
-          table += '<input type="checkbox" />';
+          table += `<input id="chk${element[propertyName]}" class="checkbox" type="checkbox" />`;
           table += '</td>';
         }
 
@@ -73,11 +73,11 @@ const getDataTable = (url, tableHeaders, fields, elementId, showBtnEdit = false,
                         class="btn btn-primary"
 
                         ${isPopup
-                          ? `data-bs-toggle="modal"
+                ? `data-bs-toggle="modal"
                             data-bs-target="#staticBackdrop"
                             onclick="openModal(${element[propertyName]}, '${tableId}'); getEntityById(${element[propertyName]})"`
-                          : `onclick="getEntityById(${element[propertyName]})"`
-                        }
+                : `onclick="getEntityById(${element[propertyName]})"`
+              }
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -174,4 +174,22 @@ const showDeleteModalById = (id) => {
       deleteEntity(id);
     }
   })
+}
+
+const getSelectedCheckbox = () => {
+  const checkboxList = document.getElementsByClassName('checkbox');
+  let idsString = '';
+
+  for (let index = 0; index < checkboxList.length; index++) {
+    const checkbox = checkboxList[index];
+    
+    if (checkbox.checked === true) {
+      idsString += `${checkbox.id.replace('chk', '')}*`
+    }
+  }
+
+  if (idsString.length > 0) idsString = idsString.substring(0, idsString.length - 1);
+  
+
+  return idsString;
 }
