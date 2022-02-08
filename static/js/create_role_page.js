@@ -21,7 +21,7 @@ const showAlert = () => {
     const nameRoleType = document.getElementById('inp_name_role_type').value;
     const description = document.getElementById('inp_description').value;
     const selectedCheckbox = getSelectedCheckbox();
-    console.log('selectedCheckbox', selectedCheckbox);
+    
     if (nameRoleType.trim().length === 0) {
         alert('Name role type field is required', '', 'error');
         return;
@@ -34,13 +34,32 @@ const showAlert = () => {
 
     const roleType = {
         roleTypeId: roleTypeId == '' ? 0 : parseInt(roleTypeId),
-        nameRoleType,
-        description
+        name: nameRoleType,
+        description,
+        pagesId: selectedCheckbox
     }
 
     confirmation().then((result) => {
         if (result.isConfirmed) {
-            // document.getElementById('frmCreateCategory').submit();
+            fetch('/role-types/create', {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify(roleType)
+            })
+                .then(response => response.text())
+                .then(response => {
+                    if (response != '1') {
+                        alert('An error has occurred');
+
+                        return;
+                    }
+
+                    document.location.href = '/role-page';
+
+                    return;
+                })
         }
     })
 }

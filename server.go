@@ -65,7 +65,7 @@ func main() {
 	r.HandleFunc("/role-page", handlers.RolePage)
 	r.HandleFunc("/role-page/create", handlers.CreateRolePage)
 
-	r.HandleFunc("/role-types/create", handlers.CreateUserType)
+	r.HandleFunc("/role-types/create", handlers.CreateRoleType)
 	r.HandleFunc("/role-types/list", handlers.GetRoleTypes)
 
 	r.HandleFunc("/not-found", func(w http.ResponseWriter, r *http.Request) {
