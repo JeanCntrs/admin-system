@@ -16,6 +16,6 @@ const buildTable = () => {
     getDataTable(url, tableHeaders, fields, elementId, showBtnEdit, showBtnDelete, propertyName, undefined, isPopup, isChecked);
 }
 
-const getEntityById = rolePageId => {
-    window.localtion.href = `/role-page/edit?rolePageId=${rolePageId}`;
+const getEntityById = roleTypeId => {
+    window.location.href = `/role-page/edit/${roleTypeId}`;
 }

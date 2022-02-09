@@ -64,7 +64,8 @@ func main() {
 
 	r.HandleFunc("/role-page", handlers.RolePage)
 	r.HandleFunc("/role-page/create", handlers.CreateRolePage)
-	r.HandleFunc("/role-page/edit/{rolePageId}", handlers.EditRolePage)
+	r.HandleFunc("/role-page/list/id/{roleTypeId}", handlers.GetPageByRoleTypeId)
+	r.HandleFunc("/role-page/edit/{roleTypeId}", handlers.EditRolePage)
 
 	r.HandleFunc("/role-types/create", handlers.CreateRoleType)
 	r.HandleFunc("/role-types/list", handlers.GetRoleTypes)

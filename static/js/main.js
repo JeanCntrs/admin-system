@@ -24,7 +24,7 @@ const confirmation = (title = 'Are you sure?', text = 'If you are sure confirm t
   });
 }
 
-const getDataTable = (url, tableHeaders, fields, elementId, showBtnEdit = false, showBtnDelete = false, propertyName = '', tableId = 'table', isPopup = true, isChecked = false) => {
+const getDataTable = (url, tableHeaders, fields, elementId, showBtnEdit = false, showBtnDelete = false, propertyName = '', tableId = 'table', isPopup = true, isChecked = false, isCallback = false, callback) => {
   let table = `<table data-property-name="${propertyName}" id="${tableId}" class="table">`;
 
   fetch(url)
@@ -132,6 +132,10 @@ const getDataTable = (url, tableHeaders, fields, elementId, showBtnEdit = false,
       table += '</table>';
       document.getElementById(elementId).innerHTML = table;
       paginate(`${tableId}`);
+
+      if (isCallback) {
+        callback();
+      }
     })
 }
 
