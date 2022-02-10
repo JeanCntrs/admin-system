@@ -21,7 +21,7 @@
               <input
                 class="input100"
                 type="text"
-                id="inp_user"
+                id="inp_username"
                 placeholder="Username"
               />
               <span class="focus-input100"></span>
@@ -47,7 +47,7 @@
             </div>
 
             <div class="container-login100-form-btn m-t-17">
-              <button class="login100-form-btn" onclick="Ingresar()">
+              <button class="login100-form-btn" onclick="login()">
                 Login
               </button>
             </div>
@@ -55,6 +55,9 @@
         </div>
       </div>
     </div>
+
+    {{template "scripts"}}
+    <script src="../../static/js/login.js"></script>
   </body>
 </html>
 {{end}}

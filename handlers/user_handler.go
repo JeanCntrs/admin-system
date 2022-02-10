@@ -84,9 +84,9 @@ func EnterUser(w http.ResponseWriter, r *http.Request) {
 	encryptedPassword := utils.Encrypt(password)
 	foundUser := dal.ValidateExistingUser(username, encryptedPassword)
 	if foundUser == "1" {
-		fmt.Fprintf(w, "1")
-		return
+		userId := dal.GetUserId(username, encryptedPassword)
+		utils.CreateCookie(w, "userId", userId)
 	}
 
-	fmt.Fprintf(w, "0")
+	fmt.Fprint(w, foundUser)
 }

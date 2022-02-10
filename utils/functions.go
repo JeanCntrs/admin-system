@@ -160,3 +160,24 @@ func Encrypt(data string) string {
 
 	return encryptedData
 }
+
+func CreateCookie(w http.ResponseWriter, name, value string) {
+	cookie := &http.Cookie{
+		Name:  name,
+		Value: value,
+		Path:  "/",
+	}
+
+	http.SetCookie(w, cookie)
+}
+
+func DeleteCookie(w http.ResponseWriter, name, value string) {
+	cookie := &http.Cookie{
+		Name:   name,
+		Value:  value,
+		Path:   "/",
+		MaxAge: -1,
+	}
+
+	http.SetCookie(w, cookie)
+}
