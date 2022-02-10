@@ -75,3 +75,18 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Fprintf(w, "1")
 }
+
+func EnterUser(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	username := vars["username"]
+	password := vars["password"]
+
+	encryptedPassword := utils.Encrypt(password)
+	foundUser := dal.ValidateExistingUser(username, encryptedPassword)
+	if foundUser == "1" {
+		fmt.Fprintf(w, "1")
+		return
+	}
+
+	fmt.Fprintf(w, "0")
+}

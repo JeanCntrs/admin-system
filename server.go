@@ -17,6 +17,9 @@ func main() {
 
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
+	r.HandleFunc("/", handlers.Login)
+	r.HandleFunc("/login/{username}/{password}", handlers.EnterUser)
+
 	r.HandleFunc("/products", handlers.Product)
 	r.HandleFunc("/products/create", handlers.CreateProduct)
 	r.HandleFunc("/products/save", handlers.SaveProduct)

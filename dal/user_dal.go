@@ -2,6 +2,8 @@ package dal
 
 import (
 	"database/sql"
+	"fmt"
+	"strconv"
 
 	"github.com/JeanCntrs/admin-system/database"
 	"github.com/JeanCntrs/admin-system/models"
@@ -109,4 +111,30 @@ func DeleteUser(id int) (sql.Result, error) {
 	database.CloseConnection()
 
 	return result, err
+}
+
+func ValidateExistingUser(username, password string) string {
+	query := "SELECT COUNT(*) FROM users WHERE username = $1 AND password = $2"
+
+	database.OpenConnection()
+	quantity, err := database.QueryRow(query, username, password)
+	if err != nil {
+		fmt.Println("Validate User Error: ", err)
+		return "0"
+	}
+
+	return strconv.Itoa(quantity)
+}
+
+func GetUserId(username, password string) string {
+	query := "SELECT user_id FROM users WHERE username = $1 AND password = $2"
+
+	database.OpenConnection()
+	userId, err := database.QueryRow(query, username, password)
+	if err != nil {
+		fmt.Println("Validate User Error: ", err)
+		return "0"
+	}
+
+	return strconv.Itoa(userId)
 }
