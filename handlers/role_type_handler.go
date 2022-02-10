@@ -28,16 +28,24 @@ func CreateRoleType(w http.ResponseWriter, r *http.Request) {
 		panic("An error occurred while decoding role type")
 	}
 
-	pagesId := strings.Split(roleType.PagesId, "*")
+	if roleType.PagesId != "" {
+		pagesId := strings.Split(roleType.PagesId, "*")
 
-	for _, v := range pagesId {
-		id, _ := strconv.Atoi(v)
-		pageRoles = append(pageRoles, models.RolePage{PageId: id})
+		for _, v := range pagesId {
+			id, _ := strconv.Atoi(v)
+			pageRoles = append(pageRoles, models.RolePage{PageId: id, RoleTypeId: roleType.RoleTypeId})
+		}
 	}
 
 	if roleType.RoleTypeId == 0 {
 		registerError := dal.RegisterRoleType(roleType, pageRoles)
 		if registerError != nil {
+			fmt.Fprintf(w, "0")
+			return
+		}
+	} else {
+		updateError := dal.UpdateRoletypeItems(roleType, pageRoles)
+		if updateError != nil {
 			fmt.Fprintf(w, "0")
 			return
 		}

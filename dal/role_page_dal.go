@@ -6,7 +6,7 @@ import (
 )
 
 func GetPageByRoleTypeId(id int) []models.RolePage {
-	query := "SELECT page_id FROM role_page WHERE role_type_id = $1"
+	query := "SELECT page_id FROM role_page WHERE role_type_id = $1 AND active = true"
 
 	database.OpenConnection()
 	rows, _ := database.Query(query, id)
