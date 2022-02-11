@@ -1,4 +1,5 @@
 window.onload = () => {
+    createMenu()
     paginate('table');
 }
 

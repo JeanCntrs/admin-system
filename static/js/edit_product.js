@@ -1,4 +1,6 @@
 window.onload = () => {
+    createMenu();
+    
     document.getElementById('slcCategory').value = document.getElementById('slcCategory').getAttribute('data-id');
 }
 

@@ -1,4 +1,6 @@
 window.onload = () => {
+    createMenu();
+    
     paginate('table');
 
     const categoryId = document.getElementById("categoryIdSearched").value;

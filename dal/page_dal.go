@@ -56,3 +56,27 @@ func UpdatePage(page models.Page) (sql.Result, error) {
 
 	return result, err
 }
+
+func GetPagesByUserId(id int) []models.Page {
+	query := `SELECT p.page_id, p.message, p.route
+	FROM users u INNER JOIN role_type rt
+	ON rt.role_type_id = u.role_type_id
+	INNER JOIN role_page rp
+	ON rp.role_type_id = rt.role_type_id
+	INNER JOIN pages p
+	ON p.page_id = rp.page_id
+	WHERE u.user_id = $1 and p.active = true`
+
+	database.OpenConnection()
+	rows, _ := database.Query(query, id)
+	database.CloseConnection()
+
+	pages := []models.Page{}
+	for rows.Next() {
+		page := models.Page{}
+		rows.Scan(&page.PageId, &page.Message, &page.Route)
+		pages = append(pages, page)
+	}
+
+	return pages
+}

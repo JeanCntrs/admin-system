@@ -55,3 +55,18 @@ func CreatePage(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Fprintf(w, "1")
 }
+
+func CreateMenu(w http.ResponseWriter, r *http.Request) {
+	cookie, err := r.Cookie("userId")
+	if err != nil {
+		fmt.Println("Error: ", err)
+		return
+	}
+
+	userId, _ := strconv.Atoi(cookie.Value)
+	pages := dal.GetPagesByUserId(userId)
+	pagesBytes, _ := json.Marshal(pages)
+
+	fmt.Fprint(w, string(pagesBytes))
+
+}

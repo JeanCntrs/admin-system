@@ -21,6 +21,8 @@ func main() {
 	r.HandleFunc("/logout", handlers.Logout)
 	r.HandleFunc("/login/{username}/{password}", handlers.EnterUser)
 
+	r.HandleFunc("/menu/create", handlers.CreateMenu)
+
 	r.HandleFunc("/products", handlers.Product)
 	r.HandleFunc("/products/create", handlers.CreateProduct)
 	r.HandleFunc("/products/save", handlers.SaveProduct)

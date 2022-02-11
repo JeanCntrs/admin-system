@@ -1,4 +1,6 @@
 window.onload = () => {
+    createMenu();
+    
     const categoryId = document.getElementById('slcCategory').getAttribute('data-id');
     
     if (categoryId != '0') {

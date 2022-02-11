@@ -186,14 +186,38 @@ const getSelectedCheckbox = () => {
 
   for (let index = 0; index < checkboxList.length; index++) {
     const checkbox = checkboxList[index];
-    
+
     if (checkbox.checked === true) {
       idsString += `${checkbox.id.replace('chk', '')}*`
     }
   }
 
   if (idsString.length > 0) idsString = idsString.substring(0, idsString.length - 1);
-  
+
 
   return idsString;
+}
+
+const createMenu = () => {
+  if (document.getElementById('ul_menu')) {
+    fetch(`/menu/create`)
+      .then(response => response.json())
+      .then(response => {
+        let html = '';
+
+        for (let index = 0; index < response.length; index++) {
+          const page = response[index];
+
+          html += `<li class="nav-item">
+              <a class="nav-link active" href="${page.Route}">${page.Message}</a>
+            </li>`
+        }
+
+        html += `<li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li> `
+
+        document.getElementById('ul_menu').innerHTML = html;
+      })
+  }
 }
