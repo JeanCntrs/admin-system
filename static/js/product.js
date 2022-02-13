@@ -1,3 +1,13 @@
+const socket = new WebSocket('ws://localhost:8000/socket');
+
+socket.onopen = () => {
+    document.getElementById('lbl_ws_status').innerHTML = 'Connected';
+}
+
+socket.onclose = () => {
+    document.getElementById('lbl_ws_status').innerHTML = 'Disconnected';
+}
+
 window.onload = () => {
     createMenu();
     

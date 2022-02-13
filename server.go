@@ -7,6 +7,7 @@ import (
 	"github.com/JeanCntrs/admin-system/dal"
 	"github.com/JeanCntrs/admin-system/handlers"
 	"github.com/gorilla/mux"
+	"github.com/gorilla/websocket"
 )
 
 func main() {
@@ -91,6 +92,32 @@ func main() {
 		for i, v := range categoryList {
 			fmt.Println("i", i)
 			fmt.Println("v", v.Name)
+		}
+	})
+
+	upgrader := websocket.Upgrader{
+		ReadBufferSize:  1024,
+		WriteBufferSize: 1024,
+	}
+
+	clients := make(map[*websocket.Conn]bool)
+
+	r.HandleFunc("/socket", func(w http.ResponseWriter, r *http.Request) {
+		ws, _ := upgrader.Upgrade(w, r, nil)
+		clients[ws] = true
+
+		for {
+			msgType, message, err := ws.ReadMessage()
+			if err != nil {
+				delete(clients, ws)
+			}
+
+			for client := range clients {
+				err := client.WriteMessage(msgType, message)
+				if err != nil {
+					return
+				}
+			}
 		}
 	})
 

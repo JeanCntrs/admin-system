@@ -12,6 +12,7 @@
 
   <body>
     {{template "menu"}}
+
     <input type="hidden" id="categoryIdSearched" value="{{.CategoryId}}" />
     <form method="post" action="/products" class="container">
       <a href="/products/create" class="btn btn-success mb-3 center">Create</a>
@@ -26,6 +27,7 @@
       </div>
     </form>
     <div class="container mt-4">
+      <label id="lbl_ws_status"></label>
       <table id="table" class="table">
         <thead class="table-dark">
           <tr>

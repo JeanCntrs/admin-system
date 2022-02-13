@@ -203,7 +203,6 @@ const createMenu = () => {
     fetch(`/menu/create`)
       .then(response => response.json())
       .then(response => {
-        
         let html = '';
 
         for (let index = 0; index < response.length; index++) {
