@@ -1,6 +1,26 @@
+const socket = new WebSocket('ws://localhost:8000/socket');
+
+socket.onopen = () => {
+    document.getElementById('lbl_ws_status').innerHTML = 'Connected';
+}
+
+socket.onclose = () => {
+    document.getElementById('lbl_ws_status').innerHTML = 'Disconnected';
+}
+
 window.onload = () => {
     createMenu();
     listCountries();
+}
+
+socket.onmessage = (event) => {
+    const data = event.data;
+
+    if (data == 'createCountry' || data == 'deleteCountry') {
+        setTimeout(() => {
+            listCountries();
+        }, 1000);
+    }
 }
 
 const listCountries = () => {
@@ -78,8 +98,9 @@ const create = () => {
                     }
 
                     document.getElementById('btnCloseModal').click();
-                    listCountries();
                     alert();
+
+                    socket.send('createCountry');
 
                     return;
                 })
@@ -99,8 +120,9 @@ const deleteEntity = (id) => {
                         return;
                     }
 
-                    listCountries();
                     alert('Success', 'Your data has been deleted');
+
+                    socket.send('deleteCountry');
 
                     return;
                 })

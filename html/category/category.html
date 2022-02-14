@@ -12,7 +12,7 @@
 
   <body>
     {{template "menu"}}
-    <form method="post" action="/categories" class="container">
+    <form method="post" action="/categories" id="frm_category" class="container">
       <a href="/categories/create" class="btn btn-success mb-3 center">Create</a>
       <div class="input-group mb-3">
         <input
@@ -32,6 +32,7 @@
       </div>
     </form>
     <div class="container mt-4">
+      <label id="lbl_ws_status"></label>
       <table id="table" class="table">
         <thead class="table-dark">
           <tr>

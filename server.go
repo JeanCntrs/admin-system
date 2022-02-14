@@ -110,6 +110,7 @@ func main() {
 			msgType, message, err := ws.ReadMessage()
 			if err != nil {
 				delete(clients, ws)
+				return
 			}
 
 			for client := range clients {

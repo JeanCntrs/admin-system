@@ -1,3 +1,5 @@
+const socket = new WebSocket('ws://localhost:8000/socket');
+
 const showAlert = () => {
     const categoryName = document.getElementById('txtName').value;
     const categoryDescription = document.getElementById('txtDescription').value;
@@ -14,6 +16,7 @@ const showAlert = () => {
 
     confirmation().then((result) => {
         if (result.isConfirmed) {
+            socket.send('editCategory');
             document.getElementById('frmCreateCategory').submit();
         }
     })
