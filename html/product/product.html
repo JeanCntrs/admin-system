@@ -14,7 +14,7 @@
     {{template "menu"}}
 
     <input type="hidden" id="categoryIdSearched" value="{{.CategoryId}}" />
-    <form method="post" action="/products" class="container">
+    <form method="post" action="/products" id="frm_product" class="container">
       <a href="/products/create" class="btn btn-success mb-3 center">Create</a>
       <div class="input-group">
         <select class="form-select" id="categoryId" name="categoryId">

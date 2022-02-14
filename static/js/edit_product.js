@@ -1,3 +1,5 @@
+const socket = new WebSocket('ws://localhost:8000/socket');
+
 window.onload = () => {
     createMenu();
     
@@ -8,6 +10,7 @@ const showAlert = () => {
     confirmation().then((result) => {
         if (result.isConfirmed) {
             document.getElementById('frmEditProduct').submit();
+            socket.send('editProduct');
         }
     })
 }
