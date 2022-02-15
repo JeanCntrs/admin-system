@@ -1,3 +1,5 @@
+const socket = new WebSocket('ws://localhost:8000/socket');
+
 window.onload = () => {
     createMenu();
     buildTable();
@@ -56,6 +58,8 @@ const showAlert = () => {
 
                         return;
                     }
+
+                    socket.send('createRoleType');
 
                     document.location.href = '/role-page';
 

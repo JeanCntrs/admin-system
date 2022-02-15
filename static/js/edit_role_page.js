@@ -1,3 +1,5 @@
+const socket = new WebSocket('ws://localhost:8000/socket');
+
 window.onload = () => {
     createMenu();
     getEntityById();
@@ -88,6 +90,8 @@ const showAlert = () => {
 
                         return;
                     }
+
+                    socket.send('editRoleType');
 
                     document.location.href = '/role-page';
 
