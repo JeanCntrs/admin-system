@@ -1,11 +1,37 @@
+const socket = new WebSocket('ws://localhost:8000/socket');
+
+socket.onopen = () => {
+    document.getElementById('lbl_ws_status').innerHTML = 'Connected';
+}
+
+socket.onclose = () => {
+    document.getElementById('lbl_ws_status').innerHTML = 'Disconnected';
+}
+
+socket.onmessage = (event) => {
+    const data = event.data;
+
+    if (data == 'createProvider') {
+        const tableId = 'table';
+        const currentPageIndex = getCurrentPageIndex(tableId);
+
+        buildTable(() => {
+            getCurrentPage(tableId, currentPageIndex);
+        });
+    } else if (data == 'createCountry') {
+        buildSelectSearch();
+        buildSelect();
+    }
+}
+
 window.onload = () => {
     createMenu();
-    buildTable();
+    buildTable(() => { });
     buildSelectSearch();
     buildSelect();
 }
 
-const buildTable = () => {
+const buildTable = (callback) => {
     const url = '/providers/list';
     const tableHeaders = ['Provider ID', 'Name', 'Phone', 'Country Name'];
     const fields = ['ProviderId', 'Name', 'Phone', 'CountryName'];
@@ -13,8 +39,13 @@ const buildTable = () => {
     const showBtnEdit = true;
     const showBtnDelete = true;
     const propertyName = 'ProviderId';
+    const isPopup = true;
+    const isChecked = false;
+    const isCallback = true;
 
-    getDataTable(url, tableHeaders, fields, elementId, showBtnEdit, showBtnDelete, propertyName);
+    getDataTable(url, tableHeaders, fields, elementId, showBtnEdit, showBtnDelete, propertyName, undefined, isPopup, isChecked, isCallback, () => {
+        callback();
+    });
 }
 
 const buildSelectSearch = () => {
@@ -134,6 +165,8 @@ const create = () => {
 
                         return;
                     }
+
+                    socket.send('createProvider');
 
                     document.getElementById('btnCloseModal').click();
                     buildTable();
