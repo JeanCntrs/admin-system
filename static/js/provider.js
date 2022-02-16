@@ -11,7 +11,7 @@ socket.onclose = () => {
 socket.onmessage = (event) => {
     const data = event.data;
 
-    if (data == 'createProvider') {
+    if (data == 'createProvider' || data == 'deleteProvider') {
         const tableId = 'table';
         const currentPageIndex = getCurrentPageIndex(tableId);
 
@@ -169,7 +169,7 @@ const create = () => {
                     socket.send('createProvider');
 
                     document.getElementById('btnCloseModal').click();
-                    buildTable();
+        
                     alert();
 
                     return;
@@ -190,8 +190,9 @@ const deleteEntity = (id) => {
                         return;
                     }
 
-                    buildTable();
                     alert('Success', 'Your data has been deleted');
+
+                    socket.send('deleteProvider');
 
                     return;
                 })

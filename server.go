@@ -68,6 +68,7 @@ func main() {
 	r.HandleFunc("/pages/list", handlers.GetPages)
 	r.HandleFunc("/pages/list/id/{pageId}", handlers.GetPageById)
 	r.HandleFunc("/pages/create", handlers.CreatePage)
+	r.HandleFunc("/pages/delete/{id}", handlers.DeletePage)
 
 	r.HandleFunc("/role-page", handlers.RolePage)
 	r.HandleFunc("/role-page/create", handlers.CreateRolePage)

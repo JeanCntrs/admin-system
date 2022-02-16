@@ -11,7 +11,7 @@ socket.onclose = () => {
 socket.onmessage = (event) => {
     const data = event.data;
 
-    if (data == 'createPage') {
+    if (data == 'createPage' || data == 'deletePage') {
         const tableId = 'table';
         const currentPageIndex = getCurrentPageIndex(tableId);
 
@@ -76,7 +76,7 @@ const create = () => {
 
     confirmation().then((result) => {
         if (result.isConfirmed) {
-            fetch('pages/create', {
+            fetch('/pages/create', {
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -95,6 +95,29 @@ const create = () => {
 
                     clearInputs();
                     alert();
+
+                    return;
+                })
+        }
+    })
+}
+
+const deleteEntity = (id) => {
+    confirmation().then((result) => {
+        if (result.isConfirmed) {
+            fetch(`/pages/delete/${id}`)
+                .then(response => response.text())
+                .then(response => {
+                    console.log('response',response);
+                    if (response != '1') {
+                        alert('An error has occurred', '');
+
+                        return;
+                    }
+
+                    alert('Success', 'Your data has been deleted');
+
+                    socket.send('deletePage');
 
                     return;
                 })

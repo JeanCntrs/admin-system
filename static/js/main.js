@@ -237,6 +237,13 @@ const getCurrentPage = (tableId, currentPageIndex) => {
         break;
       } else {
         document.getElementById(`${tableId}_next`).click();
+        bucleIndexNextPage = document.querySelector(`#${tableId}_paginate .current`).innerHTML;
+
+        if (bucleIndex == bucleIndexNextPage) {
+          found = true;
+
+          break;
+        }
       }
     }
 

@@ -68,5 +68,24 @@ func CreateMenu(w http.ResponseWriter, r *http.Request) {
 	pagesBytes, _ := json.Marshal(pages)
 
 	fmt.Fprint(w, string(pagesBytes))
+}
 
+func DeletePage(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	idConv, err := strconv.Atoi(id)
+
+	if err != nil {
+		fmt.Fprintf(w, "0")
+		return
+	}
+
+	_, errorFound := dal.DeletePage(idConv)
+
+	if errorFound != nil {
+		fmt.Fprintf(w, "0")
+		return
+	}
+
+	fmt.Fprintf(w, "1")
 }

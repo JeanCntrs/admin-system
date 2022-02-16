@@ -80,3 +80,13 @@ func GetPagesByUserId(id int) []models.Page {
 
 	return pages
 }
+
+func DeletePage(id int) (sql.Result, error) {
+	query := "UPDATE pages SET active = false WHERE page_id = $1"
+
+	database.OpenConnection()
+	result, err := database.Excec(query, id)
+	database.CloseConnection()
+
+	return result, err
+}
