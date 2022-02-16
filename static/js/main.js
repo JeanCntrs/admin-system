@@ -221,3 +221,32 @@ const createMenu = () => {
       })
   }
 }
+
+const getCurrentPage = (tableId, currentPageIndex) => {
+  while (true) {
+    const selectorAll = document.querySelectorAll(`#${tableId}_paginate :not(#${tableId}_previous) a`);
+    let bucleIndex
+    let found = false
+
+    for (let i = 0; i < selectorAll.length; i++) {
+      bucleIndex = document.querySelector(`#${tableId}_paginate .current`).innerHTML;
+
+      if (bucleIndex == currentPageIndex) {
+        found = true;
+
+        break;
+      } else {
+        document.getElementById(`${tableId}_next`).click();
+      }
+    }
+
+    if (found) break;
+  }
+}
+
+const getCurrentPageIndex = (tableId) => {
+  const element = document.querySelector(`#${tableId}_paginate .current`);
+  const currentPageIndex = element.innerHTML;
+
+  return currentPageIndex;
+}

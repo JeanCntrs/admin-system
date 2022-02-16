@@ -10,32 +10,13 @@ socket.onclose = () => {
 
 socket.onmessage = (event) => {
     const data = event.data;
-    
+
     if (data == 'createRoleType' || data == 'editRoleType') {
-        const element = document.getElementsByClassName('paginate_button current')[0];
-        const currentPage = element.innerHTML;
-        
+        const tableId = 'table';
+        const currentPageIndex = getCurrentPageIndex(tableId);
+
         buildTable(() => {
-            while (true) {
-                const selectorAll = document.querySelectorAll('#table_paginate :not(#table_previous) a');
-                let link, bucleIndex
-                let found = false
-
-                for (let i = 0; i < selectorAll.length; i++) {
-                    link = selectorAll[i];
-                    bucleIndex = document.getElementsByClassName('paginate_button current')[0].innerHTML;
-
-                    if (bucleIndex == currentPage) {
-                        found = true;
-
-                        break;
-                    } else {
-                        document.getElementById('table_next').click();
-                    }
-                }
-
-                if (found) break;
-            }
+            getCurrentPage(tableId, currentPageIndex);
         });
     }
 }
