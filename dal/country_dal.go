@@ -66,16 +66,6 @@ func InsertCountry(country models.Country) (sql.Result, error) {
 func UpdateCountry(country models.Country) (sql.Result, error) {
 	query := "SELECT updateCountry($1, $2, $3)"
 
-	// errorFound := models.MaxNameCharacters(name)
-	// if errorFound != nil {
-	// 	return nil, errorFound
-	// }
-
-	// errorFound = models.MaxDescriptionCharacters(capital)
-	// if errorFound != nil {
-	// 	return nil, errorFound
-	// }
-
 	database.OpenConnection()
 	result, err := database.Excec(query, country.CountryId, country.Name, country.Capital)
 	database.CloseConnection()
